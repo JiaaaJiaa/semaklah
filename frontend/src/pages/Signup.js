@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import supabase from '../config/superbaseClient';
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const [fname, setFname] = useState('');
+    const [fname, setFname] = useState( );
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [gender, setGender] = useState('');
     const [role, setRole] = useState('');
     const [id, setId] = useState('');
+
+    const [formErr, setFormErr] = useState('');
+    let navigate = useNavigate();
   
     async function handleLogin(e) {
       e.preventDefault();
-  
+
+    // This won't happen because the input fields are required
+    //   if(!fname || !lname || !email || !password || !gender || !role || !id){
+    //     setFormErr('Please fill in all fields');
+    //     return;
+    //   }
+
+    // HOW TO HANDLE FORM ERRORS
+
       try{
         const { user, error } = await supabase.auth.signUp({
           email: email,
@@ -27,63 +39,88 @@ const Signup = () => {
             }
           }
         });
-        console.log(user);
-      } catch (error) {
-        console.log('Error:', error);
-      }
+
+        if (error) {
+            // setFormErr is a function that updates the formErr state
+            setFormErr(error.message);
+          } else {
+            navigate('/');
+          }
+        } catch (error) {
+          // This block will handle any other errors, like network issues
+            setFormErr(error.message);
+        }
     }
   
     return (
-      <form onSubmit={handleLogin}>
-        <input 
-          placeholder='id'
-          name='id'
-          required
-          onChange={(e) => setId(e.target.value)}
-         />
-        <input 
-          placeholder='fname'
-          name='fname'
-          required
-          onChange={(e) => setFname(e.target.value)}
-         />
-         <input 
-          placeholder='lname'
-          name='lname'
-          required
-          onChange={(e) => setLname(e.target.value)}
-         />
-        <input 
-          placeholder='Email'
-          name='Email'
-          required
-          onChange={(e) => setEmail(e.target.value)}
-         />
-        <input 
-          placeholder='Password'
-          name='Password'
-          type='password'
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <select
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-        >
-          <option value="">Select Gender</option>
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-        </select>
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-        >
-          <option value="">Select Role</option>
-          <option value="instructor">Instructor</option>
-          <option value="student">Student</option>
-        </select>
-        <button type="submit">Sign Up</button>
-      </form>
+      <div>
+        <div>
+            <h4>Sign Up</h4>
+        </div>
+        <div>
+            <form onSubmit={handleLogin}>
+                <label>Matric Number or Staff ID:</label>
+                <input 
+                name='id'
+                value={id}
+                required
+                onChange={(e) => setId(e.target.value)}
+                />
+                <label>First Name:</label>
+                <input 
+                name='fname'
+                value={fname}
+                required
+                onChange={(e) => setFname(e.target.value)}
+                />
+                <label>Last Name:</label>         
+                <input 
+                name='lname'
+                value={lname}
+                required
+                onChange={(e) => setLname(e.target.value)}
+                />
+                <label>Email:</label>
+                <input 
+                name='Email'
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+                />
+                <label>Password:</label>
+                <input 
+                name='Password'
+                type='password'
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                />
+                <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                required
+                >
+                    <option value="">Select Gender</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+                <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+                >
+                    <option value="">Select Role</option>
+                    <option value="instructor">Instructor</option>
+                    <option value="student">Student</option>
+                </select>
+                <button type="submit">Sign Up</button>
+
+                {formErr && <div className='text-danger'>{formErr}</div>}
+            </form>
+        </div>
+    </div>
+
+
     );
 }
  

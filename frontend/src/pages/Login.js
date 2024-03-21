@@ -7,6 +7,7 @@ const Login = ({setToken}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [formErr, setFormErr] = useState('');
 
     let navigate = useNavigate();
 
@@ -19,11 +20,17 @@ const Login = ({setToken}) => {
             email: email,
             password: password
         })
-        console.log(data, error)  
-        setToken(data);
-        navigate('/inshomepage');
+        // console.log(data, error)  
+
+        if (error) {
+            setFormErr(error.message);
+        } else {
+            setToken(data);
+            navigate('/inshomepage');
+        }
       } catch (error) {
         console.log('Error:', error);
+        setFormErr(error.message);
       }
     }
   
@@ -43,6 +50,8 @@ const Login = ({setToken}) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
+
+        {formErr && <div className='text-danger'>{formErr}</div>}
         <p>
             Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
