@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import supabase from '../config/superbaseClient';
-import { useNavigate } from "react-router-dom";
+import { useSignup } from '../hooks/useSignup';
+import Switch from "react-switch";
+
 
 const Signup = () => {
     const [fname, setFname] = useState( );
@@ -10,61 +11,35 @@ const Signup = () => {
     const [gender, setGender] = useState('');
     const [role, setRole] = useState('');
     const [id, setId] = useState('');
+    const { signup, isLoading, formErr} = useSignup();
 
-    const [formErr, setFormErr] = useState('');
-    let navigate = useNavigate();
+
   
-    async function handleLogin(e) {
+    async function handleSignup(e) {
       e.preventDefault();
+
+      await signup(fname,lname,email, password,gender,role,id);
 
     // This won't happen because the input fields are required
     //   if(!fname || !lname || !email || !password || !gender || !role || !id){
     //     setFormErr('Please fill in all fields');
     //     return;
     //   }
-
-    // HOW TO HANDLE FORM ERRORS
-
-      try{
-        const { user, error } = await supabase.auth.signUp({
-          email: email,
-          password: password,
-          options:{
-            data:{
-              id: id,
-              fname: fname,
-              lname: lname,
-              gender: gender,
-              role: role
-            }
-          }
-        });
-
-        if (error) {
-            // setFormErr is a function that updates the formErr state
-            setFormErr(error.message);
-          } else {
-            navigate('/');
-          }
-        } catch (error) {
-          // This block will handle any other errors, like network issues
-            setFormErr(error.message);
-        }
     }
   
     return (
-      <div>
-        <div>
-            <h4>Sign Up</h4>
-        </div>
-        <div>
-            <form onSubmit={handleLogin}>
+      <div className="flex items-center justify-center h-auto bg-cyan-50">
+        <div  className="bg-white p-8 rounded shadow-md w-96 mt-5 mb-5">
+            <h4 className="text-2xl font-bold mb-4">Sign Up</h4>
+            {formErr && <div className="text-red-500 mb-2">{formErr}</div>}
+            <form onSubmit={handleSignup}>
                 <label>Matric Number or Staff ID:</label>
                 <input 
                 name='id'
                 value={id}
                 required
                 onChange={(e) => setId(e.target.value)}
+                className="w-full p-2 mb-5 border border-gray-300 rounded"
                 />
                 <label>First Name:</label>
                 <input 
@@ -72,6 +47,7 @@ const Signup = () => {
                 value={fname}
                 required
                 onChange={(e) => setFname(e.target.value)}
+                className="w-full p-2 mb-5 border border-gray-300 rounded"
                 />
                 <label>Last Name:</label>         
                 <input 
@@ -79,6 +55,7 @@ const Signup = () => {
                 value={lname}
                 required
                 onChange={(e) => setLname(e.target.value)}
+                className="w-full p-2 mb-5 border border-gray-300 rounded"
                 />
                 <label>Email:</label>
                 <input 
@@ -86,6 +63,7 @@ const Signup = () => {
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-2 mb-5 border border-gray-300 rounded"
                 />
                 <label>Password:</label>
                 <input 
@@ -94,28 +72,60 @@ const Signup = () => {
                 value={password}
                 required
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-2 mb-5 border border-gray-300 rounded"
                 />
-                <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                required
-                >
-                    <option value="">Select Gender</option>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                </select>
-                <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                required
-                >
-                    <option value="">Select Role</option>
-                    <option value="instructor">Instructor</option>
-                    <option value="student">Student</option>
-                </select>
-                <button type="submit">Sign Up</button>
 
-                {formErr && <div className='text-danger'>{formErr}</div>}
+              <div className="flex items-start mb-4 space-x-8">
+                <div className="flex flex-col mb-5">
+                  <span className="mb-2">Gender:</span>
+                  <div className="flex">
+                    <div
+                      onClick={() => setGender('female')}
+                      className={`p-2 border border-gray-300 rounded mr-2 cursor-pointer ${gender === 'female' ? 'bg-cyan-600 text-white' : ''}`}
+                    >
+                      Female
+                    </div>
+                    <div
+                      onClick={() => setGender('male')}
+                      className={`p-2 border border-gray-300 rounded cursor-pointer ${gender === 'male' ? 'bg-cyan-600 text-white' : ''}`}
+                    >
+                      Male
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col">
+                  <span className="mb-2">Role:</span>
+                  <div className="flex">
+                    <div
+                      onClick={() => setRole('instructor')}
+                      className={`p-2 border border-gray-300 rounded mr-2 cursor-pointer ${role === 'instructor' ? 'bg-cyan-600 text-white' : ''}`}
+                    >
+                      Instructor
+                    </div>
+                    <div
+                      onClick={() => setRole('student')}
+                      className={`p-2 border border-gray-300 rounded cursor-pointer ${role === 'student' ? 'bg-cyan-600 text-white' : ''}`}
+                    >
+                      Student
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                <button 
+                type="submit" 
+                disabled={isLoading}
+                className="w-full p-2 mb-3 bg-emerald-500 text-white rounded"
+                >
+                  Sign up
+                </button>
+
+                <p>Already have an account? 
+                  <a href="/" className='underline'>Login</a>
+                </p>
+     
+
             </form>
         </div>
     </div>
