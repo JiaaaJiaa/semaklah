@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from './useAuthContext'
-import supabase from '../config/superbaseClient';
+import supabase from '../config/supabaseClient';
 
 
 export const useLogin = (setToken) => {

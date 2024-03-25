@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from "react-router-dom";
-import supabase from '../config/superbaseClient'
+import supabase from '../config/supabaseClient'
 
 export const useSignup = () => {
     const [formErr, setFormErr] = useState('');
