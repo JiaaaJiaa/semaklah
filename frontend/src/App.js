@@ -1,7 +1,7 @@
 import Navbar from './components/navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Home from './Home';
-import './App.css';
+// import './App.css';
 import './style.css'
 // import ExampleComponent from './ExampleComponent';
 
@@ -13,7 +13,7 @@ function App(){
       <div className="navbar">
         <Navbar />        
       </div>
-      <div className="content">
+      <div className="h-screen bg-cyan-50">
         {/* <ExampleComponent></ExampleComponent> */}
         <Home />
       </div>

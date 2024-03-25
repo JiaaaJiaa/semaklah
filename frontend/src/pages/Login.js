@@ -52,12 +52,12 @@ const Login = ({setToken}) => {
                 <button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full p-2 mb-3 bg-emerald-500 text-white rounded"
+                className="w-full p-2 mb-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded"
                 >
                   Login
                 </button>
                 <p className="text-center mb-3">or</p>
-                <Link to="/signup"><button className="w-full border-2 p-2 mb-3 bg-white text-black rounded">Sign Up</button></Link>
+                <Link to="/signup"><button className="w-full border-2 p-2 mb-3 bg-white hover:bg-gray-50 text-black rounded">Sign Up</button></Link>
                 
               </>
             )}

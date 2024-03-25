@@ -20,7 +20,7 @@ function Navbar() {
     }
 
     return (
-    <Disclosure as="nav" className="bg-cyan-950 ">
+        <Disclosure as="nav" className="fixed w-full bg-cyan-950">
         {({ open }) => (
         <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from './useAuthContext'
 import supabase from '../config/superbaseClient';
 
+
 export const useLogin = (setToken) => {
     const [formErr, setFormErr] = useState('');
     const [isLoading, setIsLoading] = useState(null)
@@ -36,7 +37,13 @@ export const useLogin = (setToken) => {
 
             //setToken
             setToken(data);
-            navigate('/inshomepage');
+
+            if (data.user.user_metadata.role === 'instructor') {
+                navigate('/InsHomepage');
+            } else if (data.user.user_metadata.role === 'student') {
+                navigate('/StudHomepage');
+            }
+
         }
       } catch (error) {
         console.log('Error:', error);

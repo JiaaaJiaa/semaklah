@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useSignup } from '../hooks/useSignup';
-import Switch from "react-switch";
-
 
 const Signup = () => {
     const [fname, setFname] = useState( );
@@ -28,12 +26,12 @@ const Signup = () => {
     }
   
     return (
-      <div className="flex items-center justify-center h-auto bg-cyan-50">
+      <div className="flex items-center justify-center pt-16 h-auto bg-cyan-50">
         <div  className="bg-white p-8 rounded shadow-md w-96 mt-5 mb-5">
             <h4 className="text-2xl font-bold mb-4">Sign Up</h4>
             {formErr && <div className="text-red-500 mb-2">{formErr}</div>}
             <form onSubmit={handleSignup}>
-                <label>Matric Number or Staff ID:</label>
+                <label>Instructor ID or Student ID:</label>
                 <input 
                 name='id'
                 value={id}
@@ -116,7 +114,7 @@ const Signup = () => {
                 <button 
                 type="submit" 
                 disabled={isLoading}
-                className="w-full p-2 mb-3 bg-emerald-500 text-white rounded"
+                className="w-full p-2 mb-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded"
                 >
                   Sign up
                 </button>
