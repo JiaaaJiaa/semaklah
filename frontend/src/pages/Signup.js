@@ -169,7 +169,7 @@ export default Signup;
     <div className='text-white me-2 mt-1'>Confirm Register</div>
     {spinner && 
       <div className="spinner-border text-light" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span className="visually-hidden">Loading...</span>
       </div>
     }
     

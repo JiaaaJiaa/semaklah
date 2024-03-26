@@ -30,7 +30,7 @@ const Login = ({setToken}) => {
               name='Email'
               required
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 mb-5 border border-gray-300 rounded"s
+              className="w-full p-2 mb-5 border border-gray-300 rounded"
             />
             <br/>
             <label>Password:</label>
