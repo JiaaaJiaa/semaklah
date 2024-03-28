@@ -21,7 +21,7 @@ const Login = ({setToken}) => {
     return (
       <div className="flex items-center justify-center h-screen bg-cyan-50">
       <div  className="bg-white p-8 rounded shadow-md w-96 mt-3 mb-3">
-          <h4 className="text-2xl font-bold mb-4">Sign Up</h4>
+          <h4 className="text-2xl font-bold mb-4">Login</h4>
           {formErr && <div className="text-red-500 mb-2">{formErr}</div>}     
           <form onSubmit={handleLogin}>
             <label>Email:</label>
