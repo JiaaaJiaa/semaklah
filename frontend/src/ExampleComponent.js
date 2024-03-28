@@ -113,3 +113,61 @@ function Navbar() {
 
 export default Navbar;
 
+<form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="academicYear">
+            Academic Year
+        </label>
+        <select name="academicYear" value={form.academicYear} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="">Select Academic Year</option>
+            <option value="23/24">23/24</option>
+        </select>
+    </div>
+
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="semester">
+            Semester
+        </label>
+        <select name="semester" value={form.semester} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="">Select Semester</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </div>
+
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="semester">
+            Course Code
+        </label>
+        <input name="courseCode" value={form.courseCode} onChange={handleChange} placeholder="Course Code" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+    </div>
+
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="semester">
+            Course Name
+        </label>
+        <input name="courseName" value={form.courseName} onChange={handleChange} placeholder="Course Name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+    </div>
+
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="semester">
+            Course Description
+        </label>
+        <textarea name="courseDescription" value={form.courseDescription} onChange={handleChange} placeholder="Course Description" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+    </div>
+
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="semester">
+            Course Limit
+        </label>
+        <input type="number" name="classroomLimit" value={form.classroomLimit} onChange={handleChange} placeholder="Classroom Limit" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>            
+    </div>
+
+    <div className="flex items-center justify-between">
+        <button 
+            className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" 
+            type="submit">    
+            Create
+        </button>
+    </div>
+</form>

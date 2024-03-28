@@ -1,24 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Classroomlist from '../components/classroomlist';
+import CreateClassroom from '../components/createclassroom';
+
 const InsHomepage = ({token}) => {
+    const [classroom, setClassroom] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        const fetchClassroom = async () => {
+            const res = await fetch('/api/classroom');
+            const json = await res.json();
+
+            if (res.ok){
+                setClassroom(json);
+            }
+        }
+
+        fetchClassroom();
+    },[token]);
+
+    if(!classroom){
+        return <div>Loading...</div>
+    }
 
     return ( 
         <div className='pt-16 p-10'>
-            <h1 className='text-2xl  text-center  font-bold '>
+            <h1 className='p-5 text-2xl  text-center  font-bold '>
             Hello, {token.user.user_metadata.fname} {token.user.user_metadata.lname}</h1>
-            
 
-            <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-3">
-                <div className="md:flex">
-                    <div className="p-8">
-                        <h2 className="text-2xl font-bold">Course 1</h2>
-                        <p className="mt-2 text-gray-500">Course 1 description</p>
+            <div>
+                <div>
+                    <h1 className="flex-1 sm:item-stretch text-2xl font-bold px-20 py-5">Classroom</h1>
+                    <button 
+                        className="mx-20 mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => setShowModal(true)}
+                    >
+                        Create Classroom
+                    </button>
+                </div>
+
+                {classroom && classroom.map((classroom) => (
+                    <Classroomlist classroom={classroom} key={classroom.id} />
+                ))}
+            </div>
+
+            {showModal && (
+                <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                    Create Classroom
+                                </h3>
+                                <div className="mt-2">
+                                    <CreateClassroom setShowModal={setShowModal} token={token} />
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)}>
+                                    Close
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
-
-     );
+    );
 }
- 
-export default InsHomepage;
 
+export default InsHomepage;

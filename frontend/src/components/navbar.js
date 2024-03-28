@@ -20,14 +20,14 @@ function Navbar() {
     }
 
     return (
-        <Disclosure as="nav" className="fixed w-full bg-cyan-950">
+        <Disclosure as="nav" className="fixed drop-shadow-md w-full bg-cyan-950">
         {({ open }) => (
         <>
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
-            <div className="relative flex h-16 items-center justify-between ">
+            <div className="mx-auto max-w-none px-2 sm:px-6 lg:px-8 ">
+            <div className="relative  flex h-16 items-center justify-between ">
                 
                 {!user? (
-                <div className="flex flex-1 items-center justify-start sm:items-stretch">
+                <div className="flex flex-1 items-center justify-center sm:items-stretch">
                     <div className="flex flex-shrink-0 items-center">
                         <img
                         className="h-14 w-auto"
