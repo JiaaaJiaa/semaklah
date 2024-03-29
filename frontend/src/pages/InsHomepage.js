@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Classroomlist from '../components/classroomlist';
 import CreateClassroom from '../components/createclassroom';
+import { useClassroomContext } from '../hooks/useClassroomContext';
 
 const InsHomepage = ({token}) => {
-    const [classroom, setClassroom] = useState(null);
+    
+    const {classroom, dispatch}=useClassroomContext();
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -12,16 +14,16 @@ const InsHomepage = ({token}) => {
             const json = await res.json();
 
             if (res.ok){
-                setClassroom(json);
+                dispatch({type: 'GET_CLASSROOM', payload: json});
             }
         }
 
         fetchClassroom();
-    },[token]);
+    },[dispatch]);
 
-    if(!classroom){
-        return <div>Loading...</div>
-    }
+    // if(!classroom){
+    //     return <div>Loading...</div>
+    // }
 
     return ( 
         <div className='pt-16 p-10'>
@@ -40,10 +42,11 @@ const InsHomepage = ({token}) => {
                 </div>
 
                 {classroom && classroom.map((classroom) => (
-                    <Classroomlist classroom={classroom} key={classroom.id} />
+                    <Classroomlist classroom={classroom} key={classroom._id} />
                 ))}
             </div>
-
+            
+            {/* Create Classroom */}
             {showModal && (
                 <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
+import { useClassroomContext } from '../hooks/useClassroomContext';
 // import supabase from '../config/supabaseClient';
 
 const CreateClassroom = ({setShowModal,token }) => {
+    const{ dispatch } = useClassroomContext();
     const [form, setForm] = useState({
         inst_id: token.user.user_metadata.id,
         academic_year: '',
@@ -68,6 +70,7 @@ const CreateClassroom = ({setShowModal,token }) => {
             // console.log(form);
             setForm(initialFormState);
             setShowModal(false);
+            dispatch({type: 'CREATE_CLASSROOM', payload: json}); 
             alert('Classroom created');
         }
     };

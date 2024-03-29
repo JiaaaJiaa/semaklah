@@ -25,8 +25,8 @@ const Home = () => {
     <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Login setToken={setToken}/>} />
-        {token && token.user.user_metadata.role === 'instructor'?<Route path="/inshomepage"  element={<InsHomepage token={token} />} />:""}
-        {token && token.user.user_metadata.role === 'student'?<Route path="/studhomepage"  element={<StudHomepage token={token} />} />:""}
+        {token && token.user.user_metadata.role === 'instructor'?<Route path="/InsHomepage"  element={<InsHomepage token={token} />} />:""}
+        {token && token.user.user_metadata.role === 'student'?<Route path="/StudHomepage"  element={<StudHomepage token={token} />} />:""}
     </Routes>
      );
 }

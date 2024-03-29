@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
         .insert([newClassroom]);
 
     if (error) return res.status(500).json({ error: error.message });
-    res.json({ message: 'Classroom created successfully', newClassroom });
+    res.json(newClassroom);
 });
 
 // Update a classroom by id

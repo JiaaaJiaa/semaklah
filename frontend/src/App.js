@@ -13,7 +13,7 @@ function App(){
       <div className="navbar">
         <Navbar />        
       </div>
-      <div className="h-screen bg-cyan-50">
+      <div className="h-auto min-h-screen bg-cyan-50">
         {/* <ExampleComponent></ExampleComponent> */}
         <Home />
       </div>
