@@ -18,6 +18,10 @@ export const classroomReducer = (state,action) => {
             return {
                 classroom: state.classroom.filter((w)=> w.classroom_id !== action.payload.classroom_id)
             }
+        case 'UPDATE_CLASSROOM':
+            return {
+                classroom: state.classroom.map((w) => w.classroom_id === action.payload.classroom_id ? action.payload : w)
+            }
         default:
             return state;
     }

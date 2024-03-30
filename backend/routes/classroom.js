@@ -64,7 +64,9 @@ router.post('/', async (req, res) => {
 
 // Update a classroom by id
 router.patch('/:id', async (req, res) => {
-    const classroom_id = req.params.classroom_id;
+    const id = req.params.id;
+    const { inst_id, academic_year, semester, course_name, course_code, course_desc, classroom_limit } = req.body;
+
     const updates = {
         inst_id,
         academic_year,
@@ -77,11 +79,12 @@ router.patch('/:id', async (req, res) => {
     let { data, error } = await supabase
         .from('classroom')
         .update(updates)
-        .eq('classroom_id', classroom_id);
+        .eq('classroom_id', id)
+        .select();
 
     if (error) return res.status(500).json({ error: error.message });
-    if (data.length === 0) return res.status(404).json({ error: 'Classroom not found' });
-    res.json({ message: 'Classroom updated successfully', data });
+    // if (data.length === 0) return res.status(404).json({ error: 'Classroom not found' });
+    res.json(data[0]);
 });
 
 // Delete a classroom by id
