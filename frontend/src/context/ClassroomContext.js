@@ -16,7 +16,7 @@ export const classroomReducer = (state,action) => {
             }
         case 'REMOVE_CLASSROOM':
             return {
-                classroom: state.classroom.filter(classroom => classroom.id !== action.payload)
+                classroom: state.classroom.filter((w)=> w.classroom_id !== action.payload.classroom_id)
             }
         default:
             return state;
