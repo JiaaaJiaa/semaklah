@@ -9,7 +9,7 @@ const EnrolledList = ({enrolledClassrooms}) => {
 
     // const {user} = useAuthContext();
 
-    console.log(enrolledClassrooms.classroom.course_code);
+    // console.log(enrolledClassrooms.classroom.course_code);
 
     return ( 
         <div>
