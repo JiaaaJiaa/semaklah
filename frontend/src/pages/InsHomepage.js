@@ -3,6 +3,7 @@ import Classroomlist from '../components/classroomlist';
 import CreateClassroom from '../components/createclassroom';
 import { useClassroomContext } from '../hooks/useClassroomContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { PlusIcon } from '@heroicons/react/solid';
 
 const InsHomepage = ({token}) => {
     
@@ -41,14 +42,14 @@ const InsHomepage = ({token}) => {
         <div className='pt-16 p-10'>
             <h1 className='p-5 text-2xl  text-center  font-bold '>
             Hello, {token.user.user_metadata.fname} {token.user.user_metadata.lname}</h1>
-
             <div>
-                <div>
+                <div className="flex justify-between">
                     <h1 className="flex-1 sm:item-stretch text-2xl font-bold px-20 py-5">Classroom</h1>
                     <button 
-                        className="mx-20 mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="mx-20 mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center"
                         onClick={() => setShowModal(true)}
                     >
+                        <PlusIcon className="h-5 w-5 mr-2" />
                         Create Classroom
                     </button>
                 </div>
@@ -64,7 +65,7 @@ const InsHomepage = ({token}) => {
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                         <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
                             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                                     Create Classroom
