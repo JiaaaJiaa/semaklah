@@ -22,9 +22,21 @@ export const classroomReducer = (state,action) => {
             return {
                 classroom: state.classroom.map((w) => w.classroom_id === action.payload.classroom_id ? action.payload : w)
             }
+        case 'ENROL_CLASSROOM':
+            return {
+                ...state,
+                enrolledClassrooms: [...state.enrolledClassrooms, action.payload]
+            }
+        case 'GET_ENROLLED_CLASSROOMS':
+
+            return {
+                ...state,
+                enrolledClassrooms: action.payload
+            }
         case 'LOGOUT':
             return {
-                classroom: null
+                classroom: null,
+                enrolledClassrooms: null
             }
         default:
             return state;
@@ -34,7 +46,8 @@ export const classroomReducer = (state,action) => {
 export const ClassroomContextProvider = ({children}) => {
 
     const [state,dispatch] = useReducer(classroomReducer,{
-        classroom:null
+        classroom:null,
+        enrolledClassrooms: null
     });
     
 

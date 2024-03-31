@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
 
     const userId = req.query.userId;
 
-    console.log('userId:', userId);
+    // console.log('userId:', userId);
 
     // Get all classroom from the database
     let {data,error} = await supabase

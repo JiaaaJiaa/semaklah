@@ -2,8 +2,8 @@ require('dotenv').config(); // This will load the .env file and add the values t
 
 const express = require('express'); 
 const classroomRoutes = require('./routes/classroom'); // Import the classroom route
-const instRoutes = require('./routes/instructor'); // Import the instructor route
-
+// const instRoutes = require('./routes/instructor'); // Import the instructor route
+const enrollRoutes = require('./routes/enrol'); // Import the enroll route
 // Create an express app
 const app = express();
 
@@ -16,9 +16,10 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/InsHomepage',instRoutes);
+// app.use('/InsHomepage',instRoutes);
+// Routes
 
-// Create a route
+app.use('/api/enrol',enrollRoutes);
 app.use('/api/classroom',classroomRoutes);
 
 // lsiten for requests
