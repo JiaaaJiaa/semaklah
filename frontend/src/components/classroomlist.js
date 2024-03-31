@@ -8,11 +8,7 @@ const Classroomlist = ({classroom}) => {
 
     const {dispatch} = useContext(ClassroomContext);
     const [showModal, setShowModal] = useState(false);
-
-    const handleEdit = (classroom_id) => {
-        console.log("Edit "+ classroom_id);
-    }
-
+    
     const handleDelete = async () => {
         // console.log("Delete "+ classroom.classroom_id);
 
@@ -41,8 +37,10 @@ const Classroomlist = ({classroom}) => {
         <div>
             <div className="p-5 mx-20 mt-2 mb-2 bg-white shadow-sm rounded-lg flex justify-between" key={classroom.id}>
                 <div>
-                    <h2 className="text-2xl font-semibold text-gray-800">{classroom.course_code} - {classroom.course_name}</h2>
-                    <p className="mt-2 text-gray-600">{classroom.classroom_id}</p>
+                    <Link to={`/course/${classroom.classroom_id}`}>
+                        <h2 className="text-2xl font-semibold text-gray-800">{classroom.course_code} - {classroom.course_name}</h2>
+                    </Link>
+                    {/* <p className="mt-2 text-gray-600">{classroom.inst_id}</p> */}
                 </div>
                 <div>
                 <button onClick={() => setShowModal(true)}>

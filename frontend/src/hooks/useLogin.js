@@ -38,10 +38,13 @@ export const useLogin = (setToken) => {
             //setToken
             setToken(data);
 
+            // console.log(data)
+            // console.log(data.user.user_metadata.id)
+
             if (data.user.user_metadata.role === 'instructor') {
-                navigate('/InsHomepage');
+              navigate(`/InsHomepage/${data.user.user_metadata.id}`);
             } else if (data.user.user_metadata.role === 'student') {
-                navigate('/StudHomepage');
+              navigate(`/StudHomepage/${data.user.user_metadata.id}`);
             }
 
         }

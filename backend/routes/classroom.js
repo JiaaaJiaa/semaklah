@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
         .insert([newClassroom])
         .select();
 
-    // console.log('Clssroom:', newClassroom)
+    // console.log('Classroom:', newClassroom)
     // console.log('data:', data);
     // console.log('error:', error);
 

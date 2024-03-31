@@ -66,7 +66,7 @@ const UpdateClassroom = ({ setShowModal, classroom }) => {
         if (response.ok) {
             setShowModal(false);
             dispatch({ type: 'UPDATE_CLASSROOM', payload: json }); 
-            alert('Classroom updated');
+            //alert('Classroom updated');
         }
     };
 
