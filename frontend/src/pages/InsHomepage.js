@@ -2,15 +2,23 @@ import React, { useState, useEffect } from 'react';
 import Classroomlist from '../components/classroomlist';
 import CreateClassroom from '../components/createclassroom';
 import { useClassroomContext } from '../hooks/useClassroomContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const InsHomepage = ({token}) => {
     
     const {classroom, dispatch}=useClassroomContext();
     const [showModal, setShowModal] = useState(false);
 
+    const {user} = useAuthContext();
+    // console.log{user.user.user_metadata.id};
+
     useEffect(() => {
         const fetchClassroom = async () => {
-            const res = await fetch('/api/classroom');
+            const res = await fetch(`/api/classroom?userId=${user.user.user_metadata.id}`,{
+                headers: {
+                    "Authorization": `Bearer ${user.session.access_token}`
+                }
+            });
             const json = await res.json();
 
             if (res.ok){
@@ -18,8 +26,12 @@ const InsHomepage = ({token}) => {
             }
         }
 
-        fetchClassroom();
-    },[dispatch]);
+        if(user){
+            fetchClassroom();
+            // console.log(user.session.access_token);
+        }
+
+    },[dispatch, user]);
 
     // if(!classroom){
     //     return <div>Loading...</div>

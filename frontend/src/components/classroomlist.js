@@ -3,19 +3,30 @@ import { useContext, useState } from 'react';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import { ClassroomContext } from '../context/ClassroomContext';
 import UpdateClassroom from './updateclassroom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Classroomlist = ({classroom}) => {
 
     const {dispatch} = useContext(ClassroomContext);
     const [showModal, setShowModal] = useState(false);
+
+    const {user} = useAuthContext();
     
     const handleDelete = async () => {
         // console.log("Delete "+ classroom.classroom_id);
+
+        if(!user){
+            alert('Please login to delete classroom');
+            return;
+        }
 
         // Call your API to delete the classroom from the database
         try {
             const response = await fetch(`/api/classroom/${classroom.classroom_id}`, {
                 method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${user.session.access_token}`
+                }
             });
             const json = await response.json();
             // console.log(json)
@@ -65,12 +76,12 @@ const Classroomlist = ({classroom}) => {
                                 <div className="mt-2">
                                     <UpdateClassroom setShowModal={setShowModal} classroom={classroom} />
                                 </div>
+                            </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)}>
                                         Close
                                     </button>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>

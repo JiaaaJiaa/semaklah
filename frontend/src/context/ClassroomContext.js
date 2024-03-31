@@ -9,7 +9,7 @@ export const classroomReducer = (state,action) => {
                 classroom: action.payload
             }
         case 'CREATE_CLASSROOM':
-            console.log(action.payload); 
+            // console.log(action.payload); 
             // console.log(state.classroom);
             return {                
                 classroom: [action.payload,...state.classroom]
@@ -21,6 +21,10 @@ export const classroomReducer = (state,action) => {
         case 'UPDATE_CLASSROOM':
             return {
                 classroom: state.classroom.map((w) => w.classroom_id === action.payload.classroom_id ? action.payload : w)
+            }
+        case 'LOGOUT':
+            return {
+                classroom: null
             }
         default:
             return state;

@@ -1,9 +1,12 @@
 import React, {  useState } from 'react';
 import { useClassroomContext } from '../hooks/useClassroomContext';
 // import supabase from '../config/supabaseClient';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const CreateClassroom = ({setShowModal,token }) => {
     const{ dispatch } = useClassroomContext();
+    const {user} = useAuthContext();
+
     const [form, setForm] = useState({
         inst_id: token.user.user_metadata.id,
         academic_year: '',
@@ -45,6 +48,11 @@ const CreateClassroom = ({setShowModal,token }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if(!user){
+            setError('Please login to create classroom');
+            return;
+        }
+
         if (!form.academic_year || !form.semester || !form.course_code || !form.course_name || !form.course_desc || !form.classroom_limit) {
             //alert('Please fill in all fields');
             setError('Please fill in all fields');
@@ -56,6 +64,7 @@ const CreateClassroom = ({setShowModal,token }) => {
             body:JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${user.session.access_token}`
             }        
         });
         const json = await response.json();
