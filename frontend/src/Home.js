@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import InsHomepage from './pages/InsHomepage';
 import StudHomepage from './pages/StudHompage';
 import CourseDetails from './pages/CourseDetails';
+import EnrolledCourseDetails from './pages/EnrolledCourseDetails';
 import { Routes, Route, Navigate } from 'react-router-dom';
 // import { useAuthContext } from './hooks/useAuthContext';
 
@@ -36,6 +37,10 @@ const Home = () => {
         <Route 
             path="/course/:id" 
             element={token? <CourseDetails />: <Navigate to="/" /> }  
+        />  
+        <Route 
+            path="/enrolledcourse/:id" 
+            element={token? <EnrolledCourseDetails />: <Navigate to="/" /> }  
         />  
     </Routes>
      );

@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import JoinClassroom from './joinclassroom';
 // import { useAuthContext } from '../hooks/useAuthContext';
@@ -14,11 +14,9 @@ const EnrolledList = ({enrolledClassrooms}) => {
              {enrolledClassrooms && enrolledClassrooms.classroom && (
             <div className="p-5 mx-20 mt-2 mb-2 bg-white shadow-sm rounded-lg flex justify-between" >
                 <div>
-                <h2 className="text-2xl font-semibold text-gray-800">{enrolledClassrooms.classroom.course_code} - {enrolledClassrooms.classroom.course_name}</h2>
-                    {/* <Link to={`/course/${enrolledClassrooms.classroom_id}`}> */}
-                        {/* <h2 className="text-2xl font-semibold text-gray-800">{enrolledClassrooms.course_code} - {enrolledClassrooms.course_name}</h2> */}
-                        {/* <p>{enrolledClassrooms.classroom_id}</p> */}
-                    {/* </Link> */}
+                    <Link to={`/enrolledcourse/${enrolledClassrooms.classroom.classroom_id}`}>
+                        <h2 className="text-2xl font-semibold text-gray-800">{enrolledClassrooms.classroom.course_code} - {enrolledClassrooms.classroom.course_name}</h2>
+                    </Link>
                     {/* <p className="mt-2 text-gray-600">{enrolledClassrooms.inst_id}</p> */}
                 </div>
             </div> 
