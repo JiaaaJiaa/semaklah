@@ -24,8 +24,7 @@ export const classroomReducer = (state,action) => {
             }
         case 'ENROL_CLASSROOM':
             return {
-                ...state,
-                enrolledClassrooms: [...state.enrolledClassrooms, action.payload]
+                enrolledClassrooms: [action.payload, ...state.enrolledClassrooms]
             }
         case 'GET_ENROLLED_CLASSROOMS':
 

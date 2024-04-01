@@ -9,10 +9,9 @@ const EnrolledList = ({enrolledClassrooms}) => {
 
     // const {user} = useAuthContext();
 
-    // console.log(enrolledClassrooms.classroom.course_code);
-
     return ( 
         <div>
+             {enrolledClassrooms && enrolledClassrooms.classroom && (
             <div className="p-5 mx-20 mt-2 mb-2 bg-white shadow-sm rounded-lg flex justify-between" >
                 <div>
                 <h2 className="text-2xl font-semibold text-gray-800">{enrolledClassrooms.classroom.course_code} - {enrolledClassrooms.classroom.course_name}</h2>
@@ -23,6 +22,7 @@ const EnrolledList = ({enrolledClassrooms}) => {
                     {/* <p className="mt-2 text-gray-600">{enrolledClassrooms.inst_id}</p> */}
                 </div>
             </div> 
+             )}
 
             {showModal && (
                 <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">

@@ -77,6 +77,7 @@ const CreateClassroom = ({setShowModal,token }) => {
         }
         if (response.ok) {
             // console.log(form);
+            // console.log(json);
             setForm(initialFormState);
             setShowModal(false);
             dispatch({type: 'CREATE_CLASSROOM', payload: json}); 

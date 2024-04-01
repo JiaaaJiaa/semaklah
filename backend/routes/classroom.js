@@ -30,7 +30,7 @@ router.get('/:id', async(req, res) => {
     
     let {data,error} = await supabase
         .from('classroom')
-        .select('*')
+        .select('*,instructor(*)')
         .eq('classroom_id',id);
 
     if(error){
