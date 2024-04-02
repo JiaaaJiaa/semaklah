@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ClipboardCopyIcon, TrashIcon, PlusIcon } from '@heroicons/react/solid';
 import EnrolStud from '../components/enrolstud';
 import { useClassroomContext } from '../hooks/useClassroomContext';
+import CreateAssignment from '../components/assignment/createAssignment';
 
 
 const CourseDetails = () => {
@@ -100,7 +101,7 @@ const CourseDetails = () => {
                 <p className="pt-5 pb-5 text-lg text-justify text-gray-600">{course[0].course_desc}</p>
 
                 <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
-                    <h2>Assignment list</h2>
+                     <CreateAssignment classroomId={id}/>
                 </div>
                 
                 {/* Add the list of enrolledStudents in the return statement */}

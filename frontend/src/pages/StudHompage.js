@@ -24,7 +24,7 @@ const StudHomepage = ({token}) => {
             });
             const json = await res.json();
 
-            console.log(json);
+            // console.log(json);
 
             if (res.ok){
                 dispatch({type: 'GET_ENROLLED_CLASSROOMS', payload: json});

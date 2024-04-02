@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import supabase from '../config/supabaseClient';
+
 
 const EnrolledCourseDetails = () => {
     const { id } = useParams();
     const [course, setCourse] = useState(null);
+    const [assignments, setAssignments] = useState([]);
 
     //console.log(id);
 
@@ -17,6 +20,20 @@ const EnrolledCourseDetails = () => {
             setToken(JSON.parse(storedToken));
         }
     }, []);
+
+    useEffect(() => {
+        const fetchCourse = async () => {
+            let { data, error } = await supabase
+                .from('assignment')
+                .select('*')
+                .eq('classroom_id', id);
+    
+            if (error) console.error(error);
+            else setAssignments(data);
+        };
+    
+        fetchCourse();
+    }, [id]);
 
     useEffect(() => {
         // Replace this with the actual URL of your API
@@ -40,7 +57,19 @@ const EnrolledCourseDetails = () => {
             </button>            
             <h2 className="text-4xl font-semibold text-gray-800">{course[0].course_code} - {course[0].course_name}</h2>
             <p className="pt-5 text-lg text-justify text-gray-600">{course[0].course_desc}</p>
+        
             {/* Display other course details here */}
+            <div className="mt-5 p-5 bg-white rounded shadow-sm">
+                <h3 className="text-2xl font-semibold text-gray-800">Assignments</h3>
+                {assignments.map((assignment, index) => (
+                    <div key={index} className="mt-3 p-4 border rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg">
+                        <h2 className="text-xl font-bold text-gray-800">{assignment.title}</h2>
+                        <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
+                        <p className="text-gray-600">End date: {new Date(assignment.end_date).toLocaleDateString()}</p>
+                        {/* Display other assignment details here */}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
