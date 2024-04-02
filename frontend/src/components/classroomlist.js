@@ -60,7 +60,11 @@ const Classroomlist = ({classroom}) => {
                 <button onClick={() => setShowModal(true)}>
                     <PencilAltIcon className="h-5 w-5 text-gray-500" />
                 </button>
-                <button onClick={handleDelete}>
+                <button onClick={() => {
+                    if (window.confirm('Are you sure you want to delete this item?')) {
+                        handleDelete();
+                    }
+                }}>
                     <TrashIcon className="h-5 w-5 text-gray-500" />
                 </button>
                 </div>
