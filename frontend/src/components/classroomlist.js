@@ -5,6 +5,8 @@ import { ClassroomContext } from '../context/ClassroomContext';
 import UpdateClassroom from './updateclassroom';
 import { useAuthContext } from '../hooks/useAuthContext';
 
+
+
 const Classroomlist = ({classroom}) => {
 
     const {dispatch} = useContext(ClassroomContext);
@@ -50,7 +52,7 @@ const Classroomlist = ({classroom}) => {
                 <div>
                     <Link to={`/course/${classroom.classroom_id}`}>
                         <h2 className="text-2xl font-semibold text-gray-800">{classroom.course_code} - {classroom.course_name}</h2>
-                        {/* <p>{classroom.classroom_id}</p> */}
+                        <p className="pt-2">Number of students: {classroom.current_enrolment}/{classroom.classroom_limit}</p>
                     </Link>
                     {/* <p className="mt-2 text-gray-600">{classroom.inst_id}</p> */}
                 </div>

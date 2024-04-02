@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ClipboardCopyIcon } from '@heroicons/react/solid';
 
 const CourseDetails = () => {
     const { id } = useParams();
@@ -39,6 +40,12 @@ const CourseDetails = () => {
                 Back
             </button>            
             <h2 className="text-4xl font-semibold text-gray-800">{course[0].course_code} - {course[0].course_name}</h2>
+            
+            <p className="pt-5" onClick={() => navigator.clipboard.writeText(course[0].classroom_id)}>
+                <strong>Class Token:</strong> {course[0].classroom_id}
+                <ClipboardCopyIcon className="h-5 w-5 inline-block ml-2" />
+            </p>
+
             <p className="pt-5 text-lg text-justify text-gray-600">{course[0].course_desc}</p>
             {/* Display other course details here */}
         </div>
