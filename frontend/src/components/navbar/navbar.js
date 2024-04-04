@@ -1,6 +1,6 @@
-import logo from '../assets/WhiteLogo.png'; // replace with the actual path to your logo file
-import { useLogout } from '../hooks/useLogout';
-import { useAuthContext } from '../hooks/useAuthContext';
+import logo from '../../assets/WhiteLogo.png'; // replace with the actual path to your logo file
+import { useLogout } from '../../hooks/useLogout';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 
 import { Fragment } from 'react'

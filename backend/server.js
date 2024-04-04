@@ -6,6 +6,7 @@ const classroomRoutes = require('./routes/classroom'); // Import the classroom r
 const enrollRoutes = require('./routes/enrol'); // Import the enroll route
 // Create an express app
 const studenrolRoutes = require('./routes/studEnrol'); // Import the studEnrol route
+const assignmentRoutes = require('./routes/assignment'); // Import the assignment route
 const app = express();
 
 // Middleware
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 
 // app.use('/InsHomepage',instRoutes);
 // Routes
+app.use('/api/assignment', assignmentRoutes);
 app.use('/api/studentEnrol',studenrolRoutes);
 app.use('/api/enrol',enrollRoutes);
 app.use('/api/classroom',classroomRoutes);

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import InsHomepage from './pages/InsHomepage';
-import StudHomepage from './pages/StudHompage';
-import CourseDetails from './pages/CourseDetails';
-import EnrolledCourseDetails from './pages/EnrolledCourseDetails';
+import InsHomepage from './pages/Instructor/InsHomepage';
+import StudHomepage from './pages/Student/StudHompage';
+import CourseDetails from './pages/Instructor/CourseDetails';
+import EnrolledCourseDetails from './pages/Student/EnrolledCourseDetails';
 import { Routes, Route, Navigate } from 'react-router-dom';
 // import { useAuthContext } from './hooks/useAuthContext';
 

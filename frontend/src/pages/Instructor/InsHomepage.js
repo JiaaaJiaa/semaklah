@@ -1,48 +1,47 @@
-import React, {useState,useEffect} from 'react';
-import EnrolledList from '../components/enrolledlist';
-import JoinClassroom from '../components/joinclassroom';
+import React, { useState, useEffect } from 'react';
+import Classroomlist from '../../components/classroomlist';
+import CreateClassroom from '../../components/createclassroom';
+import { useClassroomContext } from '../../hooks/useClassroomContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import { PlusIcon } from '@heroicons/react/solid';
-import { useAuthContext } from '../hooks/useAuthContext';
-import { useClassroomContext } from '../hooks/useClassroomContext';
 
-
-const StudHomepage = ({token}) => {
-
-
-    const {enrolledClassrooms, dispatch}=useClassroomContext();
+const InsHomepage = ({token}) => {
+    
+    const {classroom, dispatch}=useClassroomContext();
     const [showModal, setShowModal] = useState(false);
 
     const {user} = useAuthContext();
-    // console.log(user.user.user_metadata.id);
+    // console.log{user.user.user_metadata.id};
 
     useEffect(() => {
-        const fetchEnrolledClassrooms = async () => {
-            const res = await fetch(`/api/enrol?userId=${user.user.user_metadata.id}`,{
+        const fetchClassroom = async () => {
+            const res = await fetch(`/api/classroom?userId=${user.user.user_metadata.id}`,{
                 headers: {
                     "Authorization": `Bearer ${user.session.access_token}`
                 }
             });
             const json = await res.json();
 
-            // console.log(json);
-
             if (res.ok){
-                dispatch({type: 'GET_ENROLLED_CLASSROOMS', payload: json});
+                dispatch({type: 'GET_CLASSROOM', payload: json});
             }
-
         }
 
         if(user){
-            fetchEnrolledClassrooms();
+            fetchClassroom();
+            // console.log(user.session.access_token);
         }
+
     },[dispatch, user]);
 
-
+    // if(!classroom){
+    //     return <div>Loading...</div>
+    // }
 
     return ( 
-       <div className='pt-16 p-10'>
+        <div className='pt-16 p-10'>
             <h1 className='p-5 text-2xl  text-center  font-bold '>
-            Hello Student, {token.user.user_metadata.fname} {token.user.user_metadata.lname}</h1>
+            Hello, {token.user.user_metadata.fname} {token.user.user_metadata.lname}</h1>
             <div>
                 <div className="flex justify-between">
                     <h1 className="flex-1 sm:item-stretch text-2xl font-bold px-20 py-5">Classroom</h1>
@@ -51,16 +50,16 @@ const StudHomepage = ({token}) => {
                         onClick={() => setShowModal(true)}
                     >
                         <PlusIcon className="h-5 w-5 mr-2" />
-                        Join a Classroom
+                        Create Classroom
                     </button>
                 </div>
 
-                {enrolledClassrooms && enrolledClassrooms.map((enrolledClassrooms) => (
-                    <EnrolledList enrolledClassrooms={enrolledClassrooms} key={enrolledClassrooms.enrol_id} />
+                {classroom && classroom.map((classroom) => (
+                    <Classroomlist classroom={classroom} key={classroom._id} />
                 ))}
             </div>
             
-            {/* Join a Classroom */}
+            {/* Create Classroom */}
             {showModal && (
                 <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -69,10 +68,10 @@ const StudHomepage = ({token}) => {
                         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
                             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                    Join Classroom
+                                    Create Classroom
                                 </h3>
                                 <div className="mt-2">
-                                    <JoinClassroom  setShowModal={setShowModal}/>
+                                    <CreateClassroom setShowModal={setShowModal} token={token} />
                                 </div>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -85,7 +84,7 @@ const StudHomepage = ({token}) => {
                 </div>
             )}
         </div>
-
-     );
+    );
 }
-export default StudHomepage;
+
+export default InsHomepage;

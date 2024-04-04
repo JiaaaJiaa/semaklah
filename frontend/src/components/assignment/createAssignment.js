@@ -54,7 +54,7 @@ const CreateAssignment = ({classroomId}) => {
         } else {
             console.log('Assignment created: ', data);
             setShowModal(false);
-            setAssignments(data[0]);
+            setAssignments(prevAssignments => [...prevAssignments, data[0]]);
         }
     };
 

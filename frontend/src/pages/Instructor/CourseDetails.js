@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ClipboardCopyIcon, TrashIcon, PlusIcon } from '@heroicons/react/solid';
-import EnrolStud from '../components/enrolstud';
-import { useClassroomContext } from '../hooks/useClassroomContext';
-import CreateAssignment from '../components/assignment/createAssignment';
+import EnrolStud from '../../components/enrolstud';
+import { useClassroomContext } from '../../hooks/useClassroomContext';
+import CreateAssignment from '../../components/assignment/createAssignment';
 
 
 const CourseDetails = () => {
