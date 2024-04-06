@@ -13,7 +13,7 @@ const InstAssignList = ({classroomId}) => {
     //Get all assignment
     useEffect(() => {
         const fetchAssignments = async () => {
-            const res = await fetch(`/api/assignment/${classroomId}`);
+            const res = await fetch(`/api/assignment?classroomId=${classroomId}`);
             const json = await res.json();
 
             // console.log("JSON",json);

@@ -85,6 +85,7 @@ const CreateAssignment = ({classroomId,setShowModal}) => {
             dispatch({ type: 'CREATE_ASSIGNMENT', payload: json[0] });
             setForm(initialFormState);
             setShowModal(false);
+            setAssignments(data[0]);
         }
     };
 

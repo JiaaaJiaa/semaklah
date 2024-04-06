@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import supabase from '../../config/supabaseClient';
+import supabase from '../config/supabaseClient';
 
 
 const EnrolledCourseDetails = () => {
