@@ -32,6 +32,7 @@ export const classroomReducer = (state,action) => {
                 enrolledClassrooms: action.payload
             }
         case 'GET_ENROL_STUDENT':
+            // alert("Get enrolled student");
             return {
                 enrolledStudents:  action.payload
             }
@@ -44,6 +45,9 @@ export const classroomReducer = (state,action) => {
                 enrolledStudents: state.enrolledStudents.filter((w) => w.student.stud_id !== action.payload.student.stud_id)
             }
         case 'GET_ASSIGNMENT':
+            
+            // console.log("Context:",action.payload);
+            // alert("Get assignment");
             return {
                 assignment: action.payload
             }

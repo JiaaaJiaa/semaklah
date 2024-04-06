@@ -22,21 +22,21 @@ router.get('/:id', async (req, res) => {
 });
 
 // Get a assignment by id using assign_id
-router.get('/:id', async (req, res) => {    
-    const id = req.params.id;
+// router.get('/:id', async (req, res) => {    
+//     const id = req.params.id;
 
-    // Get a assignment from the database
-    let { data, error } = await supabase
-        .from('assignment')
-        .select('*')
-        .eq('assign_id', id);
+//     // Get a assignment from the database
+//     let { data, error } = await supabase
+//         .from('assignment')
+//         .select('*')
+//         .eq('assign_id', id);
 
-    if (error) {
-        return res.status(400).json({ error: error.message });
-    } else {
-        return res.status(200).json(data);
-    }
-});
+//     if (error) {
+//         return res.status(400).json({ error: error.message });
+//     } else {
+//         return res.status(200).json(data);
+//     }
+// });
 
 // Create a new assignment
 router.post('/', async (req, res) => {
