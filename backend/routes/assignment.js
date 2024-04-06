@@ -3,15 +3,15 @@ const supabase = require('../config/supabaseClient');
 
 const router = express.Router();
 
-// Get all assignment
-router.get('/', async (req, res) => {
-    const classroomId = req.query.classroomId;
+// Get all assignment using classroom id
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
 
     // Get all assignment from the database
     let { data, error } = await supabase
         .from('assignment')
         .select('*')
-        .eq('classroom_id', classroomId)
+        .eq('classroom_id', id)
         .order('created_at', { ascending: false });
 
     if (error) {
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get a assignment by id
+// Get a assignment by id using assign_id
 router.get('/:id', async (req, res) => {    
     const id = req.params.id;
 
