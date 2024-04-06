@@ -44,31 +44,11 @@ export const classroomReducer = (state,action) => {
             return {
                 enrolledStudents: state.enrolledStudents.filter((w) => w.student.stud_id !== action.payload.student.stud_id)
             }
-        case 'GET_ASSIGNMENT':
-            
-            // console.log("Context:",action.payload);
-            // alert("Get assignment");
-            return {
-                assignment: action.payload
-            }
-        case 'CREATE_ASSIGNMENT':
-            return {
-                assignment: [action.payload, ...state.assignment]
-            }
-        case 'REMOVE_ASSIGNMENT':
-            return {
-                assignment: state.assignment.filter((w) => w.assignment_id !== action.payload.assignment_id)
-            }
-        case 'UPDATE_ASSIGNMENT':
-            return {
-                assignment: state.assignment.map((w) => w.assignment_id === action.payload.assignment_id ? action.payload : w)
-            }
         case 'LOGOUT':
             return {
                 classroom: null,
                 enrolledClassrooms: null,
-                enrolledStudents: null,
-                assignment: null
+                enrolledStudents: null
             }
         default:
             return state;
@@ -80,8 +60,7 @@ export const ClassroomContextProvider = ({children}) => {
     const [state,dispatch] = useReducer(classroomReducer,{
         classroom:null,
         enrolledClassrooms: null,
-        enrolledStudents: null,
-        assignment:null,
+        enrolledStudents: null
     });
     
 
