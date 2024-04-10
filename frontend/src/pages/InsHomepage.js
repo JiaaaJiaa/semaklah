@@ -6,6 +6,8 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { PlusIcon } from '@heroicons/react/solid';
 
 const InsHomepage = ({token}) => {
+
+    // console.log("Rendering homepage")
     
     const {classroom, dispatch}=useClassroomContext();
     const [showModal, setShowModal] = useState(false);

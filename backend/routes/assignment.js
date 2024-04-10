@@ -3,7 +3,7 @@ const supabase = require('../config/supabaseClient');
 
 const router = express.Router();
 
-// Get all assignment
+// Get all assignment by a single classroom id
 router.get('/', async (req, res) => {
     const classroomId = req.query.classroomId;
 

@@ -31,24 +31,29 @@ export const classroomReducer = (state,action) => {
                 ...state,
                 enrolledClassrooms: action.payload
             }
-        case 'GET_ENROL_STUDENT':
-            // alert("Get enrolled student");
-            return {
-                enrolledStudents:  action.payload
-            }
-        case 'ENROL_STUDENT':
-            return {
-                enrolledStudents: [action.payload, ...state.enrolledStudents]
-            }
-        case 'REMOVE_ENROL_STUDENT':
-            return {
-                enrolledStudents: state.enrolledStudents.filter((w) => w.student.stud_id !== action.payload.student.stud_id)
-            }
+        // case 'GET_ENROL_STUDENT':
+        //     // alert("Get enrolled student");
+        //     return {
+        //         enrolledStudents:  action.payload
+        //     }
+        // case 'ENROL_STUDENT':
+        //     return {
+        //         enrolledStudents: [action.payload, ...state.enrolledStudents]
+        //     }
+        // case 'REMOVE_ENROL_STUDENT':
+        //     return {
+        //         enrolledStudents: state.enrolledStudents.filter((w) => w.student.stud_id !== action.payload.student.stud_id)
+        //     }
+        
+        // case 'GET_ASSIGNMENT':
+        //     return {
+        //         assignment: action.payload
+        //     }
         case 'LOGOUT':
             return {
                 classroom: null,
                 enrolledClassrooms: null,
-                enrolledStudents: null
+                // enrolledStudents: null
             }
         default:
             return state;
@@ -59,8 +64,9 @@ export const ClassroomContextProvider = ({children}) => {
 
     const [state,dispatch] = useReducer(classroomReducer,{
         classroom:null,
-        enrolledClassrooms: null,
-        enrolledStudents: null
+        enrolledClassrooms: null
+        // enrolledStudents: null,
+        // assignment: null
     });
     
 

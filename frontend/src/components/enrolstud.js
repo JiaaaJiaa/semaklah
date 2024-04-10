@@ -4,7 +4,7 @@ import React, { useState} from 'react';
 import { useClassroomContext } from '../hooks/useClassroomContext';
 
 
-const EnrolStud = ({setShowModal, classroom_id}) => {
+const EnrolStud = ({setShowModal, classroom_id,setEnrolledStudents}) => {
 
     // Key in student ID
     // Grab to classroom ID, probably pass it from the previous page
@@ -15,7 +15,7 @@ const EnrolStud = ({setShowModal, classroom_id}) => {
     const [student_id, setStudentId] = useState(null);
     const [error, setError] = useState(null);
 
-    const { dispatch}=useClassroomContext();
+    // const { dispatch}=useClassroomContext();
 
     const handleInputChange = (event) => {
         setStudentId(event.target.value);
@@ -44,7 +44,8 @@ const EnrolStud = ({setShowModal, classroom_id}) => {
             if (response.ok){
                 // If the API call was successful, dispatch the action to update your state
                 //dispatch({type: 'ADD_CLASSROOM', payload: json});
-                dispatch({type: 'ENROL_STUDENT', payload: json})
+                // dispatch({type: 'ENROL_STUDENT', payload: json})
+                setEnrolledStudents(prevStudents => ([json, ...prevStudents]));
                 alert("Student enrolled successfully");
                 setShowModal(false);
             }

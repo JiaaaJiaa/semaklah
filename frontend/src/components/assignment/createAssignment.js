@@ -2,7 +2,7 @@ import { useClassroomContext } from "../../hooks/useClassroomContext";
 import supabase from "../../config/supabaseClient";
 import { useState } from "react";
 
-const CreateAssignment = ({classroomId,setShowModal}) => {
+const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
  
     const {dispatch} = useClassroomContext();
     const [err,setError] = useState(null);
@@ -82,10 +82,10 @@ const CreateAssignment = ({classroomId,setShowModal}) => {
         const json = await res.json();
 
         if (res.ok) {
-            dispatch({ type: 'CREATE_ASSIGNMENT', payload: json[0] });
+            // dispatch({ type: 'CREATE_ASSIGNMENT', payload: json[0] });
+            setAssignment(prevAssignments => [...prevAssignments, json[0]]);
             setForm(initialFormState);
-            setShowModal(false);
-            setAssignments(data[0]);
+            setShowCreate(false);
         }
     };
 
