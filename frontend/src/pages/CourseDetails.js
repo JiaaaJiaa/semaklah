@@ -15,6 +15,7 @@ const CourseDetails = () => {
     const navigate = useNavigate();
 
     const [token, setToken] = useState(null);
+    // const [loading, setLoading] = useState(true);
 
     // console.log('Rendering CourseDetails component');
 
@@ -38,7 +39,7 @@ const CourseDetails = () => {
     }, [id]);
 
     if (!course) {
-        return <div><Loading /></div>;
+        return <div><Loading/></div>;
     }
 
     return (

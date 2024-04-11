@@ -1,6 +1,7 @@
 import { PlusIcon } from '@heroicons/react/20/solid';
 import React, { useState, useEffect } from 'react';
 import { PencilAltIcon,TrashIcon } from '@heroicons/react/solid';
+import {Link} from 'react-router-dom';
 
 
 import UpdateAssignment from './updateAssignment';
@@ -14,6 +15,7 @@ const InstAssignList = ({classroomId}) => {
     const [assignment, setAssignment] = useState([]); 
     const [showUpdate, setShowUpdate] = useState(false);
     const [assignIdToUpdate, setAssignIdToUpdate] = useState(null);
+    // const [loading, setLoading] = useState(false);
 
     function handleUpdateClick(assignment) {
         setAssignIdToUpdate(assignment);
@@ -73,29 +75,35 @@ const InstAssignList = ({classroomId}) => {
 
             <div className="space-y-4">
                 {assignment && assignment.map((assignment) => (
-                    <div key={assignment.assign_id} className="p-4 border rounded shadow-sm hover:shadow-md flex flex-col">
-                        <div className="flex justify-between items-start">
-                            <h2 className="text-xl font-bold">{assignment.title}</h2>
-                            <div className="flex ">
-                                 <button 
-                                    className="top-2 right-2 text-grey-800 font-bold py-1 px-2 rounded flex items-center"
-                                    onClick={() => handleUpdateClick(assignment)}
-                                >
-                                    <PencilAltIcon className="h-5 w-5 text-gray-500" />
-                                </button>
-                                <button onClick={() => {
-                                    if (window.confirm('Are you sure you want to delete this item?')) {
-                                        handleDelete(assignment.assign_id);
-                                    }
-                                }}>
-                                    <TrashIcon className="h-5 w-5 text-gray-500" />
-                                </button>
-                            </div>
-                        </div>
-                        <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
-                        <p className="text-gray-600">End date: {new Date(assignment.end_date).toLocaleDateString()}</p>
 
-                    </div>
+                        <div key={assignment.assign_id} className="p-4 border rounded shadow-sm hover:shadow-md flex flex-col">
+                            <div className="flex justify-between items-start">
+                                <Link to={`/assignment/${assignment.assign_id}`}>
+                                    <div>
+                                        <h2 className="hover:text-gray-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
+                                    </div>
+                                </Link>
+                                <div className="flex ">
+                                    <button 
+                                        className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
+                                        onClick={() => handleUpdateClick(assignment)}
+                                    >
+                                        <PencilAltIcon className="h-5 w-5 hover:text-gray-950 text-gray-500" />
+                                    </button>
+                                    <button onClick={() => {
+                                        if (window.confirm('Are you sure you want to delete this item?')) {
+                                            handleDelete(assignment.assign_id);
+                                        }
+                                    }}>
+                                        <TrashIcon className="h-5 w-5 hover:text-gray-950 text-gray-500" />
+                                    </button>
+                                </div>
+                            </div>
+                            <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
+                            <p className="text-gray-600">End date: {new Date(assignment.end_date).toLocaleDateString()}</p>
+
+                        </div>
+
                 ))}
             </div>
 
