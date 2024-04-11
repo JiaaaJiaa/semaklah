@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useClassroomContext } from '../hooks/useClassroomContext';
+import { useClassroomContext } from '../../hooks/useClassroomContext';
 
 const UpdateClassroom = ({ setShowModal, classroom }) => {
     const { dispatch } = useClassroomContext();

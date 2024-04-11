@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useClassroomContext } from '../hooks/useClassroomContext';
+import { useClassroomContext } from '../../hooks/useClassroomContext';
 
 
 const JoinClassroom = ({setShowModal}) => {

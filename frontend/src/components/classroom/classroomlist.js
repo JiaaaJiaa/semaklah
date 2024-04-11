@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
-import { ClassroomContext } from '../context/ClassroomContext';
+import { ClassroomContext } from '../../context/ClassroomContext';
 import UpdateClassroom from './updateclassroom';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 
 

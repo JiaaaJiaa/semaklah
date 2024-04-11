@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 // import { useAuthContext } from '../hooks/useAuthContext';
 // import { useNavigate } from 'react-router-dom';
-import { useClassroomContext } from '../hooks/useClassroomContext';
+// import { useClassroomContext } from '../../hooks/useClassroomContext';
 
 
 const EnrolStud = ({setShowModal, classroom_id,setEnrolledStudents}) => {

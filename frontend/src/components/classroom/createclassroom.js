@@ -1,7 +1,7 @@
 import React, {  useState } from 'react';
-import { useClassroomContext } from '../hooks/useClassroomContext';
+import { useClassroomContext } from '../../hooks/useClassroomContext';
 // import supabase from '../config/supabaseClient';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const CreateClassroom = ({setShowModal,token }) => {
     const{ dispatch } = useClassroomContext();

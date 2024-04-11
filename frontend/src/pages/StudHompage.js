@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
-import EnrolledList from '../components/enrolledlist';
-import JoinClassroom from '../components/joinclassroom';
+import EnrolledList from '../components/student/enrolledlist';
+import JoinClassroom from '../components/student/joinclassroom';
 import { PlusIcon } from '@heroicons/react/solid';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useClassroomContext } from '../hooks/useClassroomContext';

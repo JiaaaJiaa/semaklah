@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Classroomlist from '../components/classroomlist';
-import CreateClassroom from '../components/createclassroom';
+import Classroomlist from '../components/classroom/classroomlist';
+import CreateClassroom from '../components/classroom/createclassroom';
 import { useClassroomContext } from '../hooks/useClassroomContext';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { PlusIcon } from '@heroicons/react/solid';
+import Loading from './loading';
 
 const InsHomepage = ({token}) => {
 
@@ -36,9 +37,9 @@ const InsHomepage = ({token}) => {
 
     },[dispatch, user]);
 
-    // if(!classroom){
-    //     return <div>Loading...</div>
-    // }
+    if(!classroom){
+        return <div><Loading /></div>
+    }
 
     return ( 
         <div className='pt-16 p-10'>

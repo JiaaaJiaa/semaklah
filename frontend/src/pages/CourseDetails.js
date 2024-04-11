@@ -6,6 +6,8 @@ import { ClipboardCopyIcon } from '@heroicons/react/solid';
 // import CreateAssignment from '../components/assignment/createAssignment';
 import InstAssignList from '../components/assignment/instAssignList';
 import Enrolledstudentlist from '../components/enrolledstudent/enrolledstudlist';
+import Loading from './loading';
+
 
 const CourseDetails = () => {
     const { id } = useParams();
@@ -36,11 +38,12 @@ const CourseDetails = () => {
     }, [id]);
 
     if (!course) {
-        return <div>Loading...</div>;
+        return <div><Loading /></div>;
     }
 
     return (
         <div className="p-20">
+
 
             <div>
                 <button 

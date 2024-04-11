@@ -1,40 +1,31 @@
-// import { useClassroomContext } from "../../hooks/useClassroomContext";
+import { useState, useEffect } from 'react';
 import supabase from "../../config/supabaseClient";
-import { useState } from "react";
 
-const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
- 
-    // const {dispatch} = useClassroomContext();
+const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment}) => {
+
+    // Update Assignment
     const [err,setError] = useState(null);
-
     const [form, setForm] = useState({
-        title: '',
-        desc: '',
-        instruc:'',
-        file:' ',
-        start_date: '',
-        end_date: '',
+        title: assignment.title,
+        desc: assignment.desc,
+        instruc: assignment.instruc,
+        file: assignment.file,
+        start_date: assignment.start_date,
+        end_date: assignment.end_date,
         classroom_id: classroomId,
     });
 
-    // console.log('classid:',form.classroom_id)
+    const [previousFileName, setPreviousFileName] = useState('');
 
-    const initialFormState = {
-        title: '',
-        desc: '',
-        instruc:'',
-        file:' ',
-        start_date: '',
-        end_date: '',
-        classroom_id: classroomId,
-    };
-
-    // Perform Assignment creation here
+    useEffect(() => {
+        // Assuming assignment.file is the path to the file
+        const filePath = assignment.file;
+        const fileName = filePath.split('/').pop();
+        setPreviousFileName(fileName);
+    }, [assignment]);
 
     const handleChange = (e) => {
         let value = e.target.value;
-        // console.log('Name:', e.target.name);
-        // console.log('Value:', value);
         setForm(prevForm => ({
             ...prevForm,
             [e.target.name]: value,
@@ -43,57 +34,61 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
     };
 
     const handleFileChange = async (e) => {
-        // Get the file from the event object
+
         const file = e.target.files[0];
-        console.log(file.name);
-    
+        // console.log(file.name);
         // Upload the file
         const filePath = `assignments/${Date.now()}-${file.name}`;
-        console.log('File Path:', filePath);
-        let { data: uploadFile, error: uploadError } = await supabase.storage.from('assignment').upload(filePath, file);
+        let { data:uploadFile,error: uploadError } = await supabase.storage.from('assignment').upload(filePath, form.file);
         if (uploadError) {
             console.error('Error uploading file: ', uploadError);
             setError('Error uploading file');
             return;
         }
-        if (uploadFile) {
+        if (uploadFile){
             setForm(prevForm => ({
                 ...prevForm,
                 file: filePath,
                 classroom_id: classroomId,
             }));
         }
+        console.log(filePath);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // console.log("Check ID",form.classroom_id);
-
-        // console.log(form.title, form.desc, form.instruc, form.file, form.start_date, form.end_date, form.classroom_id);
-        if (!form.title || !form.desc || !form.instruc || !form.file || !form.start_date || !form.end_date || !form.classroom_id) {
+        if (!form.title || !form.desc || !form.instruc || !form.file || !form.start_date || !form.end_date) {
             setError('Please fill in all fields');
             return;
         }
 
-        const res = await fetch('/api/assignment', {
-            method: 'POST',
+        const response = await fetch(`/api/assignment/${assignment.assign_id}`, {
+            method: 'PATCH',
             body: JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',
-            },
+            }
         });
+        const json = await response.json();
 
-        const json = await res.json();
-
-        if (res.ok) {
-            // dispatch({ type: 'CREATE_ASSIGNMENT', payload: json[0] });
-            setAssignment(prevAssignments => [...prevAssignments, json[0]]);
-            setForm(initialFormState);
-            setShowCreate(false);
+        if (!response.ok) {
+            setError(json.error);
+            alert('Fail to update assignment. Please try again.')
+        }else {
+            // Fetch the updated data
+            const updatedResponse = await fetch(`/api/assignment?classroomId=${classroomId}`);
+            const updatedJson = await updatedResponse.json();
+    
+            // Update the state of your application
+            // This depends on your application structure
+            setAssignment(updatedJson);
         }
+        setShowUpdate(false);
+
     };
 
+    // console.log('Assign ID:', assignment);
     return ( 
         <div>   
             <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md mx-auto space-y-4">
@@ -112,7 +107,8 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span>File:</span>
-                    <input type="file" name="file" onChange={handleFileChange} accept=".pdf" className="px-3 py-2 border rounded" />
+                    <input type="file" name="file" onChange={handleFileChange} className="px-3 py-2 border rounded" />
+                    {previousFileName && <p>Previously uploaded file: {previousFileName}</p>}
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span>Start Date:</span>
@@ -122,10 +118,10 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
                     <span>End Date:</span>
                     <input type="datetime-local" name="end_date" value={form.end_date} onChange={handleChange} className="px-3 py-2 border rounded" />
                 </label>
-                <input type="submit" value="Create Assignment" className="px-3 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600" />
+                <input type="submit" value="Update Assignment" className="px-3 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600" />
             </form>
         </div>
      );
 }
  
-export default CreateAssignment;
+export default UpdateAssignment;

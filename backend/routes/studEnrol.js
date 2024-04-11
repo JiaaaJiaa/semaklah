@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
             .eq('stud_id', stud_id);
 
         if (student && student.length === 0) {
-            return res.status(400).json({ error: 'Student not found' });
+            return res.status(400).json({ error: 'Student has not registered yet' });
         }
 
         // Fetch the classroom from the database

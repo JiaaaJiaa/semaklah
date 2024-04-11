@@ -1,6 +1,6 @@
 import { TrashIcon, PlusIcon} from '@heroicons/react/solid';
 import { useEffect, useState } from 'react';
-import EnrolStud from '../enrolstud';
+import EnrolStud from './enrolstud';
 
 
 const Enrolledstudentlist = ({classroomId,course}) => {
@@ -27,6 +27,7 @@ const Enrolledstudentlist = ({classroomId,course}) => {
         .then(data => {
             // console.log('Success:', data[0]);
             // dispatch({type: 'REMOVE_ENROL_STUDENT', payload: student});
+            console.log("Student removed:", enrolledStudents);
             setEnrolledStudents(enrolledStudents.filter((stud) => stud.student.stud_id !== student.student.stud_id));
         })
         .catch(error => console.error(error));
