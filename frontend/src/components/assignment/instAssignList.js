@@ -76,7 +76,7 @@ const InstAssignList = ({classroomId}) => {
             <div className="space-y-4">
                 {assignment && assignment.map((assignment) => (
 
-                        <div key={assignment.assign_id} className="p-4 border rounded shadow-sm hover:shadow-md flex flex-col">
+                        <div key={assignment.assign_id} className="p-4 border rounded hover:shadow-sm flex flex-col">
                             <div className="flex justify-between items-start">
                                 <Link to={`/assignment/${assignment.assign_id}`}>
                                     <div>
@@ -84,6 +84,12 @@ const InstAssignList = ({classroomId}) => {
                                     </div>
                                 </Link>
                                 <div className="flex ">
+                                    <button 
+                                        className="top-2 right-2 text-xs font-bold py-1 px-2 border rounded flex items-center hover:shadow-sm"
+                                        // onClick={() => handleUpdateClick(assignment)}
+                                    >
+                                        <p>View Submission</p>
+                                    </button>                                    
                                     <button 
                                         className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
                                         onClick={() => handleUpdateClick(assignment)}
