@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import InsHomepage from './pages/Instructor/InsHomepage';
-import StudHomepage from './pages/StudHompage';
+import StudHomepage from './pages/Student/StudHompage';
 import CourseDetails from './pages/Instructor/CourseDetails';
-import EnrolledCourseDetails from './pages/EnrolledCourseDetails';
+import EnrolledCourseDetails from './pages/Student/EnrolledCourseDetails';
 import AssignmentDetails from './pages/Instructor/AssignmentDetails';
 import ViewSubmission from './pages/Instructor/ViewSubmission';
 import { Routes, Route, Navigate } from 'react-router-dom';
+
+//For Student page
+import StudAssignmentDetails from './pages/Student/StudAssignmentDetails';
+import StudSubmission from './pages/Student/StudSubmission';
 // import { useAuthContext } from './hooks/useAuthContext';
 
 const Home = () => {
@@ -52,6 +56,15 @@ const Home = () => {
             path="/viewsubmission/:id"
             element={token? <ViewSubmission />: <Navigate to="/" />}
         />
+        <Route
+            path="/studassignment/:id"
+            element={token? <StudAssignmentDetails />: <Navigate to="/" />}
+        />
+        <Route
+            path="/studsubmission/:id"
+            element={token? <StudSubmission />: <Navigate to="/" />}
+        />
+
 
     </Routes>
      );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import supabase from '../config/supabaseClient';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import supabase from '../../config/supabaseClient';
 
 
 const EnrolledCourseDetails = () => {
@@ -63,7 +63,11 @@ const EnrolledCourseDetails = () => {
                 <h3 className="text-2xl font-semibold text-gray-800">Assignments</h3>
                 {assignments.map((assignment, index) => (
                     <div key={index} className="mt-3 p-4 border rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg">
-                        <h2 className="text-xl font-bold text-gray-800">{assignment.title}</h2>
+                        <Link to={`/studassignment/${assignment.assign_id}`}>
+                            <div>
+                                <h2 className="hover:text-gray-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
+                            </div>
+                        </Link>
                         <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
                         <p className="text-gray-600">End date: {new Date(assignment.end_date).toLocaleDateString()}</p>
                         {/* Display other assignment details here */}
