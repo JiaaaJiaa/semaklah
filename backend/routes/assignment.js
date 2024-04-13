@@ -116,4 +116,23 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// // Get PDF
+// router.get('/pdf/*', async (req, res) => {
+//     const id = req.params[0];
+
+//     console.log('ID:', id)
+
+//     const { data, error } = await supabase
+//         .storage    
+//         .from('assignment')
+//         .download(id);
+
+//     if (error) {
+//         return res.status(400).json({ error: error.message });
+//     } else {
+//         const url = URL.createObjectURL(data);
+//         return res.status(200).send(url);
+//     }
+// });
+
 module.exports = router;

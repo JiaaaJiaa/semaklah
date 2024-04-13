@@ -3,6 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import Loading from '../../pages/loading';
 // import { Document, Page } from 'react-pdf';
 import supabase from '../../config/supabaseClient';
+import {Link} from 'react-router-dom';
 
 const AssignmentDetails = () => {
     const {id} = useParams();
@@ -77,37 +78,37 @@ const AssignmentDetails = () => {
                     <hr />  
                 </div>
                 <div>   
-                    <p className="pt-2 text-xl font-semibold text-gray-800">
-                        Instruction
-                    </p>
-                    <p>
-                        {assignment.file}
-                    </p>
-                    <a href={`https://aypezrkfwwhjkbtreitl.supabase.co/storage/v1/object/public/assignment/${assignment.file}`} download>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl">
-                            Download File
-                        </button>
-                    </a>
-                    <p className="pt-2 ">
+                    <div className="flex">
+                        <p className="pt-2 text-xl font-semibold text-gray-800">
+                            Instruction
+                        </p>
+                        <a href={`https://aypezrkfwwhjkbtreitl.supabase.co/storage/v1/object/public/assignment/${assignment.file}`} download
+                            className="px-2 pt-2">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded-3xl">
+                                Download File
+                            </button>
+                        </a>
+                    </div>
+
+                    <p className="pt-2 text-md text-gray-800">
                         {assignment.instruc}
-                    </p>
+                    </p>                
                 </div>
+                    {/* Link to the submission page */}
+                    <div className="pt-5">
+                        <Link to={`/viewsubmission/${id}`} className="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                            View Submissions
+                        </Link>
+                    </div>
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
-                <p className="text-xl font-semibold text-gray-800">
-                    Assignment PDF
-                </p>
-                {/* {fileURL && (
-                    <Document file={fileURL}>
-                        <Page pageNumber={1} />
-                    </Document>
-                )} */}
+                {fileURL && <embed src={fileURL} type="application/pdf" width="100%" height="1000px" />}
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
             <p className="text-xl font-semibold text-gray-800">
-                    Student submission list
+                    Grading Rubrics
                 </p>
             </div>
            

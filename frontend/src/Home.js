@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import InsHomepage from './pages/InsHomepage';
+import InsHomepage from './pages/Instructor/InsHomepage';
 import StudHomepage from './pages/StudHompage';
-import CourseDetails from './pages/CourseDetails';
+import CourseDetails from './pages/Instructor/CourseDetails';
 import EnrolledCourseDetails from './pages/EnrolledCourseDetails';
 import AssignmentDetails from './pages/Instructor/AssignmentDetails';
+import ViewSubmission from './pages/Instructor/ViewSubmission';
 import { Routes, Route, Navigate } from 'react-router-dom';
 // import { useAuthContext } from './hooks/useAuthContext';
 
@@ -46,6 +47,10 @@ const Home = () => {
         <Route 
             path="/assignment/:id" 
             element={token? <AssignmentDetails />: <Navigate to="/" /> }
+        />
+        <Route
+            path="/viewsubmission/:id"
+            element={token? <ViewSubmission />: <Navigate to="/" />}
         />
 
     </Routes>

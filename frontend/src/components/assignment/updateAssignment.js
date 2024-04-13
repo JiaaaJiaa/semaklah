@@ -16,6 +16,9 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
     });
 
     const [previousFileName, setPreviousFileName] = useState('');
+    // Add a new state variable to track the upload status
+    const [isUploadSuccessful, setIsUploadSuccessful] = useState(true);
+
 
     useEffect(() => {
         // Assuming assignment.file is the path to the file
@@ -35,14 +38,17 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
 
     const handleFileChange = async (e) => {
 
+        setIsUploadSuccessful(false);
+
         const file = e.target.files[0];
         // console.log(file.name);
         // Upload the file
         const filePath = `assignments/${Date.now()}-${file.name}`;
-        let { data:uploadFile,error: uploadError } = await supabase.storage.from('assignment').upload(filePath, form.file);
+        let { data:uploadFile,error: uploadError } = await supabase.storage.from('assignment').upload(filePath, file);
         if (uploadError) {
             console.error('Error uploading file: ', uploadError);
             setError('Error uploading file');
+            setIsUploadSuccessful(false); // Set upload status to false if there's an error
             return;
         }
         if (uploadFile){
@@ -51,8 +57,8 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
                 file: filePath,
                 classroom_id: classroomId,
             }));
+            setIsUploadSuccessful(true); // Set upload status to true if upload is successful
         }
-        console.log(filePath);
     };
 
     const handleSubmit = async (e) => {
@@ -60,6 +66,11 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
 
         if (!form.title || !form.desc || !form.instruc || !form.file || !form.start_date || !form.end_date) {
             setError('Please fill in all fields');
+            return;
+        }
+
+        if (!isUploadSuccessful) {
+            alert('File upload not successful');
             return;
         }
 
@@ -84,6 +95,7 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
             // This depends on your application structure
             setAssignment(updatedJson);
         }
+        alert('Assignment updated successfully');
         setShowUpdate(false);
 
     };

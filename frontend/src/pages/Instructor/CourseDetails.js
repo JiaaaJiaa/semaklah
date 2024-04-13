@@ -4,9 +4,9 @@ import { ClipboardCopyIcon } from '@heroicons/react/solid';
 // import EnrolStud from '../components/enrolstud';
 // import { useClassroomContext } from '../hooks/useClassroomContext';
 // import CreateAssignment from '../components/assignment/createAssignment';
-import InstAssignList from '../components/assignment/instAssignList';
-import Enrolledstudentlist from '../components/enrolledstudent/enrolledstudlist';
-import Loading from './loading';
+import InstAssignList from '../../components/assignment/instAssignList';
+import Enrolledstudentlist from '../../components/enrolledstudent/enrolledstudlist';
+import Loading from '../loading';
 
 
 const CourseDetails = () => {
