@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Get all submission by a single assignment id
 
-// Update a submission by submission id
+// Update a submission by submission id - Remove this if not needed
 
 // Create a new submission
 router.post('/', async (req, res) => {

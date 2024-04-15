@@ -12,11 +12,14 @@ const StudSubmission = () => {
     const { enrol_id, assign_id } = useParams();
     const navigate = useNavigate();
     const [assignment, setAssignment] = useState([]);
+    const [submission, setSubmission] = useState([]);
 
     
     const [err,setError] = useState(null);
     const [file,setFile] = useState(null);
     const [submission_id, setSubmissionId] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [upload, setUpload] = useState(false);
     
 
     // console.log('Enrol ID:', enrol_id)
@@ -35,7 +38,7 @@ const StudSubmission = () => {
     const assignmentEndDate = new Date(assignment.end_date);
     const assignmentStartDate = new Date(assignment.start_date);
     const currentDate = new Date();
-    const [loading, setLoading] = useState(false);
+
 
     // Fetch data from database
     useEffect(()=>{
@@ -59,13 +62,18 @@ const StudSubmission = () => {
                     if (data && data.file) {
                         setFile(data.file);
                         setSubmissionId(data.sub_id);
+                        setSubmission(data);
                         setSubmitted(true);
                     } else {
                         setFile('');
                         setSubmitted(false);
+                        setSubmission([]);
                         console.log('No file found');
                     }
-                } 
+                } else{
+                    setSubmission([]);
+                }
+                setLoading(true);
             })
             .catch(error => {
                 console.error(error);
@@ -170,7 +178,7 @@ const StudSubmission = () => {
     
     const handleFileChange = async (e) => {
         // Get the file from the event object
-        setLoading(true);
+        setUpload(true);
         const file = e.target.files[0];
         // console.log(file.name);
     
@@ -186,11 +194,11 @@ const StudSubmission = () => {
         if (uploadFile) {
             setFile(filePath);  
         }
-        setLoading(false);
+        setUpload(false);
     };
 
 
-    if (!assignment) {
+    if (!loading) {
         return <div><Loading /></div>;
     }
 
@@ -211,7 +219,7 @@ const StudSubmission = () => {
                 <p className="text-xl font-semibold text-gray-800">
                     Submission Status
                 </p>            
-                <StudSubmissionStatus enrol_id={enrol_id} assign_id={assign_id} />
+                <StudSubmissionStatus assignment={assignment} submission={submission} />
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
@@ -240,7 +248,7 @@ const StudSubmission = () => {
                     {canDelete ? <DeleteButton /> : <DisabledDeleteButton />}
                     
                     
-                    {canSubmit && !loading ? <SubmitButton /> : <DisabledSubmitButton />}
+                    {canSubmit && !upload ? <SubmitButton /> : <DisabledSubmitButton />}
                 </div>
                
             </div>
