@@ -79,10 +79,30 @@ router.post('/', async (req, res) => {
     }
 });
 
+// Get enrol_id for submission
+router.get('/id/', async (req, res) => {
+    const { stud_id, classroom_id } = req.query;
 
+    try {
+        let { data, error } = await supabase
+            .from('enrol')
+            .select('enrol_id')
+            .eq('stud_id', stud_id)
+            .eq('classroom_id', classroom_id);
 
+        if (error) {
+            throw error;
+        }
 
-
-
+        // Ensure that data[0] exists before trying to access enrol_id
+        if (data[0]) {
+            return res.status(200).json(data[0].enrol_id);
+        } else {
+            throw new Error('No enrolment found');
+        }
+    } catch (error) {
+        return res.status(400).json({ error: error.message });
+    }
+});
 
 module.exports = router;

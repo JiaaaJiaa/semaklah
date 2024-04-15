@@ -61,7 +61,7 @@ const Home = () => {
             element={token? <StudAssignmentDetails />: <Navigate to="/" />}
         />
         <Route
-            path="/studsubmission/:id"
+            path="/studsubmission/:enrol_id/:assign_id"
             element={token? <StudSubmission />: <Navigate to="/" />}
         />
 

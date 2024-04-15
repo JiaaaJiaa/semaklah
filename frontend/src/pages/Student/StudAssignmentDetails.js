@@ -4,11 +4,21 @@ import Loading from '../../pages/loading';
 // import { Document, Page } from 'react-pdf';
 import supabase from '../../config/supabaseClient';
 import {Link} from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const StudAssignmentDetails = () => {
+    
+    //id refers to assign_id
     const {id} = useParams();
+
+
     const navigate = useNavigate();
     const [assignment, setAssignment] = useState([]);
+    const { user } = useAuthContext();
+
+    const stud_id = user.user.user_metadata.id;
+    const [enrol_id, setEnrolId] = useState(null);
+
 
     const handleBack = () => {
         navigate(-1);
@@ -41,13 +51,42 @@ const StudAssignmentDetails = () => {
           }
       
           const url = URL.createObjectURL(data);
-          console.log('File URL:', url);
           setFileURL(url);
         };
       
-        fetchFile();
+        if (assignment && assignment.file) {
+            fetchFile();
+        }
       }, [assignment.file]);
 
+    //   console.log(stud_id)
+    //   console.log(assignment.classroom_id)
+
+    // useEffect(() => {
+    //     console.log("Enrol IDs:", enrol_id);
+    // }, [enrol_id]);
+
+   // Fetch enrol id
+    useEffect(() => {
+        const fetchEnrolId = async () => {
+            const res = await fetch(`/api/enrol/id?stud_id=${stud_id}&classroom_id=${assignment.classroom_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(res.ok) {
+                const data = await res.json();
+                setEnrolId(data);
+            }
+        }
+        if (stud_id && assignment.classroom_id){
+            fetchEnrolId();
+        }
+    }, [stud_id, assignment.classroom_id]);
+
+    // Stuck here, trying to get enrol_id for submission purposes
 
     if (!assignment) {
         return <div><Loading /></div>;
@@ -61,9 +100,9 @@ const StudAssignmentDetails = () => {
                     className="mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Back
                 </button>
-                <p> 
+                
                 <h2 className="text-3xl font-semibold text-gray-800">{assignment.title}</h2>
-                </p>
+                
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
@@ -96,7 +135,7 @@ const StudAssignmentDetails = () => {
                 </div>
                     {/* Link to the submission page */}
                     <div className="pt-5">
-                        <Link to={`/studsubmission/${id}`} className="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                        <Link to={`/studsubmission/${enrol_id}/${id}`} className="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
                             Add Submissions
                         </Link>
                     </div>
