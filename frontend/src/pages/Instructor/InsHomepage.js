@@ -58,7 +58,9 @@ const InsHomepage = ({token}) => {
                 </div>
 
                 {classroom && classroom.map((classroom) => (
-                    <Classroomlist classroom={classroom} key={classroom._id} />
+                    <div key={classroom._id}>
+                        <Classroomlist classroom={classroom}/> 
+                    </div>
                 ))}
             </div>
             
