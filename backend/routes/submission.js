@@ -4,6 +4,20 @@ const supabase = require('../config/supabaseClient');
 const router = express.Router();
 
 // Get all submission by a single assignment id
+router.get('/:assign_id', async (req, res) => {
+    const { assign_id } = req.params;
+
+    let { data, error } = await supabase
+        .from('submission')
+        .select('*')
+        .eq('assign_id', assign_id);
+
+    if (error) {
+        return res.status(400).json({ error: error.message });
+    } else {
+        return res.status(200).json(data);
+    }
+});
 
 // Update a submission by submission id - Remove this if not needed
 
@@ -37,7 +51,7 @@ router.post('/', async (req, res) => {
 router.get('/:assign_id/:enrol_id', async (req, res) => {
     const { assign_id, enrol_id } = req.params;
 
-    console.log('Assign ID:', assign_id);
+    // console.log('Assign ID:', assign_id);
     let { data, error } = await supabase
         .from('submission')
         .select('*')

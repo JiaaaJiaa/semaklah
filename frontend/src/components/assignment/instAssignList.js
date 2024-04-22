@@ -29,7 +29,7 @@ const InstAssignList = ({classroomId}) => {
         .then((res) => {
             if (res.ok) {
                 // Filter out the deleted assignment
-                console.log("Second Check assignment:",assignment)
+                // console.log("Second Check assignment:",assignment)
                 const updatedAssignments = assignment.filter((assign) => assign.assign_id !== assign_id);
                 // Update the state
                 setAssignment(updatedAssignments);
@@ -84,12 +84,15 @@ const InstAssignList = ({classroomId}) => {
                                     </div>
                                 </Link>
                                 <div className="flex ">
-                                    <button 
-                                        className="top-2 right-2 text-xs font-bold py-1 px-2 border rounded flex items-center hover:shadow-sm"
-                                        // onClick={() => handleUpdateClick(assignment)}
-                                    >
-                                        <p>View Submission</p>
-                                    </button>                                    
+                                    <Link to={`/viewsubmission/${assignment.assign_id}`}>
+                                        <button 
+                                            className="top-2 right-2 text-xs font-bold py-1 px-2 border rounded flex items-center hover:shadow-sm"
+                                            // onClick={() => handleUpdateClick(assignment)}
+                                        >
+                                            <p>View Submission</p>
+                                        </button>                                     
+                                    </Link>
+                                  
                                     <button 
                                         className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
                                         onClick={() => handleUpdateClick(assignment)}

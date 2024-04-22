@@ -16,11 +16,15 @@ const StudSubmissionStatus = ({assignment, submission}) => {
                 const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
                 setTimeRemaining(`${days} days, ${hours} hours, ${minutes} minutes`);
             } else {
-                setTimeRemaining(`Overdue by ${-timeDifference}`);
+                const overdueTime = -timeDifference;
+                const days = Math.floor(overdueTime / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((overdueTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((overdueTime % (1000 * 60 * 60)) / (1000 * 60));
+                setTimeRemaining(`Overdue by ${days} days, ${hours} hours, ${minutes} minutes`);
             }
             setLoading(true);
         }, 1000);
-
+    
         return () => clearInterval(interval);
     }, [deadline, submission]);
 

@@ -229,10 +229,14 @@ const StudSubmission = () => {
                     </p>
                     <div className="border ">
 
-                        { submitted? (
-                            <div className="p-5">
+                        { submitted? (   
+                            <a href={`https://aypezrkfwwhjkbtreitl.supabase.co/storage/v1/object/public/assignment/${file}`} download
+                            className="px-2 pt-2 underline" target="_blank" rel="noopener noreferrer">
+                                <div className="p-5">
                                 <p>Uploaded file: {file}</p>
-                            </div>
+                                </div>
+                            </a>
+
                         ):(
                             <input type="file" 
                             className="center p-5 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-cyan-700 hover:file:bg-cyan-100" 

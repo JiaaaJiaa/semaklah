@@ -9,11 +9,11 @@ router.get('/:id', async (req, res) => {
 
     let { data, error } = await supabase
         .from('enrol')
-        .select('student(*)')
+        .select('enrol_id, student(*)')
         .eq('classroom_id', id)
         .order('stud_id', { ascending: true });
 
-    // console.log("Data:",data);
+    console.log("Data:",data);
 
     if (error) {
         return res.status(400).json({ error });
@@ -72,7 +72,7 @@ router.post('/', async (req, res) => {
 
         if(enrolError) throw enrolError;
 
-        console.log("Check Data:",data)
+        // console.log("Check Data:",data)
 
         // Increment the current_enrolment value
         let updatedEnrollment = classroom.current_enrolment + 1;
