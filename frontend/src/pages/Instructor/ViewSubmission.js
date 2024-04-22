@@ -15,6 +15,8 @@ const ViewSubmission = () => {
     const [assignment, setAssignment] = useState([]);
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [classroomId, setClassroomId] = useState(null); // [classroomId, setClassroomId
+    const [submissionData, setSubmissionData] = useState([]);
 
     const handleBack = () => {
         navigate(-1);
@@ -44,6 +46,27 @@ const ViewSubmission = () => {
             .catch(error => console.error(error));       
     },[id])
 
+    // get classroom id from assignment id
+    useEffect(() => {
+        fetch(`/api/assignment/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                setClassroomId(data.classroom_id); // Set classroom id from assignment id
+                
+                Promise.all(students.map(student => 
+                    fetch(`/api/submission/check/${id}/${student.enrol_id}`)
+                        .then(response => response.json())
+                ))
+                .then(submissionDataArray => {
+                    setSubmissionData(submissionDataArray);
+                })
+                .catch(error => console.error(error));
+            })
+            .catch(error => console.error(error));
+
+    }, [id, students]);
+    
+
     
     // from Assignment id, get classroom id, get list of student with their enrol id
     // compare the enrol id with the submission table, if the enrol id is not in the submission table, means the student has not submitted
@@ -72,7 +95,7 @@ const ViewSubmission = () => {
                 <p className="text-xl font-semibold text-gray-800">
                     Submission Status
                 </p>       
-                <InstrSubmissionStatus />     
+                <InstrSubmissionStatus submissionData={submissionData}/>     
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
@@ -80,7 +103,7 @@ const ViewSubmission = () => {
                     Submission List
                 </p>
             
-                <StudSubmissionList students={students}/>
+                <StudSubmissionList students={students} submissionData={submissionData}/>
             </div>
            
         </div>

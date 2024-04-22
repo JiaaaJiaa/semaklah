@@ -82,4 +82,23 @@ router.delete('/:submission_id', async (req, res) => {
     }
 });
 
+// Check if a submission exists
+router.get('/check/:assign_id/:enrol_id', async (req, res) => {
+    const { assign_id, enrol_id } = req.params;
+
+    try{
+        const{data, error} = await supabase
+            .from('submission')
+            .select('*')
+            .eq('assign_id', assign_id)
+            .eq('enrol_id', enrol_id);
+
+        if(error) throw error;
+
+        res.json({exists: data.length > 0, data:data});
+    }catch(error){
+        return res.status(400).json({ error: error.message });
+    }
+});
+
 module.exports = router;
