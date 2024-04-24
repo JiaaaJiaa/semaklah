@@ -20,6 +20,7 @@ const StudSubmission = () => {
     const [submission_id, setSubmissionId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [upload, setUpload] = useState(false);
+    const [fileURL,setFileURL] = useState(null);
     
 
     // console.log('Enrol ID:', enrol_id)
@@ -64,12 +65,37 @@ const StudSubmission = () => {
                         setSubmissionId(data.sub_id);
                         setSubmission(data);
                         setSubmitted(true);
+
+                        const fetchFile = async () => {
+                            if (!data.file) {
+                                console.error('Submission file is undefined');
+                                return;
+                            }
+                    
+                            const { data: dataFile, error } = await supabase.storage.from('assignment').download(data.file);
+                    
+                            if (error) {
+                                console.error('Error downloading file:', error.message);
+                                return;
+                            }
+                        
+                            const url = URL.createObjectURL(dataFile);
+                            // console.log('File URL:', url);
+                            setFileURL(url);
+                        }
+
+                        if(file){
+                            fetchFile();
+                        }
+
                     } else {
                         setFile('');
                         setSubmitted(false);
                         setSubmission([]);
                         console.log('No file found');
                     }
+
+
                 } else{
                     setSubmission([]);
                 }
@@ -151,6 +177,28 @@ const StudSubmission = () => {
         }
         setSubmitted(true);
         alert('Assignment Submitted');
+
+        const fetchFile = async () => {
+            if (!file) {
+                console.error('Submission file is undefined');
+                return;
+            }
+    
+            const { data, error } = await supabase.storage.from('assignment').download(file);
+    
+            if (error) {
+                console.error('Error downloading file:', error.message);
+                return;
+            }
+        
+            const url = URL.createObjectURL(data);
+            // console.log('File URL:', url);
+            setFileURL(url);
+        }
+
+        if(file){
+            fetchFile();
+        }
     };
 
     const handleDelete = async (event) => {
@@ -256,6 +304,17 @@ const StudSubmission = () => {
                 </div>
                
             </div>
+
+            <div>
+                { submitted?
+                    (
+                    <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
+                        {fileURL ? <embed src={fileURL} type="application/pdf" width="100%" height="1000px" /> : <p>No file to display</p>}
+                    </div>
+                    )
+                :null}
+            </div>
+
            
         </div>
     );
