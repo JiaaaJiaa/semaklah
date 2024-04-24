@@ -13,7 +13,7 @@ router.get('/:id', async (req, res) => {
         .eq('classroom_id', id)
         .order('stud_id', { ascending: true });
 
-    console.log("Data:",data);
+    // console.log("Data:",data);
 
     if (error) {
         return res.status(400).json({ error });

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { DownloadIcon } from '@heroicons/react/solid'
+import { Link } from "react-router-dom";
 
 
 
@@ -19,6 +20,7 @@ const StudSubmissionList = ({ students, submissionData}) => {
 
     return (  
         <div className="pt-5">
+            
             <table className="table w-full text-left">
                 <tbody>
                     <tr>
@@ -39,7 +41,20 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                 <td className="border px-4 py-2">{stud.student.stud_lname}</td>
                                 <td className="border px-4 py-2">{stud.student.stud_email}</td>
                                 <td className="border px-4 py-2">{stud.student.stud_id}</td>
-                                <td className="border px-4 py-2"></td>
+                                <td className="border px-4 py-2">
+                                    {submission && submission.data && submission.data[0] ? (
+                                        <button className="bg-blue-500 w-32 text-xs hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                                            <Link to={`/feedback/${submission.data[0].sub_id}`}>
+                                                Grading
+                                            </Link>
+                                        </button>
+
+                                    ) : (
+                                        <button disabled className="bg-blue-500 w-32 text-xs text-white font-bold py-2 px-4 rounded-3xl opacity-50 cursor-not-allowed">
+                                            Not Submitted
+                                        </button>
+                                    )}
+                                </td>
                                 <td className="border px-4 py-2"></td>
                                 <td className="border px-4 py-2">
                                     {submission ? (

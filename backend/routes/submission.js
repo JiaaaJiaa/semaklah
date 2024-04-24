@@ -19,7 +19,21 @@ router.get('/:assign_id', async (req, res) => {
     }
 });
 
-// Update a submission by submission id - Remove this if not needed
+// Get 1 submission
+router.get('/submission-feedback/:sub_id', async (req, res) => {
+    const { sub_id } = req.params;
+
+    let { data, error } = await supabase
+        .from('submission')
+        .select('*')
+        .eq('sub_id', sub_id);
+
+    if (error) {
+        return res.status(400).json({ error: error.message });
+    } else {
+        return res.status(200).json(data[0]);
+    }
+});
 
 // Create a new submission
 router.post('/', async (req, res) => {

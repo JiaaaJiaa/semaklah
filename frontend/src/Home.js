@@ -14,6 +14,9 @@ import StudAssignmentDetails from './pages/Student/StudAssignmentDetails';
 import StudSubmission from './pages/Student/StudSubmission';
 // import { useAuthContext } from './hooks/useAuthContext';
 
+//Submission
+import FeedbackPage from './pages/Instructor/FeedbackPage';
+
 const Home = () => {
     
     const [token, setToken] = useState(false);
@@ -64,6 +67,11 @@ const Home = () => {
             path="/studsubmission/:enrol_id/:assign_id"
             element={token? <StudSubmission />: <Navigate to="/" />}
         />
+        <Route
+            path="/feedback/:id"
+            element={token? <FeedbackPage />: <Navigate to="/" />}
+        />
+
 
 
     </Routes>
