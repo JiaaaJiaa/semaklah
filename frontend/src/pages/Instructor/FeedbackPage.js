@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
+import ShowPDF from '../../components/feedback/showPDF';
+
 
 const FeedbackPage = () => {
 
@@ -11,8 +13,7 @@ const FeedbackPage = () => {
 
     const handleBack = () => {
         navigate(-1);
-    }
-
+    }      
 
     useEffect(()=>{
         fetch(`/api/submission/submission-feedback/${id}`)
@@ -25,17 +26,22 @@ const FeedbackPage = () => {
                         console.error('Submission file is undefined');
                         return;
                     }
-    
+
                     const { data: fileData, error: fileError } = await supabase.storage.from('assignment').download(data.file);
     
                     if (fileError) {
                         console.error('Error downloading file:', fileError.message);
                         return;
                     }
-                
+                    
                     const url = URL.createObjectURL(fileData);
-                    // console.log('File URL:', url);
+
                     setFileURL(url);
+
+                    // console.log('fileData:', fileData); // Add this line
+                    // console.log('fileURL:', url); // Add this line
+                
+
                 }
     
                 if(data.file){
@@ -55,10 +61,11 @@ const FeedbackPage = () => {
                 </button>
                 
             </div>
-            
-            {/* <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10"> */}
-                {fileURL && <embed src={fileURL} type="application/pdf" width="100%" height="1000px" />}
-            {/* </div> */}
+
+            <div>
+                <ShowPDF fileURL={fileURL}/>
+            </div>
+
         </div>
      );
 }

@@ -20,7 +20,7 @@ function Navbar() {
     }
 
     return (
-        <Disclosure as="nav" className="fixed drop-shadow-md w-full bg-cyan-950">
+        <Disclosure as="nav" className="z-[1000] fixed drop-shadow-md w-full bg-cyan-950">
         {({ open }) => (
         <>
             <div className="mx-auto max-w-none px-2 sm:px-6 lg:px-8 ">
