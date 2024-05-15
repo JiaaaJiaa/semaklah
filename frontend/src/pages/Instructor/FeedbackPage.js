@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
-import ShowPDF from '../../components/feedback/showPDF';
+import ShowPDF from '../../components/feedback/showPDF.tsx';
+import DisplayPDF from '../../components/feedback/displayPDF';
 
 
 const FeedbackPage = () => {
@@ -52,22 +53,46 @@ const FeedbackPage = () => {
     },[id])
 
     return ( 
-        <div className="p-20">
+        <div className="flex p-20">
+            <div className="pt-20 fixed top-0 left-0 h-full w-64 bg-cyan-50 drop-shadow-md p-4">
+                
+            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Submission Info:</h2>
+            <div className="mb-4">
+                {/* <p className="mb-2"><strong>Student Name:</strong></p>
+                <p className="mb-4"><strong>Submission Time:</strong></p> */}
+            </div>
+
+            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Grading:</h2>
+            <div className=" mb-4">
+                {/* Add grading content here */}
+            </div>
+
+            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Lexical Performance:</h2>
+            <div className="mb-4">
+                {/* Add lexical performance content here */}
+            </div>
+
+            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Feedback Suggestion:</h2>
+            <div className="mb-4">
+                {/* Add feedback suggestion content here */}
+            </div>
+            
             <div>
-                    <button 
+                <button 
                     onClick={handleBack} 
                     className="mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Back
                 </button>
-                
             </div>
-
-            <div>
-                <ShowPDF fileURL={fileURL}/>
             </div>
-
+            <div className="flex-1 ml-64 pt-5">
+        
+                <div>
+                    <ShowPDF fileURL={fileURL} sub_id={id} />
+                </div>
+            </div>
         </div>
-     );
+    );
 }
 
 
