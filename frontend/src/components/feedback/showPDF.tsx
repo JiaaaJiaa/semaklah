@@ -1,5 +1,8 @@
 import React, {useEffect} from 'react';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import { v4 as uuidv4 } from 'uuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import {
     highlightPlugin,
@@ -41,18 +44,21 @@ interface ShowPDFProps {
 
 const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
 
+        
     // Create an instance of the default layout plugin
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
     const [message, setMessage] = React.useState('');
     const [notes, setNotes] = React.useState<Note[]>([]);
+    const [editingNoteId, setEditingNoteId] = React.useState<number | null>(null);
+
     let noteId = notes.length;
 
     // useEffect(() => {
     //     console.log("Notes changed", notes);
     // }, [notes]);
 
-    const noteEles: Map<number, HTMLElement> = new Map();
+    // const noteEles: Map<number, HTMLElement> = new Map();
 
     useEffect(() => {
         fetchNotesFromDatabase(sub_id)
@@ -77,7 +83,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         }
     
         const data = await response.json();
-        console.log("Data from fetchNotesFromDatabase", data);
+        // console.log("Data from fetchNotesFromDatabase", data);
         return data[0]?.feedback || [];
     };
 
@@ -109,8 +115,19 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
     const renderHighlightContent = (props: RenderHighlightContentProps) => {
         const addNote = () => {
             if (message !== '') {
+                // Validate highlightAreas
+                const validHighlightAreas = props.highlightAreas.every(area => {
+                    // Add checks for other properties as needed
+                    return Number.isInteger(area.pageIndex) && area.pageIndex >= 0;
+                });
+
+                if (!validHighlightAreas) {
+                    console.error('Invalid highlight area');
+                    return;
+                }
+
                 const note: Note = {
-                    id: ++noteId,
+                    id: uuidv4(), // Generate a unique ID
                     content: message,
                     highlightAreas: props.highlightAreas,
                     quote: props.selectedText,
@@ -157,14 +174,14 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         );
     };
 
-    const jumpToNote = (note) => {
-    console.log("Attempting to jump to note with id:", note.id);
-    const ele = noteEles.get(note.id);
-        if (ele) {
-            console.log("Found element for note, scrolling into view");
-            ele.scrollIntoView();
+    // Modify the jumpToNote function
+    const jumpToNote = (note: Note) => {
+        console.log("jumpToNote called with note", note);
+        // Use the first highlight area of the note to jump to it
+        if (note.highlightAreas.length > 0) {
+            jumpToHighlightArea(note.highlightAreas[0]);
         } else {
-            console.log("No element found for note");
+            console.log("No highlight areas found for note");
         }
     };
 
@@ -182,16 +199,20 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                                     {
                                         background: 'yellow',
                                         opacity: 0.4,
+                                        pointerEvents: 'auto',
                                     },
                                     props.getCssProperties(area, props.rotation)
                                 )}
-                                onClick={() => {
+                                onClick={(event) => {
+                                    console.log("Highlight clicked");
+                                    event.stopPropagation();
                                     console.log("Clicked note", note);
                                     jumpToNote(note);
                                 }}
-                                ref={(ref): void => {
-                                    noteEles.set(note.id, ref as HTMLElement);
-                                }}
+                                // ref={(ref): void => {
+                                //     noteEles.set(note.id, ref as HTMLElement);
+                                //     console.log("Element stored for note", note.id, ref);
+                                // }}
                             />
                         ))}
                 </React.Fragment>
@@ -216,6 +237,31 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         }
     };
 
+    const deleteNote = (id: number, sub_id: string) => {
+        if (window.confirm('Are you sure you want to delete this comment?')) {
+            const updatedNotes = notes.filter((note) => note.id !== id);
+            setNotes(updatedNotes);
+            saveNotesToDatabase(updatedNotes, sub_id); // Save the updated notes to the database
+            // console.log("Deleting note with id:", id);
+        }
+    };
+
+    const editNote = (id: number, sub_id: string) => {
+        setEditingNoteId(id);
+    };
+
+    // Add a function to handle the change of the note content
+    const handleNoteContentChange = (id: number, newContent: string) => {
+        setNotes(notes.map((note) => note.id === id ? {...note, content: newContent} : note));
+    };
+
+    // Add a function to finish editing a note
+    const finishEditingNote = (id: number, sub_id: string) => {
+        setEditingNoteId(null);
+        saveNotesToDatabase(notes, sub_id); // Save the updated notes to the database
+    };
+
+
     const highlightPluginInstance = highlightPlugin({
         renderHighlightTarget,
         renderHighlightContent,
@@ -223,6 +269,9 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
     });
 
     const { jumpToHighlightArea } = highlightPluginInstance;
+    
+
+    // console.log(typeof jumpToHighlightArea); // should log 'function'
 
     return ( 
         <div
@@ -256,29 +305,50 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                 >
                     {notes.map((note) => {
                         return (
-                            <div
-                                key={note.id}
-                                style={{
-                                    borderBottom: '1px solid rgba(0, 0, 0, .3)',
-                                    cursor: 'pointer',
-                                    padding: '8px',
-                                }}
-                                // Jump to the associated highlight area
-                                onClick={() => jumpToHighlightArea(note.highlightAreas[0])}
-                            >
-                                <blockquote
+                            <div key={note.id}>
+                                <div
                                     style={{
-                                        borderLeft: '2px solid rgba(0, 0, 0, 0.2)',
-                                        fontSize: '.75rem',
-                                        lineHeight: 1.5,
-                                        margin: '0 0 8px 0',
-                                        paddingLeft: '8px',
-                                        textAlign: 'justify',
+                                        borderBottom: '1px solid rgba(0, 0, 0, .3)',
+                                        cursor: 'pointer',
+                                        padding: '8px',
+                                    }}
+                                    // Jump to the associated highlight area
+                                    onClick={() => {
+                                        // console.log('Clicked note with highlight area', note.highlightAreas[0]);
+                                        jumpToHighlightArea(note.highlightAreas[0]);
                                     }}
                                 >
-                                    {note.quote}
-                                </blockquote>
-                                {note.content}
+                                    <blockquote
+                                        style={{
+                                            borderLeft: '2px solid rgba(0, 0, 0, 0.2)',
+                                            fontSize: '.75rem',
+                                            lineHeight: 1.5,
+                                            margin: '0 0 8px 0',
+                                            paddingLeft: '8px',
+                                            textAlign: 'justify',
+                                        }}
+                                    >
+                                        {note.quote}
+                                    </blockquote>
+                                    {editingNoteId === note.id ? (
+                                        <input
+                                            value={note.content}
+                                            onChange={(e) => handleNoteContentChange(note.id, e.target.value)}
+                                            onBlur={() => finishEditingNote(note.id,sub_id)}
+                                        />
+                                    ) : (
+                                        note.content
+                                    )}
+
+                                    <div style={{ textAlign: 'right' }}>
+                                        <button onClick={(e) => { e.stopPropagation(); deleteNote(note.id, sub_id); }} style={{ padding: '5px', color: 'red' }}>
+                                            <FontAwesomeIcon icon={faTrash} /> 
+                                        </button>
+                                        <button onClick={(e) => { e.stopPropagation(); editNote(note.id, sub_id); }} style={{ padding: '5px', color: 'blue' }}>
+                                            <FontAwesomeIcon icon={faEdit} /> 
+                                        </button>                                
+                                    </div>
+                                </div>
                             </div>
                         );
                     })}

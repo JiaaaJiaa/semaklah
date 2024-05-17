@@ -9,7 +9,7 @@ router.get('/getfeedback', async (req, res) => {
 
     // Get all comments from the database
     let { data, error } = await supabase
-        .from('submission')
+        .from('feedbacktext')
         .select('feedback')
         .eq('sub_id', sub_id)
 
@@ -31,7 +31,7 @@ router.post('/savefeedback', async (req, res) => {
     };
 
     let { data, error } = await supabase
-        .from('submission')
+        .from('feedbacktext')
         .update(newFeedback)
         .eq('sub_id', sub_id);
 

@@ -54,11 +54,23 @@ router.post('/', async (req, res) => {
         .insert([newSubmission])
         .select();
 
+    console.log('Data:', data[0].sub_id);
+    
+    // Create a column for feedback text
+    let{data:feedbackData, error:feedbackErr} = await supabase
+        .from('feedbacktext')
+        .insert([
+            { sub_id: data[0].sub_id }
+        ])
+        .select();
+
     if (error) {
         return res.status(400).json({ error: error.message });
     } else {
         return res.status(200).json(data[0]);
     }
+
+
 });
 
 // Get a single submission by assgn_id and enrol_id
@@ -85,6 +97,12 @@ router.delete('/:submission_id', async (req, res) => {
 
     let { data, error } = await supabase
         .from('submission')
+        .delete()
+        .eq('sub_id', submission_id)
+        .select();
+
+    let  {data:feedbackData, error:feedbackErr} = await supabase
+        .from('feedbacktext')
         .delete()
         .eq('sub_id', submission_id)
         .select();
