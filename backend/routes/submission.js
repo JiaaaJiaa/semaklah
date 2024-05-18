@@ -54,20 +54,24 @@ router.post('/', async (req, res) => {
         .insert([newSubmission])
         .select();
 
-    console.log('Data:', data[0].sub_id);
-    
-    // Create a column for feedback text
-    let{data:feedbackData, error:feedbackErr} = await supabase
+    // console.log('Data:', data[0].sub_id);
+
+    if (error) {
+        return res.status(400).json({ error: error.message });
+    } else {
+        // Create a column for feedback text
+        let{error:feedbackErr} = await supabase
         .from('feedbacktext')
         .insert([
             { sub_id: data[0].sub_id }
         ])
         .select();
 
-    if (error) {
-        return res.status(400).json({ error: error.message });
-    } else {
-        return res.status(200).json(data[0]);
+        if (feedbackErr) {
+            return res.status(400).json({ error: feedbackErr.message });
+        } else {
+            return res.status(200).json(data[0]);
+        }
     }
 
 
@@ -101,16 +105,23 @@ router.delete('/:submission_id', async (req, res) => {
         .eq('sub_id', submission_id)
         .select();
 
-    let  {data:feedbackData, error:feedbackErr} = await supabase
+
+
+    if (error) {
+        return res.status(400).json({ error: error.message });
+    } else {
+
+        let  {data:feedbackData, error:feedbackErr} = await supabase
         .from('feedbacktext')
         .delete()
         .eq('sub_id', submission_id)
         .select();
 
-    if (error) {
-        return res.status(400).json({ error: error.message });
-    } else {
-        return res.status(200).json(data);
+        if (feedbackErr) {
+            return res.status(400).json({ error: feedbackErr.message });
+        } else {
+            return res.status(200).json(data);
+        }
     }
 });
 

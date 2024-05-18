@@ -9,6 +9,7 @@ const studenrolRoutes = require('./routes/studEnrol'); // Import the studEnrol r
 const assignmentRoutes = require('./routes/assignment'); // Import the assignment route
 const submissionRoutes = require('./routes/submission'); // Import the submission route
 const feedbackRoutes = require('./routes/feedback'); // Import the feedback route
+const pythoncodeRoutes = require('./routes/pythoncode'); // Import the pythoncode route
 const app = express();
 
 // Middleware
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 
 // app.use('/InsHomepage',instRoutes);
 // Routes
+app.use('/api/pythoncode',pythoncodeRoutes); // This will use the pythoncode route when the path is '/api/pythoncode'
 app.use('/api/feedback',feedbackRoutes); // This will use the feedback route when the path is '/api/feedback'
 app.use('/api/submission',submissionRoutes);
 app.use('/api/assignment',assignmentRoutes);

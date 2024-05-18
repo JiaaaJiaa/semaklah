@@ -142,7 +142,9 @@ const StudSubmission = () => {
             className="mt-5 text-sm bg-gray-700 text-white font-bold py-2 px-4 rounded-3xl"
             disabled>Submit</button>
     );
-
+    // useEffect(() => {
+    //     console.log('Submission from useeffect:', submission);
+    // }, [submission]);
 
     // Handle Actions 
 
@@ -174,9 +176,35 @@ const StudSubmission = () => {
             console.error('Error submitting assignment');
             setError('Error submitting assignment');
             return;
-        }
-        setSubmitted(true);
-        alert('Assignment Submitted');
+        }else{
+            // Get the response data
+            const data = await res.json();
+
+            // Set the file and submission ID
+            setFile(data.file);
+            setSubmissionId(data.sub_id);
+            setSubmission(data);
+            setSubmitted(true);
+            alert('Assignment Submitted');
+
+            // Call the Python API
+            const resPython = await fetch(`/api/pythoncode/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sub_id: data.sub_id,
+                    file: data.file,
+                }),
+            });
+    
+            if (!resPython.ok) {
+                console.error('Error submitting assignment');
+                setError('Error submitting assignment');
+                return;
+            }
+        }        
 
         const fetchFile = async () => {
             if (!file) {
@@ -190,9 +218,10 @@ const StudSubmission = () => {
                 console.error('Error downloading file:', error.message);
                 return;
             }
-        
+            
+            console.log('Data:', data);
             const url = URL.createObjectURL(data);
-            // console.log('File URL:', url);
+            console.log('File URL:', url);
             setFileURL(url);
         }
 
@@ -217,6 +246,8 @@ const StudSubmission = () => {
             .then(data => {
                 // console.log('Deleted:', data);
                 setFile('');
+                setSubmission([]);
+                setSubmissionId(null);
                 setSubmitted(false);
 
                 alert('Submission Deleted');
