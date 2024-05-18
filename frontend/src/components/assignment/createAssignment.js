@@ -122,6 +122,9 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
                     <span>End Date:</span>
                     <input type="datetime-local" name="end_date" value={form.end_date} onChange={handleChange} className="px-3 py-2 border rounded" />
                 </label>
+                <h2>
+                    Grading Rubrics
+                </h2>
                 <input type="submit" value="Create Assignment" className="px-3 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600" />
             </form>
         </div>
