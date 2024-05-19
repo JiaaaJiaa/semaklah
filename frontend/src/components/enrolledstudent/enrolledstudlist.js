@@ -85,7 +85,7 @@ const Enrolledstudentlist = ({classroomId,course}) => {
                                             handleDelete(student);
                                         }
                                     }}>
-                                        <TrashIcon className="h-5 w-5 text-red-500 hover:text-red-700 ml-4" />
+                                        <TrashIcon className="h-5 w-5 text-gray-500 hover:text-red-700 ml-4" />
                                     </button>
                                 </td>
                             </tr>

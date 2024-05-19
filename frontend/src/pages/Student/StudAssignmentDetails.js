@@ -5,6 +5,7 @@ import Loading from '../../pages/loading';
 import supabase from '../../config/supabaseClient';
 import {Link} from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import DisplayRubrics from '../../components/grading/displaygr';
 
 const StudAssignmentDetails = () => {
     
@@ -146,9 +147,11 @@ const StudAssignmentDetails = () => {
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
-            <p className="text-xl font-semibold text-gray-800">
+                <p className="text-xl font-semibold text-gray-800">
                     Grading Rubrics
                 </p>
+                <DisplayRubrics assignment={assignment} />
+                
             </div>
            
         </div>

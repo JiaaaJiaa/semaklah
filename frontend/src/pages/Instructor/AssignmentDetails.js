@@ -4,6 +4,7 @@ import Loading from '../../pages/loading';
 // import { Document, Page } from 'react-pdf';
 import supabase from '../../config/supabaseClient';
 import {Link} from 'react-router-dom';
+import GradingRubrics from '../../components/grading/gradingrubric';
 
 const AssignmentDetails = () => {
     const {id} = useParams();
@@ -111,9 +112,12 @@ const AssignmentDetails = () => {
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
-            <p className="text-xl font-semibold text-gray-800">
+                <p className="text-xl font-semibold text-gray-800">
                     Grading Rubrics
                 </p>
+                <div>
+                    { assignment && <GradingRubrics assignment={assignment} />}
+                </div>
             </div>
            
         </div>

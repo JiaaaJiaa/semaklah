@@ -118,7 +118,7 @@ const InstAssignList = ({classroomId}) => {
                                             handleDelete(assignment.assign_id);
                                         }
                                     }}>
-                                        <TrashIcon className="h-5 w-5 hover:text-gray-950 text-gray-500" />
+                                        <TrashIcon className="h-5 w-5 hover:text-red-700 text-gray-500" />
                                     </button>
                                 </div>
                             </div>

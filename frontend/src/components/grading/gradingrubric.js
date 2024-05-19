@@ -6,19 +6,21 @@ function GradingRubric({assignment}) {
     const [rows, setRows] = useState([]);
     const [totalMarks, setTotalMarks] = useState(0);
     useEffect(() => {
-        console.log('Assignment:', assignment.assign_id);
-        fetch(`/api/gradingrubric/${assignment.assign_id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            setRows(data);
-        })
-        .catch(error => console.error('Error:', error));
-    }, [assignment.assign_id]);
+        if (assignment && assignment.assign_id) {
+            console.log('Assignment:', assignment.assign_id);
+            fetch(`/api/gradingrubric/${assignment.assign_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                setRows(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }, [assignment]);
 
     useEffect(() => {
         const total = rows.reduce((total, row) => total + Number(row.mark_possible || 0), 0);
