@@ -55,7 +55,7 @@ router.put('/', async (req, res) => {
         .eq('gr_id', gr_id)
         .select('*');
 
-    console.log(data);
+    // console.log(data);
 
     if (error) {
         return res.status(400).json({ error: error.message });

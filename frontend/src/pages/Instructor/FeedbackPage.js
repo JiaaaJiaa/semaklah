@@ -2,8 +2,11 @@ import React, { useState,useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import supabase from '../../config/supabaseClient';
 import ShowPDF from '../../components/feedback/showPDF.tsx';
-import DisplayPDF from '../../components/feedback/displayPDF';
+// import DisplayPDF from '../../components/feedback/displayPDF';
 
+import DisplaySubmissionInfo from '../../components/feedback/displaySubmissionInfo';
+import DisplayGrading from '../../components/feedback/displayGrading';
+import DisplayLexical from '../../components/feedback/displayLexical';
 
 const FeedbackPage = () => {
 
@@ -58,18 +61,17 @@ const FeedbackPage = () => {
                 
             <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Submission Info:</h2>
             <div className="mb-4">
-                {/* <p className="mb-2"><strong>Student Name:</strong></p>
-                <p className="mb-4"><strong>Submission Time:</strong></p> */}
+                <DisplaySubmissionInfo submission={submission} />
             </div>
 
             <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Grading:</h2>
             <div className=" mb-4">
-                {/* Add grading content here */}
+                <DisplayGrading submission={submission}/>
             </div>
 
             <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Lexical Performance:</h2>
             <div className="mb-4">
-                {/* Add lexical performance content here */}
+                <DisplayLexical submission={submission}/>
             </div>
 
             <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Feedback Suggestion:</h2>

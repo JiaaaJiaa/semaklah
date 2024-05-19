@@ -60,6 +60,8 @@ function GradingRubric({assignment}) {
             let newArr = [...rows];
             newArr[index] = data;
             setRows(newArr);
+            // console.log('Row saved:', data);
+            alert('Row saved successfully');
         })
         .catch(error => console.error('Error:', error));
     };
@@ -72,6 +74,7 @@ function GradingRubric({assignment}) {
             let newArr = [...rows];
             newArr.splice(index, 1);
             setRows(newArr);
+            alert('Row deleted successfully');
         })
         .catch(error => console.error('Error:', error));
     };
@@ -84,7 +87,7 @@ function GradingRubric({assignment}) {
                     <tr>
                         <th className="bg-cyan-50 border px-4 py-2 w-1/6">Question Number</th>
                         <th className="bg-cyan-50 border px-4 py-2 w-1/6">Mark Possible</th>
-                        <th className="bg-cyan-50 border px-4 py-2 w-3/4">Description</th>
+                        <th className="bg-cyan-50 border px-4 py-2 w-3/4">Descriptions</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -122,7 +125,7 @@ function GradingRubric({assignment}) {
                                     />
                                 </td>
                                 <td className="border px-4 py-2">
-                                    <input 
+                                    <textarea 
                                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                                         type="text" 
                                         value={row.description} 
