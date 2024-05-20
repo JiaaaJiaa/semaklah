@@ -12,8 +12,6 @@ const DisplayGrading = ({submission}) => {
     const [overMax, setOverMax] = useState({});
 
     useEffect(() => {
-        console.log("testing",submission); // Add this line
-
         if (submission.assign_id && submission.sub_id) {
             fetch(`/api/gradingrubric/${submission.assign_id}`)
                 .then(response => response.json())
