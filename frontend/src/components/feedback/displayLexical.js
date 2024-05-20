@@ -20,8 +20,8 @@ const DisplayLexical= ({submission}) => {
 
     return ( 
         <div>
-            <p className="font-semibold pt-2">Spelling: {Number(spelling).toFixed(2)}%</p>
-            <p className="font-semibold pt-2">Grammar: {Number(grammar).toFixed(2)}%</p>
+            <p className="font-semibold">Spelling Error: {Number(spelling).toFixed(2)}%</p>
+            <p className="font-semibold pt-2 mb-6">Grammar Error: {Number(grammar).toFixed(2)}%</p>
         </div>
     );
 }

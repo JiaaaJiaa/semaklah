@@ -59,22 +59,22 @@ const FeedbackPage = () => {
         <div className="flex p-20">
             <div className="pt-20 fixed top-0 left-0 h-full w-64 bg-cyan-50 drop-shadow-md p-4">
                 
-            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Submission Info:</h2>
+            <h2 className="font-bold text-xl mb-4 border-b border-gray-200 pb-2">Submission Info:</h2>
             <div className="mb-4">
                 <DisplaySubmissionInfo submission={submission} />
             </div>
 
-            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Grading:</h2>
+            <h2 className="font-bold text-xl mb-4 border-b border-gray-200 pb-2">Grading:</h2>
             <div className=" mb-4">
                 <DisplayGrading submission={submission}/>
             </div>
 
-            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Lexical Performance:</h2>
+            <h2 className="font-bold text-xl mb-4 border-b border-gray-200 pb-2">Lexical Performance:</h2>
             <div className="mb-4">
                 <DisplayLexical submission={submission}/>
             </div>
 
-            <h2 className="font-bold mb-4 border-b border-gray-200 pb-2">Feedback Suggestion:</h2>
+            <h2 className="font-bold mb-4 text-xl border-b border-gray-200 pb-2">Feedback Suggestion:</h2>
             <div className="mb-4">
                 {/* Add feedback suggestion content here */}
             </div>
@@ -82,7 +82,7 @@ const FeedbackPage = () => {
             <div>
                 <button 
                     onClick={handleBack} 
-                    className="mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    className="w-full mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl ">
                     Back
                 </button>
             </div>

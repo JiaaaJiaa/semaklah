@@ -353,8 +353,13 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                         );
                     })}
                     
-                    <div className="pt-5 flex justify-center">
-                        <PrimaryButton onClick={() => saveNotesToDatabase(notes, sub_id)}>Save</PrimaryButton>
+                    <div>                        
+                        <button 
+                            className="flex items-center justify-center w-1/2 mx-auto mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl"
+                            onClick={() => saveNotesToDatabase(notes, sub_id)}
+                        >
+                            Save Comments
+                        </button>
                     </div>
                 </div>
             )}

@@ -3,6 +3,24 @@ const supabase = require('../config/supabaseClient');
 
 const router = express.Router();
 
+// Get students info for feedback page
+router.get('/feedback/:enrol_id', async (req, res) => {
+    const enrol_id = req.params.enrol_id;
+
+    // from enrol entity get stud_id and student info from student entity
+    let { data, error } = await supabase
+        .from('enrol')
+        .select('stud_id, student(*)')
+        .eq('enrol_id', enrol_id)
+        .single();
+
+    if (error) {
+        return res.status(400).json({ error });
+    } else {
+        return res.status(200).json(data);
+    }
+})
+
 // Get all students enrolled in a classroom
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
