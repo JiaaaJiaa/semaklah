@@ -15,9 +15,6 @@ const StudSubmissionList = ({ students, submissionData}) => {
     // If the student has submitted, display the download button
     // If the student has not submitted, display the download button as disabled
 
-
-
-
     return (  
         <div className="pt-5">
             
@@ -35,6 +32,9 @@ const StudSubmissionList = ({ students, submissionData}) => {
 
                     {students.map((stud, index) => {
                         const submission = submissionData.find(data => data.exists && data.data[0].enrol_id === stud.enrol_id);
+                        // if (submission) {
+                        //     console.log("Enrol ID:", submission.data[0].sub_id);
+                        // }
                         return (
                             <tr key={index}>
                                 <td className="border px-4 py-2">{stud.student.stud_fname}</td>
@@ -55,7 +55,14 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                         </button>
                                     )}
                                 </td>
-                                <td className="border px-4 py-2"></td>
+                                <td className="border px-4 py-2">
+                                    {/* Display marks here */}
+                                    {submission && submission.data && submission.data[0] && submission.data[0].mark !== null ? (
+                                        <p>{submission.data[0].mark} / 100</p>
+                                    ) : (
+                                        '-'
+                                    )}
+                                </td>
                                 <td className="border px-4 py-2">
                                     {submission ? (
                                         submission.data && submission.data[0] && submission.data[0].file ? (

@@ -56,6 +56,12 @@ const DisplayGrading = ({submission}) => {
     }
 
     const handleSaveScore = () => {
+
+        const total = Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0);
+        const totalPossibleScore = grading.reduce((total, gr) => total + gr.mark_possible, 0);
+        const percentage = (total / totalPossibleScore) * 100;
+
+
         // Check if any score is greater than the maximum possible score
         for (let gr_id in scores) {
             const score = scores[gr_id];
@@ -86,19 +92,33 @@ const DisplayGrading = ({submission}) => {
                     }
                     return response.json();
                 })
-                .then(data => console.log(data))
+                // .then(data => console.log(data))
                 .catch(error => console.error('Error:', error));
             })
         ).then(() => {
+            // save the mark in submission
+            fetch(`/api/submission/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sub_id: submission.sub_id,
+                    mark: percentage
+                }),
+            })
             alert('All scores saved successfully');
         }).catch(() => {
             alert('An error occurred while saving scores');
         });
+    }
 
+    const calculateTotalScore = (scores) => {
+        return Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0);
+    };
 
-    
-        // Save the scores here
-        console.log(scores);
+    const totalmark_possible = (grading) => {
+        return grading.reduce((a, b) => a + b.mark_possible, 0);
     }
 
     if (!submission.assign_id && !submission.sub_id) {
@@ -127,9 +147,7 @@ const DisplayGrading = ({submission}) => {
             {/* Display the total score */}
             { Array.isArray(grading) && grading.length > 0 &&
                 <p className="text-lg font-bold pt-2">
-                    Total Score :   
-                    {Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0)} /  
-                    {grading.reduce((a, b) => a + b.mark_possible, 0)}
+                    Total Score : {calculateTotalScore(scores)} / {totalmark_possible(grading)}
                 </p>
             }
          

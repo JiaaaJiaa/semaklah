@@ -144,4 +144,21 @@ router.get('/check/:assign_id/:enrol_id', async (req, res) => {
     }
 });
 
+// Update a submission by id
+router.put('/', async (req, res) => {
+    const { sub_id, ...updatedFields } = req.body;
+
+    let { data, error } = await supabase
+        .from('submission')
+        .update(updatedFields)
+        .eq('sub_id', sub_id)
+        .select('*');
+
+    if (error) {
+        return res.status(400).json({ error: error.message });
+    } else {
+        return res.status(200).json(data[0]);
+    }
+});
+
 module.exports = router;

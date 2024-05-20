@@ -81,7 +81,7 @@ const ViewSubmission = () => {
     return (  
         <div className="p-20">
             <div className="pb-10">
-                    <button 
+                <button 
                     onClick={handleBack} 
                     className="mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Back
@@ -95,7 +95,7 @@ const ViewSubmission = () => {
                 <p className="text-xl font-semibold text-gray-800">
                     Submission Status
                 </p>       
-                <InstrSubmissionStatus submissionData={submissionData}/>     
+                <InstrSubmissionStatus assig_id={id} students={students} submissionData={submissionData}/>     
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
