@@ -8,18 +8,31 @@ const DisplayGrading = ({submission}) => {
         Then pass the sub_id and the gr_id and the mark_earned to the grading component
     */
     const [grading, setGrading] = useState([]);
-
-
-    useEffect(() => {
-        fetch(`/api/gradingrubric/${submission.assign_id}`)
-            .then(response => response.json())
-            .then(data => setGrading(data))
-            .catch(error => console.error(error));
-    
-    }, [submission.assign_id])
-
     const [scores, setScores] = useState({});
     const [overMax, setOverMax] = useState({});
+
+    useEffect(() => {
+        console.log("testing",submission); // Add this line
+
+        if (submission.assign_id && submission.sub_id) {
+            fetch(`/api/gradingrubric/${submission.assign_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    setGrading(data);
+                    return fetch(`/api/grading/${submission.sub_id}`);
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const initialScores = {};
+                    data.forEach(gr => {
+                        initialScores[gr.gr_id] = gr.mark_earned;
+                    });
+                    setScores(initialScores);
+                })
+                .catch(error => console.error(error));
+        }
+    }, [submission]);
+
 
     const handleScoreChange = (event, gr) => {
         const score = event.target.value;
@@ -90,6 +103,10 @@ const DisplayGrading = ({submission}) => {
         console.log(scores);
     }
 
+    if (!submission.assign_id && !submission.sub_id) {
+        return <p>Loading...</p>;
+    }  
+
     return ( 
         <div>  
             {Array.isArray(grading) && grading.map((gr,index) => (
@@ -103,17 +120,21 @@ const DisplayGrading = ({submission}) => {
                             className={`border rounded-md px-2 py-1 w-1/3 pt-2 mt-2 ${overMax[gr.gr_id] ? 'border-red-600 text-red-500' : ''}`}
                             max={gr.mark_possible}
                             min="1"
+                            value={scores[gr.gr_id] || ''} // Display the score from the scores state
                         />
                         <p className="font-semibold">/{gr.mark_possible}</p>
                     </div>
                 </div>
             ))}
             {/* Display the total score */}
-            <p className="text-lg font-bold pt-2">
-                Total Score :   
-                 {Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0)} /  
-                {grading.reduce((a, b) => a + b.mark_possible, 0)}
-            </p>            
+            { Array.isArray(grading) && grading.length > 0 &&
+                <p className="text-lg font-bold pt-2">
+                    Total Score :   
+                    {Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0)} /  
+                    {grading.reduce((a, b) => a + b.mark_possible, 0)}
+                </p>
+            }
+         
             <button onClick={handleSaveScore} className="text-xs mt-4 bg-blue-500 text-white px-4 py-2 rounded-3xl">Save Score</button>
         </div>
      );

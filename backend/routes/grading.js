@@ -37,8 +37,8 @@ router.put('/', async (req, res) => {
 });
 
 // Get all the grading by submission id
-router.get('/', async (req, res) => {
-    const sub_id = req.query.sub_id;
+router.get('/:sub_id', async (req, res) => {
+    const sub_id = req.params.sub_id;
 
     // Get all grading from the database
     let { data, error } = await supabase
