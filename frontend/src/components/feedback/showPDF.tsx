@@ -51,14 +51,20 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
     const [message, setMessage] = React.useState('');
     const [notes, setNotes] = React.useState<Note[]>([]);
     const [editingNoteId, setEditingNoteId] = React.useState<number | null>(null);
-
+    const [assign_id, setAssign_id] = React.useState<string>("");
     let noteId = notes.length;
+    const [f1, setF1] = React.useState<string>("");
+    const [f2, setF2] = React.useState<string>("");
+    const [f3, setF3] = React.useState<string>("");
+
 
     // useEffect(() => {
     //     console.log("Notes changed", notes);
     // }, [notes]);
 
     // const noteEles: Map<number, HTMLElement> = new Map();
+
+    
 
     useEffect(() => {
         fetchNotesFromDatabase(sub_id)
@@ -67,6 +73,15 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
             })
             .catch((error) => {
                 console.error('Failed to fetch notes:', error);
+            });
+
+        fetchsubmission(sub_id)
+            .then((data) => {
+                // console.log("Data from fetchsubmission", data.assign_id);
+                setAssign_id(data.assign_id)
+            })
+            .catch((error) => {
+                console.error('Failed to fetch submission:', error);
             });
     }, [sub_id]);
 
@@ -87,6 +102,62 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         return data[0]?.feedback || [];
     };
 
+    const fetchsubmission = async (sub_id: string) => {
+        const response = await fetch(`/api/submission/submission-feedback/${sub_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        if (!response.ok) {
+            throw new Error('Failed to fetch submission');
+        }
+    
+        const data = await response.json();
+
+        return data || [];
+    };
+
+    const generatefeedback = async (selectedText: string) => {
+        const response = await fetch('/api/feedbackgeneration/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                assign_id,
+                specific_sentence:selectedText }),
+        });
+    
+        if (!response.ok) {
+            console.error('Response status:', response.status);
+            console.error('Response status text:', response.statusText);
+            throw new Error('Failed to generate feedback');
+        }
+        const data = await response.json();
+        if (data.sorted_feedback.length >= 1) {
+            setF1(data.sorted_feedback[0]);
+        }
+        
+        if (data.sorted_feedback.length >= 2) {
+            setF2(data.sorted_feedback[1]);
+        }
+        
+        if (data.sorted_feedback.length >= 3) {
+            setF3(data.sorted_feedback[2]);
+        }
+    }
+
+    const clearFields = () => {
+        setF1('');
+        setF2('');
+        setF3('');
+        setMessage('');
+    }
+
+    // PDF PLUGIN
+
     const renderHighlightTarget = (props: RenderHighlightTargetProps) => (
         <div
             style={{
@@ -102,7 +173,9 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
             <Tooltip
                 position={Position.TopCenter}
                 target={
-                    <Button onClick={props.toggle}>
+                    <Button onClick={ () => {
+                        generatefeedback(props.selectedText)
+                        props.toggle()}}>
                         <MessageIcon />
                     </Button>
                 }
@@ -133,6 +206,10 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                     quote: props.selectedText,
                 };
                 setNotes(notes.concat([note]));
+                setF1('');
+                setF2('');
+                setF3('');
+                setMessage('');
                 props.cancel();
             }
         };
@@ -145,17 +222,25 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                     borderRadius: '2px',
                     padding: '8px',
                     position: 'absolute',
+                    minWidth: '150px',  // Minimum width
+                    maxWidth: '520px',  // Maximum width
                     left: `${props.selectionRegion.left}%`,
                     top: `${props.selectionRegion.top + props.selectionRegion.height}%`,
-                    zIndex: 1,
+                    zIndex: 9999,
                 }}
             >
                 <div>
                     <textarea
-                        rows={3}
+                        rows={5}
                         style={{
                             border: '1px solid rgba(0, 0, 0, .3)',
+                            minHeight: '50px',  // Minimum height
+                            maxHeight: '200px', // Maximum height
+                            minWidth: '100px',  // Minimum width
+                            maxWidth: '500px',  // Maximum width
+                            resize: 'both'      // Allow the user to resize both horizontally and vertically
                         }}
+                        value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                 </div>
@@ -163,13 +248,19 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                     style={{
                         display: 'flex',
                         marginTop: '8px',
+                        zIndex: 9999,
                     }}
                 >
                     <div style={{ marginRight: '8px' }}>
                         <PrimaryButton onClick={addNote}>Add</PrimaryButton>
                     </div>
-                    <Button onClick={props.cancel}>Cancel</Button>
+                    <Button onClick={() => {props.cancel(); clearFields();}}>Cancel</Button>
                 </div>
+
+    
+                <p className="pt-5" onClick={() => setMessage(f1)}>{f1}</p>
+                <p className="pt-5" onClick={() => setMessage(f2)}>{f2}</p>           
+                <p className="pt-5" onClick={() => setMessage(f3)}>{f3}</p>
             </div>
         );
     };

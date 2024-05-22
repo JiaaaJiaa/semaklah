@@ -12,6 +12,7 @@ const feedbackRoutes = require('./routes/feedback'); // Import the feedback rout
 const pythoncodeRoutes = require('./routes/pythoncode'); // Import the pythoncode route
 const gradingrubricRoutes = require('./routes/gradingrubric'); // Import the grading route
 const gradingRoutes = require('./routes/grading'); // Import the grading route
+const feedbackgenerationRoutes = require('./routes/feedback-generation'); // Import the feedback route
 const app = express();
 
 // Middleware
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 // app.use('/InsHomepage',instRoutes);
 // Routes
+app.use('/api/feedbackgeneration',feedbackgenerationRoutes); // This will use the feedback route when the path is '/api/feedback'
 app.use('/api/grading',gradingRoutes); // This will use the grading route when the path is '/api/grading'
 app.use('/api/gradingrubric',gradingrubricRoutes); // This will use the grading route when the path is '/api/grading'
 app.use('/api/pythoncode',pythoncodeRoutes); // This will use the pythoncode route when the path is '/api/pythoncode'
