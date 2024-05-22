@@ -57,7 +57,7 @@ const FeedbackPage = () => {
 
     return ( 
         <div className="flex p-20">
-            <div className="pt-20 fixed top-0 left-0 h-full w-64 bg-cyan-50 drop-shadow-md p-4">
+            <div className="pt-20 fixed top-0 left-0 h-full w-75 bg-cyan-50 drop-shadow-md p-4 overflow-y-auto">
                 
             <h2 className="font-bold text-xl mb-4 border-b border-gray-200 pb-2">Submission Info:</h2>
             <div className="mb-4">
@@ -88,7 +88,7 @@ const FeedbackPage = () => {
             </div>
             </div>
             <div className="flex-1 ml-64 pt-5">
-        
+    
                 <div>
                     <ShowPDF fileURL={fileURL} sub_id={id} />
                 </div>
