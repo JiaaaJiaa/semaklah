@@ -60,13 +60,6 @@ const StudAssignmentDetails = () => {
         }
       }, [assignment.file]);
 
-    //   console.log(stud_id)
-    //   console.log(assignment.classroom_id)
-
-    // useEffect(() => {
-    //     console.log("Enrol IDs:", enrol_id);
-    // }, [enrol_id]);
-
    // Fetch enrol id
     useEffect(() => {
         const fetchEnrolId = async () => {
@@ -98,7 +91,7 @@ const StudAssignmentDetails = () => {
             <div className="pb-10">
                     <button 
                     onClick={handleBack} 
-                    className="mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
                     Back
                 </button>
                 
@@ -122,12 +115,12 @@ const StudAssignmentDetails = () => {
                         <p className="pt-2 text-xl font-semibold text-gray-800">
                             Instruction
                         </p>
-                        <a href={`https://aypezrkfwwhjkbtreitl.supabase.co/storage/v1/object/public/assignment/${assignment.file}`} download
+                        {/* <a href={`https://aypezrkfwwhjkbtreitl.supabase.co/storage/v1/object/public/assignment/${assignment.file}`} download
                             className="px-2 pt-2">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded-3xl">
                                 Download File
                             </button>
-                        </a>
+                        </a> */}
                     </div>
 
                     <p className="pt-2 text-md text-gray-800">
@@ -136,8 +129,13 @@ const StudAssignmentDetails = () => {
                 </div>
                     {/* Link to the submission page */}
                     <div className="pt-5">
-                        <Link to={`/studsubmission/${enrol_id}/${id}`} className="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                        <Link to={`/studsubmission/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
                             Add Submissions
+                        </Link>
+                    </div>
+                    <div className="pt-5">
+                        <Link to={`/view-feedback/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                            View Feedback
                         </Link>
                     </div>
             </div>

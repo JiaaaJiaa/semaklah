@@ -8,8 +8,6 @@ const { spawn } = require('child_process');
 // Import the 'fs' module
 const fs = require('fs');
 
-
-
 // Get all feedbacks
 router.post('/', async (req, res) => {
     const {assign_id, specific_sentence} = req.body;

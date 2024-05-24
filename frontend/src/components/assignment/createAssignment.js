@@ -45,7 +45,7 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
     const handleFileChange = async (e) => {
         // Get the file from the event object
         const file = e.target.files[0];
-        console.log(file.name);
+        // console.log(file.name);
     
         // Upload the file
         const filePath = `assignments/${Date.now()}-${file.name}`;

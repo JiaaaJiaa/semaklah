@@ -43,14 +43,14 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                 <td className="border px-4 py-2">{stud.student.stud_id}</td>
                                 <td className="border px-4 py-2">
                                     {submission && submission.data && submission.data[0] ? (
-                                        <button className="bg-blue-500 w-32 text-xs hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                                        <button className="bg-blue-500 w-32 text-xs hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
                                             <Link to={`/feedback/${submission.data[0].sub_id}`}>
                                                 Grading
                                             </Link>
                                         </button>
 
                                     ) : (
-                                        <button disabled className="bg-blue-500 w-32 text-xs text-white font-bold py-2 px-4 rounded-3xl opacity-50 cursor-not-allowed">
+                                        <button disabled className="bg-cyan-500 w-32 text-xs text-white font-bold py-2 px-4 rounded-3xl opacity-50 cursor-not-allowed">
                                             Not Submitted
                                         </button>
                                     )}

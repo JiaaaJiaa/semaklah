@@ -17,6 +17,7 @@ const ViewSubmission = () => {
     const [loading, setLoading] = useState(true);
     const [classroomId, setClassroomId] = useState(null); // [classroomId, setClassroomId
     const [submissionData, setSubmissionData] = useState([]);
+    const [isReleased, setIsReleased] = useState(false);
 
     const handleBack = () => {
         navigate(-1);
@@ -28,6 +29,7 @@ const ViewSubmission = () => {
             .then(response => response.json())
             .then(data => {
                 setAssignment(data);
+                setIsReleased(data.is_released);
 
                 // Get classroom id from assignment id
                 // Get list of student with their enrol id
@@ -65,14 +67,35 @@ const ViewSubmission = () => {
             .catch(error => console.error(error));
 
     }, [id, students]);
-    
 
-    
+    const handleRelease = () => {
+        // console.log("Toggle release of all submissions");
+        // console.log(isReleased)
+        // update the is_released column in the assignment table
+        fetch(`/api/assignment/release/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({is_released: !isReleased})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.error) {
+                console.error("Error:", data.error);
+            } else {
+                // Update the state to reflect the new value
+                setIsReleased(!isReleased);
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+    }
+
     // from Assignment id, get classroom id, get list of student with their enrol id
     // compare the enrol id with the submission table, if the enrol id is not in the submission table, means the student has not submitted
     // if the enrol id is in the submission table, get the submission id, get the submission file
-
-
 
     if (!loading && !assignment && !students) {
         return <div><Loading /></div>;
@@ -83,7 +106,7 @@ const ViewSubmission = () => {
             <div className="pb-10">
                 <button 
                     onClick={handleBack} 
-                    className="mb-10 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
                     Back
                 </button>
                 
@@ -99,10 +122,17 @@ const ViewSubmission = () => {
             </div>
 
             <div className="mb-5 bg-white shadow overflow-hidden sm:rounded-lg p-10">
-                <p className="text-xl font-semibold text-gray-800">
-                    Submission List
-                </p>
-            
+                <div className="flex justify-between items-center">
+                    <p className="text-xl font-semibold text-gray-800">
+                        Submission List
+                    </p>
+                    <button 
+                        onClick={handleRelease} 
+                        className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
+                        Release Submission
+                    </button>
+                </div>
+
                 <StudSubmissionList students={students} submissionData={submissionData}/>
             </div>
            

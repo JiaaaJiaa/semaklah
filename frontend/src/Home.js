@@ -7,11 +7,13 @@ import CourseDetails from './pages/Instructor/CourseDetails';
 import EnrolledCourseDetails from './pages/Student/EnrolledCourseDetails';
 import AssignmentDetails from './pages/Instructor/AssignmentDetails';
 import ViewSubmission from './pages/Instructor/ViewSubmission';
+
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 //For Student page
 import StudAssignmentDetails from './pages/Student/StudAssignmentDetails';
 import StudSubmission from './pages/Student/StudSubmission';
+import StudViewFeedback from './pages/Student/StudViewFeedback';
 // import { useAuthContext } from './hooks/useAuthContext';
 
 //Submission
@@ -66,6 +68,10 @@ const Home = () => {
         <Route
             path="/studsubmission/:enrol_id/:assign_id"
             element={token? <StudSubmission />: <Navigate to="/" />}
+        />
+        <Route
+            path="/view-feedback/:enrol_id/:assign_id"
+            element={token? <StudViewFeedback />: <Navigate to="/" />}
         />
         <Route
             path="/feedback/:id"

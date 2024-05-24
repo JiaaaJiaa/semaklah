@@ -10,6 +10,7 @@ import DisplayLexical from '../../components/feedback/displayLexical';
 
 const FeedbackPage = () => {
 
+    // Submission id
     const {id} = useParams();
     const navigate = useNavigate();
     const [submission, setSubmission] = useState([]);
@@ -84,7 +85,7 @@ const FeedbackPage = () => {
             <div>
                 <button 
                     onClick={handleBack} 
-                    className="w-full mb-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl ">
+                    className="w-full mb-10 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl ">
                     Back
                 </button>
             </div>

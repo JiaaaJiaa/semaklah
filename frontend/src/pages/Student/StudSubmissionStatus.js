@@ -6,6 +6,8 @@ const StudSubmissionStatus = ({assignment, submission}) => {
     const deadline = new Date(assignment.end_date);
     const [loading, setLoading] = useState(false);
 
+    console.log('submission', submission);
+
     useEffect(() => {
         const interval = setInterval(() => {
             const now = new Date();
@@ -49,7 +51,7 @@ const StudSubmissionStatus = ({assignment, submission}) => {
                         <td className="border px-4 py-2">{submission.file ? new Date(submission.created_at).toLocaleDateString('en-GB', { hour: '2-digit', minute: '2-digit', second:'2-digit', hour12: true }) : '-'}</td>                    </tr>
                     <tr>
                         <th className="border px-4 py-2">Grading Status</th>
-                        <td className="border px-4 py-2">-</td>
+                        <td className="border px-4 py-2">{assignment.is_released ? 'Graded' : 'Not Graded'}</td>
                     </tr>
                 </tbody>
             </table>
