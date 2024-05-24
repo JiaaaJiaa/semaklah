@@ -3,6 +3,8 @@ import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import type { ToolbarProps, ToolbarSlot, TransformToolbarSlot } from '@react-pdf-viewer/toolbar';
+
 
 import {
     highlightPlugin,
@@ -44,9 +46,64 @@ interface ShowPDFProps {
 
 const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
 
+    //=====================================================================
+    const transform: TransformToolbarSlot = (slot: ToolbarSlot) => ({
+        ...slot,
+        GoToNextPage: () => <></>,
+        GoToNextPageMenuItem: () => <></>,
+        GoToPreviousPage: () => <></>,
+        GoToPreviousPageMenuItem: () => <></>,
+        GoToLastPage: () => <></>,
+        GoToLastPageMenuItem: () => <></>,
+        GoToFirstPage: () => <></>,
+        GoToFirstPageMenuItem: () => <></>,
+        Download: () => <></>,
+        DownloadMenuItem: () => <></>,
+        EnterFullScreen: () => <></>,
+        EnterFullScreenMenuItem: () => <></>,
+        Open: () => <></>,
+        OpenMenuItem: () => <></>,
+        Print: () => <></>,
+        PrintMenuItem: () => <></>, 
+        Rotate: () => <></>,
+        RotateBackwardMenuItem: () => <></>,
+        RotateForwardMenuItem: () => <></>,
+        ShowProperties: () => <></>,
+        ShowPropertiesMenuItem: () => <></>,
+        SwitchScrollMode: () => <></>,
+        SwitchScrollModeMenuItem: () => <></>,
+        SwitchSelectionMode: () => <></>,
+        SwitchSelectionModeMenuItem: () => <></>,
+        SwitchTheme: () => <></>,
+        SwitchThemeMenuItem: () => <></>,
+        CurrentPageInput: () => <></>,
+        CurrentPage: () => <></>,
+        CurrentPagePanel: () => <></>,
+        CurrentPageInputPopover: () => <></>,
+        CurrentPageInputMenuItem: () => <></>,
+        MoreActionsPopover: () => <></>,
+        MoreActionsPopoverMenuItem: () => <></>,          
+        NumberOfPages: () => <></>,
+        NumberOfPagesMenuItem: () => <></>,
+        ShowSearchPopover: () => <></>,
+        ShowSearchPopoverMenuItem: () => <></>,
+    });
+
+    const renderToolbar = (Toolbar: (props: ToolbarProps) => React.ReactElement) => (
+        <Toolbar>{renderDefaultToolbar(transform)}</Toolbar>
+    );
         
     // Create an instance of the default layout plugin
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    const defaultLayoutPluginInstance = defaultLayoutPlugin({
+        sidebarTabs: (defaultTabs) => [ ],
+        renderToolbar,
+    });
+
+    const { renderDefaultToolbar } = defaultLayoutPluginInstance.toolbarPluginInstance;
+
+    //=====================================================================
+    // State variables
+    //=====================================================================
 
     const [message, setMessage] = React.useState('');
     const [notes, setNotes] = React.useState<Note[]>([]);
@@ -58,14 +115,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
     const [f3, setF3] = React.useState<string>("");
 
 
-    // useEffect(() => {
-    //     console.log("Notes changed", notes);
-    // }, [notes]);
-
-    // const noteEles: Map<number, HTMLElement> = new Map();
-
-    
-
+    //=====================================================================
     useEffect(() => {
         fetchNotesFromDatabase(sub_id)
             .then((notes) => {
