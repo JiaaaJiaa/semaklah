@@ -128,8 +128,8 @@ const ViewSubmission = () => {
                     </p>
                     <button 
                         onClick={handleRelease} 
-                        className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
-                        Release Submission
+                        className={`mb-10 mt-5 text-white font-bold py-2 px-4 rounded-3xl ${isReleased ? 'bg-red-500 hover:bg-red-700' : 'bg-cyan-500 hover:bg-cyan-700'}`}>
+                        {isReleased ? 'Revert Submission' : 'Release Submission'}
                     </button>
                 </div>
 
