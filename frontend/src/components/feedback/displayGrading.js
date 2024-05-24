@@ -151,7 +151,7 @@ const DisplayGrading = ({submission}) => {
                 </p>
             }
          
-            <button onClick={handleSaveScore} className="w-full mb-4 mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl ">Save Grading</button>
+            <button onClick={handleSaveScore} className="w-full mb-4 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl ">Save Grading</button>
         </div>
      );
 }

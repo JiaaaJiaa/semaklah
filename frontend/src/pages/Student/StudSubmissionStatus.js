@@ -6,7 +6,7 @@ const StudSubmissionStatus = ({assignment, submission}) => {
     const deadline = new Date(assignment.end_date);
     const [loading, setLoading] = useState(false);
 
-    console.log('submission', submission);
+    // console.log('submission', submission);
 
     useEffect(() => {
         const interval = setInterval(() => {

@@ -81,7 +81,7 @@ function GradingRubric({assignment}) {
 
     return (
         <div className="p-6">
-            <button className="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-2 px-4 rounded-3xl" onClick={addRow}>Add Row</button>
+            <button className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl" onClick={addRow}>Add Row</button>
             <table className="table-auto w-full mt-4">
                 <thead>
                     <tr>

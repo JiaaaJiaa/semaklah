@@ -130,7 +130,7 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
                     <span>End Date:</span>
                     <input type="datetime-local" name="end_date" value={form.end_date} onChange={handleChange} className="px-3 py-2 border rounded" />
                 </label>
-                <input type="submit" value="Update Assignment" className="px-3 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600" />
+                <input type="submit" value="Update Assignment" className="px-3 py-2 bg-cyan-500 text-white rounded cursor-pointer hover:bg-cyan-600" />
             </form>
         </div>
      );
