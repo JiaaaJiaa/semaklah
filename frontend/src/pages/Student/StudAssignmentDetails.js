@@ -134,9 +134,11 @@ const StudAssignmentDetails = () => {
                         </Link>
                     </div>
                     <div className="pt-5">
-                        <Link to={`/view-feedback/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
-                            View Feedback
-                        </Link>
+                        {assignment.is_released && (
+                            <Link to={`/view-feedback/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
+                                View Feedback
+                            </Link>
+                        )}
                     </div>
             </div>
 

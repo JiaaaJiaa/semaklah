@@ -37,22 +37,31 @@ const ShowStudGrade = ({submission,assign_id}) => {
         }
 
     }, [submission,assign_id]);
- 
 
-    return ( 
-        <div>
-            {rubrics.map((rubric, index) => (
-                <div key={index} className="p-4 mb-2 border border-gray-300 divide-x divide-gray-300 rounded-lg flex justify-left">
-                    <p className="text-lg flex-none w-14 font-semibold">
-                        Q{rubric.question}:
-                    </p>
-                    <p className="text-lg font-semibold pl-4 text-left">
-                        {rubric.mark_earned} / {rubric.mark_possible}
-                    </p>
-                </div>
-            ))}
-        </div>
-     );
+    // Calculate total mark earned and total mark possible
+    const totalMarkEarned = rubrics.reduce((sum, rubric) => sum + rubric.mark_earned, 0);
+    const totalMarkPossible = rubrics.reduce((sum, rubric) => sum + rubric.mark_possible, 0);
+
+    // Calculate percentage
+    const percentage = totalMarkEarned / totalMarkPossible * 100;
+
+return (
+    <div>
+        {rubrics.map((rubric, index) => (
+            <div key={index} className="p-4 mb-2 border border-gray-300 divide-x divide-gray-300 rounded-lg flex justify-left">
+                <p className="text-lg flex-none w-14 font-semibold">
+                    Q{rubric.question}:
+                </p>
+                <p className="text-lg font-semibold pl-4 text-left">
+                    {rubric.mark_earned} / {rubric.mark_possible}
+                </p>
+            </div>
+        ))}
+        <p className="text-lg font-semibold pl-4 text-left">
+            Total: {totalMarkEarned} / {totalMarkPossible} ({percentage.toFixed(2)}%)
+        </p>
+    </div>
+);
 }
  
 export default ShowStudGrade;
