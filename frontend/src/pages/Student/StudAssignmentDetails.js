@@ -91,7 +91,7 @@ const StudAssignmentDetails = () => {
             <div className="pb-10">
                     <button 
                     onClick={handleBack} 
-                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl-3xl">
+                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
                     Back
                 </button>
                 

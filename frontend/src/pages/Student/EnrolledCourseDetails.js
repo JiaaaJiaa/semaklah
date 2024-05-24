@@ -65,7 +65,7 @@ const EnrolledCourseDetails = () => {
                     <div key={index} className="mt-3 p-4 border rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg">
                         <Link to={`/studassignment/${assignment.assign_id}`}>
                             <div>
-                                <h2 className="hover:text-gray-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
+                                <h2 className="hover:text-cyan-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
                             </div>
                         </Link>
                         <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>

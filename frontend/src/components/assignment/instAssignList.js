@@ -88,42 +88,46 @@ const InstAssignList = ({classroomId}) => {
                             <div className="flex justify-between items-start">
                                 <Link to={`/assignment/${assignment.assign_id}`}>
                                     <div>
-                                        <h2 className="hover:text-gray-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
+                                        <h2 className="hover:text-cyan-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
                                     </div>
                                 </Link>
-                                <div className="flex ">
-                                    <Link to={`/viewsubmission/${assignment.assign_id}`}>
+                                <div className="flex flex-col">
+                                    <div className="flex">
                                         <button 
-                                            className="top-2 right-2 text-xs font-bold py-1 px-2 border rounded flex items-center hover:shadow-sm"
-                                            // onClick={() => handleUpdateClick(assignment)}
+                                            className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
+                                            onClick={() => handleGradingClick(assignment)}
                                         >
-                                            <p>View Submission</p>
-                                        </button>                                     
-                                    </Link>
-                                  
-                                    <button 
-                                        className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
-                                        onClick={() => handleGradingClick(assignment)}
-                                    >
-                                        <AcademicCapIcon className="h-5 w-5 hover:text-gray-950 text-gray-500" />
-                                    </button>
-                                    <button 
-                                        className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
-                                        onClick={() => handleUpdateClick(assignment)}
-                                    >
-                                        <PencilAltIcon className="h-5 w-5 hover:text-gray-950 text-gray-500" />
-                                    </button>
-                                    <button onClick={() => {
-                                        if (window.confirm('Are you sure you want to delete this item?')) {
-                                            handleDelete(assignment.assign_id);
-                                        }
-                                    }}>
-                                        <TrashIcon className="h-5 w-5 hover:text-red-700 text-gray-500" />
-                                    </button>
+                                            <AcademicCapIcon className="h-6 w-6 hover:text-cyan-950 text-gray-500" />
+                                        </button>
+                                        <button 
+                                            className="top-2 right-2 font-bold py-1 px-2 rounded flex items-center"
+                                            onClick={() => handleUpdateClick(assignment)}
+                                        >
+                                            <PencilAltIcon className="h-6 w-6 hover:text-cyan-950 text-gray-500" />
+                                        </button>
+                                        <button onClick={() => {
+                                            if (window.confirm('Are you sure you want to delete this item?')) {
+                                                handleDelete(assignment.assign_id);
+                                            }
+                                        }}>
+                                            <TrashIcon className="h-6 w-6 hover:text-red-500 text-gray-500" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
-                            <p className="text-gray-600">End date: {new Date(assignment.end_date).toLocaleDateString()}</p>
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
+                                    <p className="text-gray-600">End date: {new Date(assignment.end_date).toLocaleDateString()}</p>
+                                </div>
+                                <Link to={`/viewsubmission/${assignment.assign_id}`}>
+                                    <button 
+                                        className="top-2 right-2 text-xs text-cyan-700 font-bold py-1 px-2 border border-cyan-700 rounded-3xl flex items-center hover:shadow-sm hover:bg-cyan-500 hover:border-cyan-500 hover:text-white"
+                                    >
+                                        <p>View Submission</p>
+                                    </button>                                     
+                                </Link>
+                            </div>
 
                         </div>
 
@@ -131,27 +135,27 @@ const InstAssignList = ({classroomId}) => {
             </div>
 
         {/* Create Classroom */}
-            {showCreate && (
-                <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-                        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
-                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                    Create Assignment
-                                </h3>
-                                <CreateAssignment classroomId={classroomId} setShowCreate={setShowCreate} setAssignment={setAssignment}/>
-                            </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowCreate(false)}>
-                                    Close
-                                </button>
-                            </div>
+        {showCreate && (
+            <div className="fixed z-10 inset-0 overflow-y-auto mt-16" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                    <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
+                        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                Create Assignment
+                            </h3>
+                            <CreateAssignment classroomId={classroomId} setShowCreate={setShowCreate} setAssignment={setAssignment}/>
+                        </div>
+                        <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowCreate(false)}>
+                                Close
+                            </button>
                         </div>
                     </div>
                 </div>
-            )}
+            </div>
+        )}
 
         {/* Update Classroom */}
         {showUpdate && (

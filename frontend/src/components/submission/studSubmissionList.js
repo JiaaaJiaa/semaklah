@@ -21,13 +21,13 @@ const StudSubmissionList = ({ students, submissionData}) => {
             <table className="table w-full text-left">
                 <tbody>
                     <tr>
-                        <th className="border px-4 py-2">First Name</th>
-                        <th className="border px-4 py-2">Last Name</th>
-                        <th className="border px-4 py-2">Email Address</th>
-                        <th className="border px-4 py-2">Student ID</th>
-                        <th className="border px-4 py-2">Grading</th>
-                        <th className="border px-4 py-2">Grade</th>
-                        <th className="border px-4 py-2">Download</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center">First Name</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center">Last Name</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center">Email Address</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center">Student ID</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center">Grading</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center">Grade</th>
+                        <th className="bg-cyan-50 border px-4 py-2 text-center w-32">Download</th>
                     </tr>
 
                     {students.map((stud, index) => {
@@ -40,12 +40,15 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                 <td className="border px-4 py-2">{stud.student.stud_fname}</td>
                                 <td className="border px-4 py-2">{stud.student.stud_lname}</td>
                                 <td className="border px-4 py-2">{stud.student.stud_email}</td>
-                                <td className="border px-4 py-2">{stud.student.stud_id}</td>
-                                <td className="border px-4 py-2">
+                                <td className="border px-4 py-2 text-center">{stud.student.stud_id}</td>
+                                <td className="border px-4 py-2 text-center">
                                     {submission && submission.data && submission.data[0] ? (
-                                        <button className="bg-cyan-500 w-32 text-xs hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
-                                            <Link to={`/feedback/${submission.data[0].sub_id}`}>
-                                                Grading
+                                        <button className={`w-32 text-xs hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl ${submission.data[0].mark !== null ? 'bg-cyan-500' : 'bg-blue-500'}`}>
+                                            <Link 
+                                                to={`/feedback/${submission.data[0].sub_id}`} 
+                                                className={`font-bold py-2 px-4 rounded `}
+                                            >
+                                                {submission.data[0].mark !== null ? 'Graded' : 'Grading'}
                                             </Link>
                                         </button>
 
@@ -55,7 +58,7 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                         </button>
                                     )}
                                 </td>
-                                <td className="border px-4 py-2">
+                                <td className="border px-4 py-2  text-center">
                                     {/* Display marks here */}
                                     {submission && submission.data && submission.data[0] && submission.data[0].mark !== null ? (
                                         <p>{submission.data[0].mark} / 100</p>
@@ -63,7 +66,7 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                         '-'
                                     )}
                                 </td>
-                                <td className="border px-4 py-2">
+                                <td className="border px-4 py-2  text-center">
                                     {submission ? (
                                         submission.data && submission.data[0] && submission.data[0].file ? (
                                             <button onClick={() => {

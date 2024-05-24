@@ -69,7 +69,7 @@ const Enrolledstudentlist = ({classroomId,course}) => {
                             <th className="bg-cyan-50 border px-4 py-2">Last Name</th>
                             <th className="bg-cyan-50 border px-4 py-2">Email</th>
                             <th className="bg-cyan-50 border px-4 py-2">Student ID</th>
-                            <th className="bg-cyan-50 border px-4 py-2">Actions</th>
+                            <th className="bg-cyan-50 border px-4 py-2 w-28">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,14 +78,14 @@ const Enrolledstudentlist = ({classroomId,course}) => {
                                 <td className="border px-4 py-2">{student.student && student.student.stud_fname}</td>
                                 <td className="border px-4 py-2">{student.student && student.student.stud_lname}</td>
                                 <td className="border px-4 py-2">{student.student && student.student.stud_email}</td>
-                                <td className="border px-4 py-2">{student.student && student.student.stud_id}</td>
-                                <td className="border px-4 py-2">
+                                <td className="border px-4 py-2 text-center">{student.student && student.student.stud_id}</td>
+                                <td className="border px-4 py-2 text-center">
                                     <button onClick={() => {
                                         if (window.confirm('Are you sure you want to delete this student?')) {
                                             handleDelete(student);
                                         }
                                     }}>
-                                        <TrashIcon className="h-5 w-5 text-gray-500 hover:text-red-700 ml-4" />
+                                        <TrashIcon className="h-5 w-5 text-gray-500 hover:text-red-500" />
                                     </button>
                                 </td>
                             </tr>

@@ -435,7 +435,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                                         <button onClick={(e) => { e.stopPropagation(); deleteNote(note.id, sub_id); }} style={{ padding: '5px', color: 'red' }}>
                                             <FontAwesomeIcon icon={faTrash} /> 
                                         </button>
-                                        <button onClick={(e) => { e.stopPropagation(); editNote(note.id, sub_id); }} style={{ padding: '5px', color: 'cyan' }}>
+                                        <button onClick={(e) => { e.stopPropagation(); editNote(note.id, sub_id); }} style={{ padding: '5px', color: 'blue' }}>
                                             <FontAwesomeIcon icon={faEdit} /> 
                                         </button>                                
                                     </div>
@@ -446,7 +446,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                     
                     <div>                        
                         <button 
-                            className="flex items-center justify-center w-1/2 mx-auto mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl-3xl"
+                            className="flex items-center justify-center w-1/2 mx-auto mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl"
                             onClick={() => saveNotesToDatabase(notes, sub_id)}
                         >
                             Save Comments
