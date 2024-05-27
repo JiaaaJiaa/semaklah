@@ -7,7 +7,7 @@ function GradingRubric({assignment}) {
     const [totalMarks, setTotalMarks] = useState(0);
     useEffect(() => {
         if (assignment && assignment.assign_id) {
-            console.log('Assignment:', assignment.assign_id);
+            // console.log('Assignment:', assignment.assign_id);
             fetch(`/api/gradingrubric/${assignment.assign_id}`, {
                 method: 'GET',
                 headers: {
