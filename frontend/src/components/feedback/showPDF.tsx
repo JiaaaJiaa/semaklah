@@ -263,9 +263,44 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                 props.cancel();
             }
         };
+        
+        const noteHeight = 300; // This should be the actual height of your note
+        const pageHeight = document.documentElement.clientHeight;
+
+        // Convert selection region top and height to pixels
+        const selectionTopPixels = (props.selectionRegion.top / 100) * pageHeight;
+        const selectionHeightPixels = (props.selectionRegion.height / 100) * pageHeight;
+
+        // Calculate the note's position in pixels
+        const noteTopPositionPixels = selectionTopPixels + selectionHeightPixels;
+
+        // Convert note height to a percentage of the page height
+        const noteHeightPercent = (noteHeight / pageHeight) * 100;
+
+        // Check if the note will exceed the page
+        let topPosition;
+        if (noteTopPositionPixels + noteHeight > pageHeight) {
+            // Adjust the top position of the note to appear above the text
+            topPosition = props.selectionRegion.top - noteHeightPercent;
+        } else {
+            // Convert the note's position back to a percentage of the page height
+            topPosition = (noteTopPositionPixels / pageHeight) * 100;
+        }
+
+        // Check if the note will exceed the page
+        let positionStyle;
+        if (noteTopPositionPixels + noteHeight > pageHeight) {
+            // Adjust the bottom position of the note to appear above the first line of the text
+            const bottomPosition = 100 - (props.selectionRegion.top - props.selectionRegion.height);
+            positionStyle = { bottom: `${bottomPosition}%` };
+        } else {
+            // Use the original top position
+            positionStyle = { top: `${topPosition}%` };
+        }
 
         return (
             <div
+                id="note"
                 style={{
                     background: '#fff',
                     border: '1px solid rgba(0, 0, 0, .3)',
@@ -275,8 +310,8 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                     minWidth: '150px',  // Minimum width
                     maxWidth: '520px',  // Maximum width
                     left: `${props.selectionRegion.left}%`,
-                    top: `${props.selectionRegion.top + props.selectionRegion.height}%`,
                     zIndex: 9999,
+                    ...positionStyle,
                 }}
             >
                 <div>
@@ -284,10 +319,12 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                         rows={5}
                         style={{
                             border: '1px solid rgba(0, 0, 0, .3)',
-                            minHeight: '50px',  // Minimum height
-                            maxHeight: '200px', // Maximum height
-                            minWidth: '100px',  // Minimum width
-                            maxWidth: '500px',  // Maximum width
+                            height: '200px',
+                            width:'500px',
+                            // minHeight: '50px',  // Minimum height
+                            // maxHeight: '200px', // Maximum height
+                            // minWidth: '100px',  // Minimum width
+                            // maxWidth: '500px',  // Maximum width
                             resize: 'both'      // Allow the user to resize both horizontally and vertically
                         }}
                         value={message}
@@ -476,6 +513,12 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                                             value={note.content}
                                             onChange={(e) => handleNoteContentChange(note.id, e.target.value)}
                                             onBlur={() => finishEditingNote(note.id,sub_id)}
+                                            style={{
+                                                width: '100%', // Full width
+                                                height: '100%', // Full height
+                                                padding: '10px', // Some padding
+                                                boxSizing: 'border-box', // So padding doesn't affect total width/height
+                                            }}
                                         />
                                     ) : (
                                         note.content
