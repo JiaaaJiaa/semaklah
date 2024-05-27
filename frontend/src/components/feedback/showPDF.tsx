@@ -186,16 +186,22 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
             throw new Error('Failed to generate feedback');
         }
         const data = await response.json();
-        if (data.sorted_feedback.length >= 1) {
-            setF1(data.sorted_feedback[0]);
-        }
-        
-        if (data.sorted_feedback.length >= 2) {
-            setF2(data.sorted_feedback[1]);
-        }
-        
-        if (data.sorted_feedback.length >= 3) {
-            setF3(data.sorted_feedback[2]);
+        if (data.message === 'Insufficient feedback') {
+            setF1('No feedback available');
+            setF2('');
+            setF3('');
+        } else {
+            if (data.sorted_feedback.length >= 1) {
+                setF1(data.sorted_feedback[0]);
+            }
+            
+            if (data.sorted_feedback.length >= 2) {
+                setF2(data.sorted_feedback[1]);
+            }
+            
+            if (data.sorted_feedback.length >= 3) {
+                setF3(data.sorted_feedback[2]);
+            }
         }
     }
 
