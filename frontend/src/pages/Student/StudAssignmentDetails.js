@@ -19,6 +19,8 @@ const StudAssignmentDetails = () => {
 
     const stud_id = user.user.user_metadata.id;
     const [enrol_id, setEnrolId] = useState(null);
+    const [fileURL, setFileURL] = useState(null);
+    const [submission, setSubmission] = useState([]);
 
 
     const handleBack = () => {
@@ -33,9 +35,6 @@ const StudAssignmentDetails = () => {
             .catch(error => console.error(error));
     
     },[id])
-
-    //Try fetching the PDF
-    const [fileURL, setFileURL] = useState(null);
 
     useEffect(() => {
         const fetchFile = async () => {
@@ -80,7 +79,28 @@ const StudAssignmentDetails = () => {
         }
     }, [stud_id, assignment.classroom_id]);
 
-    // Stuck here, trying to get enrol_id for submission purposes
+    // Check submission status
+    useEffect(() => {
+        const fetchSubmission = async () => {
+            const res = await fetch(`/api/submission/check/${id}/${enrol_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(res.ok) {
+                const data = await res.json();
+                setSubmission(data);
+                // console.log("Submision data", data)
+                // console.log("Assignment mark", assignment.mark)
+            }
+        }
+        if (id && enrol_id){
+            fetchSubmission();
+        }
+    }, [id, enrol_id]);
+
 
     if (!assignment) {
         return <div><Loading /></div>;
@@ -130,11 +150,11 @@ const StudAssignmentDetails = () => {
                     {/* Link to the submission page */}
                     <div className="pt-5">
                         <Link to={`/studsubmission/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
-                            Add Submissions
+                            Add Submission
                         </Link>
                     </div>
                     <div className="pt-5">
-                        {assignment.is_released && (
+                        {submission && assignment.is_released && assignment.mark && (
                             <Link to={`/view-feedback/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
                                 View Feedback
                             </Link>

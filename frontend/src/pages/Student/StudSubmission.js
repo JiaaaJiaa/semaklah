@@ -92,7 +92,7 @@ const StudSubmission = () => {
                         setFile('');
                         setSubmitted(false);
                         setSubmission([]);
-                        console.log('No file found');
+                        // console.log('No file found');
                     }
 
 
@@ -219,9 +219,9 @@ const StudSubmission = () => {
                 return;
             }
             
-            console.log('Data:', data);
+            // console.log('Data:', data);
             const url = URL.createObjectURL(data);
-            console.log('File URL:', url);
+            // console.log('File URL:', url);
             setFileURL(url);
         }
 
