@@ -46,22 +46,28 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
         // Get the file from the event object
         const file = e.target.files[0];
         // console.log(file.name);
-    
-        // Upload the file
-        const filePath = `assignments/${Date.now()}-${file.name}`;
-        console.log('File Path:', filePath);
-        let { data: uploadFile, error: uploadError } = await supabase.storage.from('assignment').upload(filePath, file);
-        if (uploadError) {
-            console.error('Error uploading file: ', uploadError);
-            setError('Error uploading file');
+
+        // Check if the file type is PDF
+        if (file.type !== 'application/pdf') {
+            alert('Please upload a PDF file');
             return;
-        }
-        if (uploadFile) {
-            setForm(prevForm => ({
-                ...prevForm,
-                file: filePath,
-                classroom_id: classroomId,
-            }));
+        }else{
+            // Upload the file
+            const filePath = `assignments/${Date.now()}-${file.name}`;
+            // console.log('File Path:', filePath);
+            let { data: uploadFile, error: uploadError } = await supabase.storage.from('assignment').upload(filePath, file);
+            if (uploadError) {
+                console.error('Error uploading file: ', uploadError);
+                setError('Error uploading file');
+                return;
+            }
+            if (uploadFile) {
+                setForm(prevForm => ({
+                    ...prevForm,
+                    file: filePath,
+                    classroom_id: classroomId,
+                }));
+            }
         }
     };
 
@@ -73,6 +79,11 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
         // console.log(form.title, form.desc, form.instruc, form.file, form.start_date, form.end_date, form.classroom_id);
         if (!form.title || !form.desc || !form.instruc || !form.file || !form.start_date || !form.end_date || !form.classroom_id) {
             setError('Please fill in all fields');
+            alert('Please fill in all fields');
+            return;
+        }else if(form.file === ' '){    
+            setError('Please upload a valid file');
+            alert('Please upload a valid file');
             return;
         }
 

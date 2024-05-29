@@ -130,7 +130,6 @@ const StudSubmission = () => {
             disabled>Delete</button>
     );
     
-    
     const SubmitButton = () => (
         <button 
             className=" mt-5 text-sm bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl"
@@ -142,9 +141,6 @@ const StudSubmission = () => {
             className="mt-5 text-sm bg-gray-700 text-white font-bold py-2 px-4 rounded-3xl"
             disabled>Submit</button>
     );
-    // useEffect(() => {
-    //     console.log('Submission from useeffect:', submission);
-    // }, [submission]);
 
     // Handle Actions 
 
@@ -157,7 +153,7 @@ const StudSubmission = () => {
             setError('Please upload a file');
             alert('Please upload a file');
             return;
-        }
+        } 
 
         // Perform Assignment submission here
         const res= await fetch(`/api/submission/`, {
@@ -260,20 +256,26 @@ const StudSubmission = () => {
         setUpload(true);
         const file = e.target.files[0];
         // console.log(file.name);
-    
-        // Upload the file
-        const filePath = `submissions/${Date.now()}-${file.name}`;
-        // console.log('File Path:', filePath);
-        let { data: uploadFile, error: uploadError } = await supabase.storage.from('assignment').upload(filePath, file);
-        if (uploadError) {
-            console.error('Error uploading file: ', uploadError);
-            setError('Error uploading file');
+
+        if(file.type !== 'application/pdf'){
+            alert('Please upload a PDF file');
+            setFile(null);
             return;
+        }else{
+            // Upload the file
+            const filePath = `submissions/${Date.now()}-${file.name}`;
+            // console.log('File Path:', filePath);
+            let { data: uploadFile, error: uploadError } = await supabase.storage.from('assignment').upload(filePath, file);
+            if (uploadError) {
+                console.error('Error uploading file: ', uploadError);
+                setError('Error uploading file');
+                return;
+            }
+            if (uploadFile) {
+                setFile(filePath);  
+            }
+            setUpload(false);
         }
-        if (uploadFile) {
-            setFile(filePath);  
-        }
-        setUpload(false);
     };
 
 
@@ -328,9 +330,7 @@ const StudSubmission = () => {
                     
                 </div>  
                 <div className="flex justify-center">
-                    {canDelete ? <DeleteButton /> : <DisabledDeleteButton />}
-                    
-                    
+                    {canDelete ? <DeleteButton /> : <DisabledDeleteButton />}     
                     {canSubmit && !upload ? <SubmitButton /> : <DisabledSubmitButton />}
                 </div>
                
