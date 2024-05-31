@@ -548,7 +548,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                             className="flex items-center justify-center w-1/2 mx-auto mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl"
                             onClick={() => saveNotesToDatabase(notes, sub_id)}
                         >
-                            Save Comments
+                            Save Feedbacks
                         </button>
                     </div>
                 </div>

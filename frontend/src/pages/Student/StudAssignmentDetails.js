@@ -36,6 +36,8 @@ const StudAssignmentDetails = () => {
     
     },[id])
 
+
+
     useEffect(() => {
         const fetchFile = async () => {
           if (!assignment.file) {
@@ -82,7 +84,7 @@ const StudAssignmentDetails = () => {
     // Check submission status
     useEffect(() => {
         const fetchSubmission = async () => {
-            const res = await fetch(`/api/submission/check/${id}/${enrol_id}`, {
+            const res = await fetch(`/api/submission/${id}/${enrol_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -90,10 +92,11 @@ const StudAssignmentDetails = () => {
             });
 
             if(res.ok) {
-                const data = await res.json();
-                setSubmission(data);
-                // console.log("Submision data", data)
-                // console.log("Assignment mark", assignment.mark)
+                const text = await res.text();
+                if (text.length) {
+                    const data = JSON.parse(text);
+                    setSubmission(data);
+                }
             }
         }
         if (id && enrol_id){
@@ -154,7 +157,7 @@ const StudAssignmentDetails = () => {
                         </Link>
                     </div>
                     <div className="pt-5">
-                        {submission && assignment.is_released && assignment.mark && (
+                        {submission && assignment.is_released && submission.mark && (
                             <Link to={`/view-feedback/${enrol_id}/${id}`} className="bg-cyan-500 hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl">
                                 View Feedback
                             </Link>
