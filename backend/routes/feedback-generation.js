@@ -12,15 +12,15 @@ const fs = require('fs');
 router.post('/', async (req, res) => {
     const {assign_id, specific_sentence} = req.body;
 
-    console.log('Assign ID:', assign_id);
-    console.log('Specific Sentence:', specific_sentence);
+    // console.log('Assign ID:', assign_id);
+    // console.log('Specific Sentence:', specific_sentence);
 
     const { data: submissions, error: submissionsError } = await supabase
     .from('submission')
     .select('sub_id')
     .eq('assign_id', assign_id);
 
-    console.log('Submissions:', submissions);
+    // console.log('Submissions:', submissions);
 
     if (submissionsError) {
         console.error('Error:', submissionsError.message);
@@ -28,14 +28,14 @@ router.post('/', async (req, res) => {
     }
     const submissionIds = submissions.map(submission => submission.sub_id);
 
-    console.log('Submission IDs:', submissionIds);
+    // console.log('Submission IDs:', submissionIds);
 
     const { data: feedbacks, error: feedbacksError } = await supabase
         .from('feedbacktext')
         .select('feedback')
         .in('sub_id', submissionIds);
 
-    console.log('Feedbacks:', feedbacks);
+    // console.log('Feedbacks:', feedbacks);
 
     if (!feedbacks || feedbacks.length === 0 || feedbacks.every(feedback => feedback.feedback === null)) {
         console.log('checking');
