@@ -4,11 +4,13 @@ import supabase from '../../config/supabaseClient';
 
 
 const EnrolledCourseDetails = () => {
+    
+    //Classroom id
     const { id } = useParams();
     const [course, setCourse] = useState(null);
     const [assignments, setAssignments] = useState([]);
 
-    //console.log(id);
+    // console.log(id);
 
     const navigate = useNavigate();
 
@@ -43,6 +45,14 @@ const EnrolledCourseDetails = () => {
             .catch(error => console.error(error));
     }, [id]);
 
+    // classroom id --> assign_id 
+    // Need to get enrol_id
+    // If ongoing and have not submitted then red, if submitted then blue, if grade is available then green, if due date is passed and no submission then grey
+    // Case 1: Ongoing and not submitted --> with assign_id and enrol_id check if submission exists
+    // Case 2: Submitted --> with assign_id and enrol_id check if submission exists
+    // Case 3: isrelease == TRUE && Grade available --> with assign_id and enrol_id check if marks exists
+    // Case 4: Due date passed and no submission 
+
     if (!course) {
         return <div>Loading...</div>;
     }
@@ -62,7 +72,7 @@ const EnrolledCourseDetails = () => {
             <div className="mt-5 p-5 bg-white rounded shadow-sm">
                 <h3 className="text-2xl font-semibold text-gray-800">Assignments</h3>
                 {assignments.map((assignment, index) => (
-                    <div key={index} className="mt-3 p-4 border rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg">
+                    <div key={index} className={`mt-3 p-4 border-2 rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg ${assignment.is_released? 'border-cyan-500':'border-green-500'}`}>
                         <Link to={`/studassignment/${assignment.assign_id}`}>
                             <div>
                                 <h2 className="hover:text-cyan-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
