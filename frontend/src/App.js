@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Navbar from './components/navbar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Home from './Home';
@@ -6,6 +7,11 @@ import './style.css'
 // import ExampleComponent from './ExampleComponent';
 
 function App(){
+
+  useEffect(() => { // Add this block
+    document.title = 'SemakLah';
+  }, []);
+
 
   return(
     <Router>
