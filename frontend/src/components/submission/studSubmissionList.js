@@ -43,7 +43,7 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                 <td className="border px-4 py-2 text-center">{stud.student.stud_id}</td>
                                 <td className="border px-4 py-2 text-center">
                                     {submission && submission.data && submission.data[0] ? (
-                                        <button className={`w-32 text-xs hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl ${submission.data[0].mark !== null ? 'bg-cyan-500' : 'bg-blue-500'}`}>
+                                        <button className={`w-32 text-xs hover:bg-cyan-700 text-xs text-white font-bold py-2 px-4 rounded-3xl ${submission.data[0].mark !== null ? 'bg-cyan-500' : 'bg-red-600 hover:bg-red-700'}`}>
                                             <Link 
                                                 to={`/feedback/${submission.data[0].sub_id}`} 
                                                 className={`font-bold py-2 px-4 rounded `}
@@ -53,7 +53,7 @@ const StudSubmissionList = ({ students, submissionData}) => {
                                         </button>
 
                                     ) : (
-                                        <button disabled className="bg-cyan-500 w-32 text-xs text-white font-bold py-2 px-4 rounded-3xl opacity-50 cursor-not-allowed">
+                                        <button disabled className="bg-gray-500 w-32 text-xs text-white font-bold py-2 px-4 rounded-3xl opacity-50 cursor-not-allowed">
                                             Not Submitted
                                         </button>
                                     )}

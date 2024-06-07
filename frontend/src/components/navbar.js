@@ -30,7 +30,7 @@ function Navbar() {
                 <div className="flex flex-1 items-center justify-center sm:items-stretch">
                     <div className="flex flex-shrink-0 items-center">
                         <img
-                        className="h-14 w-auto"
+                        className="h-20 w-auto"
                         src={logo}
                         />
                     </div>
@@ -39,7 +39,7 @@ function Navbar() {
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                     <div className="flex flex-shrink-0 items-center">
                         <img
-                        className="h-14 w-auto"
+                        className="h-20 w-auto"
                         src={logo}
                         />
                     </div>

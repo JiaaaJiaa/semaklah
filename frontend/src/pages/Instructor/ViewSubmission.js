@@ -106,7 +106,7 @@ const ViewSubmission = () => {
             <div className="pb-10">
                 <button 
                     onClick={handleBack} 
-                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
+                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-3xl">
                     Back
                 </button>
                 
@@ -129,7 +129,7 @@ const ViewSubmission = () => {
                     <button 
                         onClick={handleRelease} 
                         className={`mt-5 text-sm text-white font-bold py-2 px-4 rounded-3xl ${isReleased ? 'bg-red-500 hover:bg-red-700' : 'bg-cyan-500 hover:bg-cyan-700'}`}>
-                        {isReleased ? 'Revert Submission' : 'Release Submission'}
+                        {isReleased ? 'Revert Feedback' : 'Release Feedback'}
                     </button>
                 </div>
 

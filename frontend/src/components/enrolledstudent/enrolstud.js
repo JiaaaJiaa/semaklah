@@ -66,7 +66,7 @@ const EnrolStud = ({setShowModal, classroom_id,setEnrolledStudents}) => {
                     </label>
                     <div className="flex justify-between">
                         <input type="text" value={student_id || ""} onChange={handleInputChange} className="w-full p-2  mt-1 border rounded" />
-                        <input type="submit" value="Enrol" className="p-2 mx-3 mt-2 cursor-pointer bg-green-500 text-white border-none rounded " />
+                        <input type="submit" value="Enrol" className="p-2 px-4 mx-3 mt-2 cursor-pointer bg-cyan-600 hover:bg-cyan-700 text-white border-none rounded-3xl " />
                     </div>
                     
                 </form>

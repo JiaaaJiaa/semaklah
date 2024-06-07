@@ -60,9 +60,9 @@ const AssignmentDetails = () => {
     return (  
         <div className="p-20">
             <div className="pb-10">
-                    <button 
+                <button 
                     onClick={handleBack} 
-                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl">
+                    className="mb-10 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-3xl flex items-center">
                     Back
                 </button>
                 

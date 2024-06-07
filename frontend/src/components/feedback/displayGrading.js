@@ -135,7 +135,7 @@ const DisplayGrading = ({submission}) => {
                             type="number" 
                             id={`score-${gr.gr_id}`} 
                             onChange={(event) => handleScoreChange(event, gr)}
-                            className={`border rounded-md px-2 py-1 w-1/3 pt-2 mt-2 ${overMax[gr.gr_id] ? 'border-red-600 text-red-500' : ''}`}
+                            className={`border rounded-3xl px-2 py-1 w-1/3 pt-2 mt-2 ${overMax[gr.gr_id] ? 'border-red-600 text-red-500' : ''}`}
                             max={gr.mark_possible}
                             min="1"
                             value={scores[gr.gr_id] || ''} // Display the score from the scores state

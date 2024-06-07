@@ -52,7 +52,7 @@ const Classroomlist = ({classroom}) => {
                 <div>
                     <Link to={`/course/${classroom.classroom_id}`}>
                         <h2 className="text-2xl font-semibold text-gray-800">{classroom.course_code} - {classroom.course_name}</h2>
-                        <p className="pt-2">Number of students: {classroom.current_enrolment}/{classroom.classroom_limit}</p>
+                        <p className="pt-2">Number of students: {classroom.current_enrolment || 0}/{classroom.classroom_limit}</p>
                     </Link>
                     {/* <p className="mt-2 text-gray-600">{classroom.inst_id}</p> */}
                 </div>
@@ -85,7 +85,7 @@ const Classroomlist = ({classroom}) => {
                                 </div>
                             </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)}>
+                                    <button type="button" className="mt-3 w-full inline-flex justify-center rounded-3xl border border-transparent shadow-sm px-4 py-2 bg-cyan-600 text-base font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)}>
                                         Close
                                     </button>
                                 </div>

@@ -30,7 +30,7 @@ const Login = ({setToken}) => {
               name='Email'
               required
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 mb-5 border border-gray-300 rounded"
+              className="w-full p-2 mt-2 mb-5 border border-gray-300 rounded"
             />
             <br/>
             <label>Password:</label>
@@ -40,7 +40,7 @@ const Login = ({setToken}) => {
               type='password'
               required
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 mb-5 border border-gray-300 rounded " fdprocessedid="9o0dc8"
+              className="w-full p-2 mt-2 mb-5 border border-gray-300 rounded " fdprocessedid="9o0dc8"
             />
             <br/>
 

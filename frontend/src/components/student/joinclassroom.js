@@ -89,12 +89,14 @@ const JoinClassroom = ({setShowModal}) => {
         // Search for an available classroom based on the classroom id
         <div className="p-4">
             <div>
-                <form onSubmit={handleSubmit} className="flex flex-col w-64">
-                    <label className="mb-2">
+                <form onSubmit={handleSubmit} className="flex flex-col w-full">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
                         Classroom ID:
-                        <input type="text" value={classroom_id || ""} onChange={handleInputChange} className="w-full p-2 mt-1 border rounded" />
                     </label>
-                    <input type="submit" value="Search" className="p-2 mt-2 cursor-pointer bg-green-500 text-white border-none rounded" />
+                    <div className="flex items-center">
+                        <input type="text" value={classroom_id || ""} onChange={handleInputChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <input type="submit" value="Search" className="px-4 py-2 m-2 cursor-pointer bg-cyan-500 hover:bg-cyan-700 text-white border-none rounded-3xl" />
+                    </div>
                 </form>
             </div>
 
@@ -110,7 +112,7 @@ const JoinClassroom = ({setShowModal}) => {
                         <p className="mb-2"><strong>Instructor:</strong> {classroom.instructor.inst_fname} {classroom.instructor.inst_lname}</p>
                         {/* <p className="mb-2"><strong>Instructor ID:</strong> {classroom.inst_id}</p>
                         <p className="mb-2"><strong>Classroom Limit:</strong> {classroom.classroom_limit}</p> */}
-                        <button onClick={joinClassroom} className="p-2 cursor-pointer bg-green-500 text-white border-none rounded">Join the classroom</button>
+                        <button onClick={joinClassroom} className="px-4 py-2 cursor-pointer bg-cyan-600 hover:bg-cyan-700 text-white border-none rounded-3xl">Join the classroom</button>
                     </div>
                 </div>
             )}

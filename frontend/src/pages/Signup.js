@@ -26,7 +26,7 @@ const Signup = () => {
     }
   
     return (
-      <div className="flex items-center justify-center pt-16 h-auto bg-cyan-50">
+      <div className="flex items-center justify-center pt-32 h-auto bg-cyan-50">
         <div  className="bg-white p-8 rounded shadow-md w-96 mt-5 mb-5">
             <h4 className="text-2xl font-bold mb-4">Sign Up</h4>
             {formErr && <div className="text-red-500 mb-2">{formErr}</div>}
@@ -119,8 +119,7 @@ const Signup = () => {
                   Sign up
                 </button>
 
-                <p>Already have an account? 
-                  <a href="/" className='underline'>Login</a>
+                <p>Already have an account?    <a href="/" className='underline text-cyan-500'>Login</a>
                 </p>
      
 
