@@ -5,6 +5,7 @@ import Loading from '../../pages/loading';
 // import supabase from '../../config/supabaseClient';
 import InstrSubmissionStatus from '../../components/submission/InstrSubmissionStatus';
 import StudSubmissionList from '../../components/submission/studSubmissionList';
+import { toast } from 'react-toastify';
 
 
 const ViewSubmission = () => {
@@ -86,6 +87,15 @@ const ViewSubmission = () => {
             } else {
                 // Update the state to reflect the new value
                 setIsReleased(!isReleased);
+                if (isReleased) {
+                    toast.success('Feedback reverted', {
+                        autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+                    });
+                } else {
+                    toast.success('Feedback released', {
+                        autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+                    });
+                }
             }
         })
         .catch((error) => {

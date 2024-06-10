@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 const DisplayGrading = ({submission}) => {
 
@@ -107,7 +108,10 @@ const DisplayGrading = ({submission}) => {
                     mark: percentage
                 }),
             })
-            alert('All scores saved successfully');
+            // alert('All scores saved successfully');
+            toast.success('All marks saved successfully', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            });
         }).catch(() => {
             alert('An error occurred while saving scores');
         });

@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/20/solid';
 import React, { useState, useEffect } from 'react';
 import { AcademicCapIcon, PencilAltIcon,TrashIcon } from '@heroicons/react/solid';
 import {Link} from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 
 import UpdateAssignment from './updateAssignment';
 import CreateAssignment from './createAssignment';
@@ -41,6 +41,10 @@ const InstAssignList = ({classroomId}) => {
                 const updatedAssignments = assignment.filter((assign) => assign.assign_id !== assign_id);
                 // Update the state
                 setAssignment(updatedAssignments);
+
+                toast.success('Assignment deleted', {
+                    autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+                });
             }
         })
         .catch((error) => {

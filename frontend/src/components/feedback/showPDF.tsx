@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import type { ToolbarProps, ToolbarSlot, TransformToolbarSlot } from '@react-pdf-viewer/toolbar';
 import { PDFViewer } from 'pdfjs-dist/web/pdf_viewer.js';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+
 
 
 import {
@@ -406,8 +407,10 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
             throw new Error('Failed to save notes');
         }
         if (response.status === 200) {
-            alert('Comments saved successfully');
-            // toast('Comments saved successfully');
+            // alert('Comments saved successfully');
+            toast.success('Comments saved successfully', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+              });
         }
     };
 

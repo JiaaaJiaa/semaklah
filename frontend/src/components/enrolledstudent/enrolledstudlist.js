@@ -1,6 +1,7 @@
 import { TrashIcon, PlusIcon} from '@heroicons/react/solid';
 import { useEffect, useState } from 'react';
 import EnrolStud from './enrolstud';
+import { toast } from 'react-toastify';
 
 
 const Enrolledstudentlist = ({classroomId,course}) => {
@@ -27,8 +28,11 @@ const Enrolledstudentlist = ({classroomId,course}) => {
         .then(data => {
             // console.log('Success:', data[0]);
             // dispatch({type: 'REMOVE_ENROL_STUDENT', payload: student});
-            console.log("Student removed:", enrolledStudents);
+            // console.log("Student removed:", enrolledStudents);
             setEnrolledStudents(enrolledStudents.filter((stud) => stud.student.stud_id !== student.student.stud_id));
+            toast.success('Student removed successfully', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+              });
         })
         .catch(error => console.error(error));
     }

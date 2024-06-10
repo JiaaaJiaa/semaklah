@@ -4,6 +4,7 @@ import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
 import { ClassroomContext } from '../../context/ClassroomContext';
 import UpdateClassroom from './updateclassroom';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { toast } from 'react-toastify';
 
 
 
@@ -39,6 +40,9 @@ const Classroomlist = ({classroom}) => {
             if (response.ok){
                 // If the API call was successful, dispatch the action to update your state
                 dispatch({type: 'REMOVE_CLASSROOM', payload: json});
+                toast.success('Classroom deleted', {
+                    autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+                });
             }
         } catch (error) {
             console.error('There was a problem with the delete request.', error);

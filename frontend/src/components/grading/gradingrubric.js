@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SaveIcon, TrashIcon } from '@heroicons/react/solid';
-
+import { toast } from 'react-toastify';
 
 function GradingRubric({assignment}) {
     const [rows, setRows] = useState([]);
@@ -61,7 +61,10 @@ function GradingRubric({assignment}) {
             newArr[index] = data;
             setRows(newArr);
             // console.log('Row saved:', data);
-            alert('Row saved successfully');
+            // alert('Row saved successfully');
+            toast.success('Row saved successfully', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            });
         })
         .catch(error => console.error('Error:', error));
     };
@@ -74,7 +77,10 @@ function GradingRubric({assignment}) {
             let newArr = [...rows];
             newArr.splice(index, 1);
             setRows(newArr);
-            alert('Row deleted successfully');
+            // alert('Row deleted successfully');
+            toast.success('Row deleted successfully', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            });
         })
         .catch(error => console.error('Error:', error));
     };

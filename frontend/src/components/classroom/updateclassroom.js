@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useClassroomContext } from '../../hooks/useClassroomContext';
+import { toast } from 'react-toastify';
 
 const UpdateClassroom = ({ setShowModal, classroom }) => {
     const { dispatch } = useClassroomContext();
@@ -67,6 +68,9 @@ const UpdateClassroom = ({ setShowModal, classroom }) => {
             setShowModal(false);
             dispatch({ type: 'UPDATE_CLASSROOM', payload: json }); 
             //alert('Classroom updated');
+            toast.success('Classroom updated', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            });
         }
     };
 

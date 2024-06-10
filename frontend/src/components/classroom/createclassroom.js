@@ -2,6 +2,7 @@ import React, {  useState } from 'react';
 import { useClassroomContext } from '../../hooks/useClassroomContext';
 // import supabase from '../config/supabaseClient';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { toast } from 'react-toastify';
 
 const CreateClassroom = ({setShowModal,token }) => {
     const{ dispatch } = useClassroomContext();
@@ -81,7 +82,11 @@ const CreateClassroom = ({setShowModal,token }) => {
             setForm(initialFormState);
             setShowModal(false);
             dispatch({type: 'CREATE_CLASSROOM', payload: json}); 
-            alert('Classroom created');
+
+            toast.success('Classroom created', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            });
+            // alert('Classroom created');
         }
     };
 

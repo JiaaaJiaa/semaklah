@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 // import { useAuthContext } from '../hooks/useAuthContext';
 // import { useNavigate } from 'react-router-dom';
 // import { useClassroomContext } from '../../hooks/useClassroomContext';
+import { toast } from 'react-toastify';
 
 
 const EnrolStud = ({setShowModal, classroom_id,setEnrolledStudents}) => {
@@ -46,7 +47,10 @@ const EnrolStud = ({setShowModal, classroom_id,setEnrolledStudents}) => {
                 //dispatch({type: 'ADD_CLASSROOM', payload: json});
                 // dispatch({type: 'ENROL_STUDENT', payload: json})
                 setEnrolledStudents(prevStudents => ([json, ...prevStudents]));
-                alert("Student enrolled successfully");
+                // alert("Student enrolled successfully");
+                toast.success('Student enrolled successfully', {
+                    autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+                });
                 setShowModal(false);
             }
         } catch (error) {

@@ -1,6 +1,7 @@
 // import { useClassroomContext } from "../../hooks/useClassroomContext";
 import supabase from "../../config/supabaseClient";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
  
@@ -105,6 +106,9 @@ const CreateAssignment = ({classroomId,setShowCreate,setAssignment}) => {
             setAssignment(prevAssignments => [...prevAssignments, json[0]]);
             setForm(initialFormState);
             setShowCreate(false);
+            toast.success('Assignment created', {
+                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            });
         }
     };
 

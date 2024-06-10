@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import supabase from "../../config/supabaseClient";
+import { toast } from 'react-toastify';
 
 const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment}) => {
 
@@ -95,7 +96,10 @@ const UpdateAssignment = ({classroomId, setShowUpdate,assignment,setAssignment})
             // This depends on your application structure
             setAssignment(updatedJson);
         }
-        alert('Assignment updated successfully');
+        toast.success('Assignment update successfully', {
+            autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+        });
+        // alert('Assignment updated successfully');
         setShowUpdate(false);
 
     };
