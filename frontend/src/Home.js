@@ -21,7 +21,9 @@ import FeedbackPage from './pages/Instructor/FeedbackPage';
 
 const Home = () => {
     
-    const [token, setToken] = useState(false);
+    const [token, setToken] = useState(
+        sessionStorage.getItem('token') ? JSON.parse(sessionStorage.getItem('token')) : false
+      );
     // const { user } = useAuthContext();
 
     // console.log("User:" + user);
@@ -37,6 +39,7 @@ const Home = () => {
         setToken(data);
     }
     },[])
+
 
     
     return ( 
