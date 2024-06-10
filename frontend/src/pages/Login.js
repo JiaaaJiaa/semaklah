@@ -19,14 +19,14 @@ const Login = ({setToken}) => {
     }
   
     return (
-      <div className="flex items-center justify-center h-screen bg-cyan-50">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-t from-cyan-100 to-cyan-50">
       <div  className="bg-white p-8 rounded shadow-md w-96 mt-3 mb-3">
           <h4 className="text-2xl font-bold mb-4">Login</h4>
           {formErr && <div className="text-red-500 mb-2">{formErr}</div>}     
           <form onSubmit={handleLogin}>
             <label>Email:</label>
             <input 
-              placeholder='Email'
+              placeholder='*@usm.my or any *.usm.my subdomains'
               name='Email'
               required
               onChange={(e) => setEmail(e.target.value)}
@@ -45,7 +45,7 @@ const Login = ({setToken}) => {
             <br/>
 
 
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <p>Logging in...</p>}
 
             {!isLoading && (
               <>
