@@ -135,7 +135,7 @@ const DisplayGrading = ({submission}) => {
                             type="number" 
                             id={`score-${gr.gr_id}`} 
                             onChange={(event) => handleScoreChange(event, gr)}
-                            className={`border rounded-3xl px-2 py-1 w-1/3 pt-2 mt-2 ${overMax[gr.gr_id] ? 'border-red-600 text-red-500' : ''}`}
+                            className={`text-center border rounded-3xl px-2 py-2 w-1/3 pt-2 m-1 ${overMax[gr.gr_id] ? 'border-red-600 text-red-500' : ''}`}
                             max={gr.mark_possible}
                             min="1"
                             value={scores[gr.gr_id] || ''} // Display the score from the scores state
@@ -151,7 +151,7 @@ const DisplayGrading = ({submission}) => {
                 </p>
             }
          
-            <button onClick={handleSaveScore} className="w-full mb-4 mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl ">Save Grading</button>
+            <button onClick={handleSaveScore} className="w-full mt-5 bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-3xl ">Save Grading</button>
         </div>
      );
 }
