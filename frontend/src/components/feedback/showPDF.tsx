@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import type { ToolbarProps, ToolbarSlot, TransformToolbarSlot } from '@react-pdf-viewer/toolbar';
+import { PDFViewer } from 'pdfjs-dist/web/pdf_viewer.js';
+// import { toast } from 'react-toastify';
 
 
 import {
@@ -109,10 +111,12 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
     const [notes, setNotes] = React.useState<Note[]>([]);
     const [editingNoteId, setEditingNoteId] = React.useState<number | null>(null);
     const [assign_id, setAssign_id] = React.useState<string>("");
-    let noteId = notes.length;
+    // let noteId = notes.length;
     const [f1, setF1] = React.useState<string>("");
     const [f2, setF2] = React.useState<string>("");
     const [f3, setF3] = React.useState<string>("");
+    const noteEles: Map<number, HTMLElement> = new Map();
+    const viewerContainerRef = useRef(null);
 
 
     //=====================================================================
@@ -214,6 +218,9 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
 
     // PDF PLUGIN
 
+    // Create a ref
+    const highlightRef = React.useRef(null);
+
     const renderHighlightTarget = (props: RenderHighlightTargetProps) => (
         <div
             style={{
@@ -235,7 +242,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                         <MessageIcon />
                     </Button>
                 }
-                content={() => <div style={{ width: '100px' }}>Add a note</div>}
+                content={() => <div style={{ width: '100px' }}>Add feedback</div>}
                 offset={{ left: 0, top: -8 }}
             />
         </div>
@@ -358,16 +365,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         );
     };
 
-    // Modify the jumpToNote function
-    const jumpToNote = (note: Note) => {
-        console.log("jumpToNote called with note", note);
-        // Use the first highlight area of the note to jump to it
-        if (note.highlightAreas.length > 0) {
-            jumpToHighlightArea(note.highlightAreas[0]);
-        } else {
-            console.log("No highlight areas found for note");
-        }
-    };
+    const highlightEles = useRef(new Map()).current;
 
     const renderHighlights = (props: RenderHighlightsProps) => (
         <div>
@@ -387,16 +385,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                                     },
                                     props.getCssProperties(area, props.rotation)
                                 )}
-                                onClick={(event) => {
-                                    console.log("Highlight clicked");
-                                    event.stopPropagation();
-                                    console.log("Clicked note", note);
-                                    jumpToNote(note);
-                                }}
-                                // ref={(ref): void => {
-                                //     noteEles.set(note.id, ref as HTMLElement);
-                                //     console.log("Element stored for note", note.id, ref);
-                                // }}
+                                ref={ele => highlightEles.set(`${note.id}-${idx}`, ele)}
                             />
                         ))}
                 </React.Fragment>
@@ -418,6 +407,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         }
         if (response.status === 200) {
             alert('Comments saved successfully');
+            // toast('Comments saved successfully');
         }
     };
 
@@ -430,7 +420,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         }
     };
 
-    const editNote = (id: number, sub_id: string) => {
+    const editNote = (id: number) => {
         setEditingNoteId(id);
     };
 
@@ -452,10 +442,92 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         renderHighlights,
     });
 
-    const { jumpToHighlightArea } = highlightPluginInstance;
+    // const { jumpToHighlightArea } = highlightPluginInstance;
+
+    // const jumpToHighlightArea = (note) => {
+    //     const { pageIndex, top} = note;
+
+    //     console.log("Jumping to page index", pageIndex, "top", top);
+
+    //     const pageHeight = 1400; // A4 page height in pixels
+    //     const scrollPostion = pageHeight * pageIndex + top;
+
+    //     viewerContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    // }
     
 
     // console.log(typeof jumpToHighlightArea); // should log 'function'
+
+    function Note({ note }) {
+        const noteRef = useRef(null);
+
+        const jumpToHighlightArea = (note) => {
+            const highlightEle = highlightEles.get(`${note.id}-0`);
+            if (highlightEle) {
+                const yOffset = -90; // Adjust this value to set the height offset
+                const y = highlightEle.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                
+                window.scrollTo({
+                    top: y,
+                    behavior: 'smooth'
+                });
+            }
+        };
+        return (
+          <div key={note.id} ref={noteRef}>
+            <div
+              style={{
+                borderBottom: '1px solid rgba(0, 0, 0, .3)',
+                cursor: 'pointer',
+                padding: '8px',
+              }}
+              onClick={() => {
+                jumpToHighlightArea(note);
+              }}
+            >
+              {/* ...rest of your note component */}
+              <blockquote
+                    style={{
+                        borderLeft: '2px solid rgba(0, 0, 0, 0.2)',
+                        fontSize: '.75rem',
+                        lineHeight: 1.5,
+                        margin: '0 0 8px 0',
+                        paddingLeft: '8px',
+                        textAlign: 'justify',
+                        color: 'grey',
+                    }}
+                >
+                    {note.quote}
+                </blockquote>
+                {editingNoteId === note.id ? (
+                    <input
+                        value={note.content}
+                        onChange={(e) => handleNoteContentChange(note.id, e.target.value)}
+                        onBlur={() => finishEditingNote(note.id,sub_id)}
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                            width: '100%', // Full width
+                            height: '100%', // Full height
+                            padding: '10px', // Some padding
+                            boxSizing: 'border-box', // So padding doesn't affect total width/height
+                        }}
+                    />
+                ) : (
+                    note.content
+                )}
+
+                <div style={{ textAlign: 'right' }}>
+                    <button onClick={(e) => { e.stopPropagation(); deleteNote(note.id, sub_id); }} style={{ padding: '5px', color: 'red' }}>
+                        <FontAwesomeIcon icon={faTrash} /> 
+                    </button>
+                    <button onClick={(e) => { e.stopPropagation(); editNote(note.id); }} style={{ padding: '5px', color: 'blue' }}>
+                        <FontAwesomeIcon icon={faEdit} /> 
+                    </button>                                
+                </div>
+            </div>
+          </div>
+        );
+      }
 
     return ( 
         <div
@@ -473,9 +545,9 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                 }}
             >
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">                
-                {fileURL && 
+                    {fileURL && 
                         <Viewer fileUrl={fileURL} plugins={[defaultLayoutPluginInstance,highlightPluginInstance]} />
-                }
+                    }                   
             </Worker>
             </div>
 
@@ -487,61 +559,9 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                         overflow: 'auto',
                     }}
                 >
-                    {notes.map((note) => {
-                        return (
-                            <div key={note.id}>
-                                <div
-                                    style={{
-                                        borderBottom: '1px solid rgba(0, 0, 0, .3)',
-                                        cursor: 'pointer',
-                                        padding: '8px',
-                                    }}
-                                    // Jump to the associated highlight area
-                                    onClick={() => {
-                                        // console.log('Clicked note with highlight area', note.highlightAreas[0]);
-                                        jumpToHighlightArea(note.highlightAreas[0]);
-                                    }}
-                                >
-                                    <blockquote
-                                        style={{
-                                            borderLeft: '2px solid rgba(0, 0, 0, 0.2)',
-                                            fontSize: '.75rem',
-                                            lineHeight: 1.5,
-                                            margin: '0 0 8px 0',
-                                            paddingLeft: '8px',
-                                            textAlign: 'justify',
-                                        }}
-                                    >
-                                        {note.quote}
-                                    </blockquote>
-                                    {editingNoteId === note.id ? (
-                                        <input
-                                            value={note.content}
-                                            onChange={(e) => handleNoteContentChange(note.id, e.target.value)}
-                                            onBlur={() => finishEditingNote(note.id,sub_id)}
-                                            style={{
-                                                width: '100%', // Full width
-                                                height: '100%', // Full height
-                                                padding: '10px', // Some padding
-                                                boxSizing: 'border-box', // So padding doesn't affect total width/height
-                                            }}
-                                        />
-                                    ) : (
-                                        note.content
-                                    )}
-
-                                    <div style={{ textAlign: 'right' }}>
-                                        <button onClick={(e) => { e.stopPropagation(); deleteNote(note.id, sub_id); }} style={{ padding: '5px', color: 'red' }}>
-                                            <FontAwesomeIcon icon={faTrash} /> 
-                                        </button>
-                                        <button onClick={(e) => { e.stopPropagation(); editNote(note.id, sub_id); }} style={{ padding: '5px', color: 'blue' }}>
-                                            <FontAwesomeIcon icon={faEdit} /> 
-                                        </button>                                
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    {notes.map((note) => (
+                        <Note note={note} />
+                    ))}
                     
                     <div>                        
                         <button 

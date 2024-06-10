@@ -1,5 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import type { ToolbarProps, ToolbarSlot, TransformToolbarSlot } from '@react-pdf-viewer/toolbar';
+
 
 import {
     highlightPlugin,
@@ -35,10 +37,70 @@ interface ShowFeedback {
 const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
 
         
+      //=====================================================================
+      const transform: TransformToolbarSlot = (slot: ToolbarSlot) => ({
+        ...slot,
+        GoToNextPage: () => <></>,
+        GoToNextPageMenuItem: () => <></>,
+        GoToPreviousPage: () => <></>,
+        GoToPreviousPageMenuItem: () => <></>,
+        GoToLastPage: () => <></>,
+        GoToLastPageMenuItem: () => <></>,
+        GoToFirstPage: () => <></>,
+        GoToFirstPageMenuItem: () => <></>,
+        Download: () => <></>,
+        DownloadMenuItem: () => <></>,
+        EnterFullScreen: () => <></>,
+        EnterFullScreenMenuItem: () => <></>,
+        Open: () => <></>,
+        OpenMenuItem: () => <></>,
+        Print: () => <></>,
+        PrintMenuItem: () => <></>, 
+        Rotate: () => <></>,
+        RotateBackwardMenuItem: () => <></>,
+        RotateForwardMenuItem: () => <></>,
+        ShowProperties: () => <></>,
+        ShowPropertiesMenuItem: () => <></>,
+        SwitchScrollMode: () => <></>,
+        SwitchScrollModeMenuItem: () => <></>,
+        SwitchSelectionMode: () => <></>,
+        SwitchSelectionModeMenuItem: () => <></>,
+        SwitchTheme: () => <></>,
+        SwitchThemeMenuItem: () => <></>,
+        CurrentPageInput: () => <></>,
+        CurrentPage: () => <></>,
+        CurrentPagePanel: () => <></>,
+        CurrentPageInputPopover: () => <></>,
+        CurrentPageInputMenuItem: () => <></>,
+        MoreActionsPopover: () => <></>,
+        MoreActionsPopoverMenuItem: () => <></>,          
+        NumberOfPages: () => <></>,
+        NumberOfPagesMenuItem: () => <></>,
+        ShowSearchPopover: () => <></>,
+        ShowSearchPopoverMenuItem: () => <></>,
+    });
+
+    const renderToolbar = (Toolbar: (props: ToolbarProps) => React.ReactElement) => (
+        <Toolbar>{renderDefaultToolbar(transform)}</Toolbar>
+    );
+        
     // Create an instance of the default layout plugin
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
+    const defaultLayoutPluginInstance = defaultLayoutPlugin({
+        sidebarTabs: (defaultTabs) => [ ],
+        renderToolbar,
+    });
+
+    const { renderDefaultToolbar } = defaultLayoutPluginInstance.toolbarPluginInstance;
+
 
     const [notes, setNotes] = React.useState<Note[]>([]);
+
+    const [numPages, setNumPages] = React.useState(0);
+
+    const onDocumentLoad = ({ numPages }) => {
+    setNumPages(numPages);
+    };
+
 
     useEffect(() => {
 
@@ -75,15 +137,17 @@ const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
     // PDF PLUGIN
 
     // Modify the jumpToNote function
-    const jumpToNote = (note: Note) => {
-        console.log("jumpToNote called with note", note);
-        // Use the first highlight area of the note to jump to it
-        if (note.highlightAreas.length > 0) {
-            jumpToHighlightArea(note.highlightAreas[0]);
-        } else {
-            console.log("No highlight areas found for note");
-        }
-    };
+    // const jumpToNote = (note: Note) => {
+    //     console.log("jumpToNote called with note", note);
+    //     // Use the first highlight area of the note to jump to it
+    //     if (note.highlightAreas.length > 0) {
+    //         jumpToHighlightArea(note.highlightAreas[0]);
+    //     } else {
+    //         console.log("No highlight areas found for note");
+    //     }
+    // };
+
+    const highlightEles = useRef(new Map()).current;
 
     const renderHighlights = (props: RenderHighlightsProps) => (
         <div>
@@ -103,12 +167,7 @@ const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
                                     },
                                     props.getCssProperties(area, props.rotation)
                                 )}
-                                onClick={(event) => {
-                                    console.log("Highlight clicked");
-                                    event.stopPropagation();
-                                    console.log("Clicked note", note);
-                                    jumpToNote(note);
-                                }}
+                                ref={ele => highlightEles.set(`${note.id}-${idx}`, ele)}
                             />
                         ))}
                 </React.Fragment>
@@ -120,7 +179,75 @@ const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
         renderHighlights,
     });
 
-    const { jumpToHighlightArea } = highlightPluginInstance;
+    // const { jumpToHighlightArea } = highlightPluginInstance;
+
+    // const jumpToNote = (highlightArea) => {
+    //     // Get the container element that holds your PDF viewer
+    //     const container = document.getElementById('pdf-viewer-container');
+    
+    //     if (!container) {
+    //         console.error('Container element not found');
+    //         return;
+    //     }
+    
+    //     // Calculate the scroll position
+    //     // These calculations may need to be adjusted based on the size of your pages and the scale of your viewer
+    //     const pageHeight = container.scrollHeight / numPages; // Replace numPages with the total number of pages in your document
+    //     const scrollTop = pageHeight * highlightArea.pageIndex + highlightArea.top;
+    //     const scrollLeft = highlightArea.left;
+    
+    //     // Scroll to the calculated position
+    //     container.scrollTop = scrollTop;
+    //     container.scrollLeft = scrollLeft;
+    // };
+
+    // Scroll 
+    function Note({ note }) {
+        const noteRef = useRef(null);
+
+        const jumpToHighlightArea = (note) => {
+            const highlightEle = highlightEles.get(`${note.id}-0`);
+            if (highlightEle) {
+                const yOffset = -90; // Adjust this value to set the height offset
+                const y = highlightEle.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                
+                window.scrollTo({
+                    top: y,
+                    behavior: 'smooth'
+                });
+            }
+        };
+        return (
+          <div key={note.id} ref={noteRef}>
+            <div
+              style={{
+                borderBottom: '1px solid rgba(0, 0, 0, .3)',
+                cursor: 'pointer',
+                padding: '8px',
+              }}
+              onClick={() => {
+                jumpToHighlightArea(note);
+              }}
+            >
+              {/* ...rest of your note component */}
+              <blockquote
+                    style={{
+                        borderLeft: '2px solid rgba(0, 0, 0, 0.2)',
+                        fontSize: '.75rem',
+                        lineHeight: 1.5,
+                        margin: '0 0 8px 0',
+                        paddingLeft: '8px',
+                        textAlign: 'justify',
+                        color: 'grey',
+                    }}
+                >
+                    {note.quote}
+                </blockquote>
+                {note.content}          
+            </div>
+          </div>
+        );
+      }
     
 
     // console.log(typeof jumpToHighlightArea); // should log 'function'
@@ -135,6 +262,7 @@ const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
             }}
         >
             <div
+                id="pdf-viewer-container"
                 style={{
                     flex: '1 1 0',
                     overflow: 'auto',
@@ -142,7 +270,11 @@ const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
             >
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">                
                 {fileURL && 
-                        <Viewer fileUrl={fileURL} plugins={[defaultLayoutPluginInstance,highlightPluginInstance]} />
+                        <Viewer 
+                            fileUrl={fileURL} 
+                            plugins={[defaultLayoutPluginInstance,highlightPluginInstance]} 
+                            onDocumentLoad={onDocumentLoad}
+                        />
                 }
             </Worker>
             </div>
@@ -155,38 +287,9 @@ const ShowFeedback: React.FC<ShowFeedback> = ({ fileURL, sub_id }) => {
                         overflow: 'auto',
                     }}
                 >
-                    {notes.map((note) => {
-                        return (
-                            <div key={note.id}>
-                                <div
-                                    style={{
-                                        borderBottom: '1px solid rgba(0, 0, 0, .3)',
-                                        cursor: 'pointer',
-                                        padding: '8px',
-                                    }}
-                                    // Jump to the associated highlight area
-                                    onClick={() => {
-                                        // console.log('Clicked note with highlight area', note.highlightAreas[0]);
-                                        jumpToHighlightArea(note.highlightAreas[0]);
-                                    }}
-                                >
-                                    <blockquote
-                                        style={{
-                                            borderLeft: '2px solid rgba(0, 0, 0, 0.2)',
-                                            fontSize: '.75rem',
-                                            lineHeight: 1.5,
-                                            margin: '0 0 8px 0',
-                                            paddingLeft: '8px',
-                                            textAlign: 'justify',
-                                        }}
-                                    >
-                                        {note.quote}
-                                    </blockquote>
-                                    {note.content}                            
-                                </div>
-                            </div>
-                        );
-                    })}                 
+                    {notes.map((note) => (
+                        <Note note={note} />
+                    ))}             
                 </div>
             )}
         </div>
