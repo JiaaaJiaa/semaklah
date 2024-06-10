@@ -107,7 +107,7 @@ const ViewSubmission = () => {
     // compare the enrol id with the submission table, if the enrol id is not in the submission table, means the student has not submitted
     // if the enrol id is in the submission table, get the submission id, get the submission file
 
-    if (!loading && !assignment && !students) {
+    if (!loading && !assignment && !students && !submissionData) {
         return <div><Loading /></div>;
     }
 
