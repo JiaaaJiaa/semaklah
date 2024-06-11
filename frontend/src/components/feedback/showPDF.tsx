@@ -435,7 +435,8 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
     // Add a function to finish editing a note
     const finishEditingNote = (id: number, sub_id: string) => {
         setEditingNoteId(null);
-        saveNotesToDatabase(notes, sub_id); // Save the updated notes to the database
+        // console.log(notes)
+        // saveNotesToDatabase(notes, sub_id); // Save the updated notes to the database
     };
 
 
