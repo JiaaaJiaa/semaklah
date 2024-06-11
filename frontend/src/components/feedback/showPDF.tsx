@@ -408,7 +408,7 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
         }
         if (response.status === 200) {
             // alert('Comments saved successfully');
-            toast.success('Comments saved successfully', {
+            toast.success('Comments updated successfully', {
                 autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
               });
         }
@@ -461,6 +461,8 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
 
     // console.log(typeof jumpToHighlightArea); // should log 'function'
 
+    
+
     function Note({ note }) {
         const noteRef = useRef(null);
 
@@ -476,6 +478,9 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                 });
             }
         };
+
+        const [inputValue, setInputValue] = React.useState(note.content);
+
         return (
           <div key={note.id} ref={noteRef}>
             <div
@@ -504,9 +509,12 @@ const ShowPDF: React.FC<ShowPDFProps> = ({ fileURL, sub_id }) => {
                 </blockquote>
                 {editingNoteId === note.id ? (
                     <input
-                        value={note.content}
-                        onChange={(e) => handleNoteContentChange(note.id, e.target.value)}
-                        onBlur={() => finishEditingNote(note.id,sub_id)}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onBlur={() => {
+                            handleNoteContentChange(note.id, inputValue);
+                            finishEditingNote(note.id,sub_id);
+                        }}
                         onClick={(e) => e.stopPropagation()}
                         style={{
                             width: '100%', // Full width
