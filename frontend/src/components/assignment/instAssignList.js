@@ -61,8 +61,9 @@ const InstAssignList = ({classroomId}) => {
             const json = await res.json();
 
             if (res.ok) {
+                json.sort((a, b) => new Date(b.start_date) - new Date(a.start_date));
                 setAssignment(json);         
-            }        
+            }     
         }
          
         fetchAssignments();
@@ -89,9 +90,9 @@ const InstAssignList = ({classroomId}) => {
                 {assignment && assignment.map((assignment) => (
 
                     <div key={assignment.assign_id} className={`p-4 border-2 rounded hover:shadow-sm flex flex-col ${
-                        (new Date() > new Date(assignment.start_date) && new Date() < new Date(assignment.end_date)) ? 'border-red-500' :
+                        (new Date() > new Date(assignment.start_date) && new Date() < new Date(assignment.end_date)) ? 'border-blue-500' :
                         (assignment.is_released === true) ? 'border-green-500' :
-                        'border-blue-500'
+                        'border-red-500'
                     }`}>                            
                        <div className="flex justify-between items-start">
                                 <Link to={`/assignment/${assignment.assign_id}`}>
@@ -100,12 +101,12 @@ const InstAssignList = ({classroomId}) => {
                                             {assignment.title}
                                             {
                                                 new Date() > new Date(assignment.start_date) && new Date() < new Date(assignment.end_date) ?
-                                                <span className="inline-block bg-red-500 text-white text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Ongoing</span>
+                                                <span className="inline-block bg-blue-500 text-white text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Ongoing</span>
                                                 :
                                                 assignment.is_released === true ?
                                                 <span className="inline-block bg-green-500 text-white text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Graded</span>
                                                 :
-                                                <span className="inline-block bg-blue-500 text-white text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Grading</span>
+                                                <span className="inline-block bg-red-500 text-white text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Grading</span>
                                             }
                                         </h2>
                                     </div>
