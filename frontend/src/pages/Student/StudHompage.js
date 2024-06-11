@@ -40,7 +40,7 @@ const StudHomepage = ({token}) => {
 
 
     return ( 
-       <div className='pt-16 p-10'>
+       <div className='pt-20 p-10'>
             <h1 className='p-5 text-2xl  text-center  font-bold '>
             Hello Student, {token.user.user_metadata.fname} {token.user.user_metadata.lname}</h1>
             <div>
