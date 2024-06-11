@@ -72,10 +72,24 @@ const EnrolledCourseDetails = () => {
             <div className="mt-5 p-5 bg-white rounded shadow-sm">
                 <h3 className="text-2xl font-semibold text-gray-800">Assignments</h3>
                 {assignments.map((assignment, index) => (
-                    <div key={index} className={`mt-3 p-4 border-2 rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg ${assignment.is_released? 'border-cyan-500':'border-green-500'}`}>
-                        <Link to={`/studassignment/${assignment.assign_id}`}>
+                    <div key={index} className={`mt-3 p-4 border-2 rounded shadow-sm relative bg-white overflow-hidden hover:shadow-md rounded-lg ${
+                        (new Date() > new Date(assignment.start_date) && new Date() < new Date(assignment.end_date)) ? 'border-red-500' :
+                        (assignment.is_released === true) ? 'border-green-500' :
+                        'border-blue-500'
+                    }`}>                        <Link to={`/studassignment/${assignment.assign_id}`}>
                             <div>
-                                <h2 className="hover:text-cyan-950 text-gray-800 text-xl font-bold">{assignment.title}</h2>
+                                <h2 className="hover:text-cyan-950 text-gray-800 text-xl font-bold">
+                                    {assignment.title}
+                                    {
+                                        new Date() > new Date(assignment.start_date) && new Date() < new Date(assignment.end_date) ?
+                                        <span className="inline-block bg-red-200 text-red-800 text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Ongoing</span>
+                                        :
+                                        assignment.is_released === true ?
+                                        <span className="inline-block bg-green-200 text-green-800 text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Graded</span>
+                                        :
+                                        <span className="inline-block bg-blue-200 text-blue-800 text-sm px-2 rounded-full uppercase font-semibold tracking-wide ml-2">Grading</span>
+                                    }
+                                </h2>
                             </div>
                         </Link>
                         <p className="text-gray-600">Start date: {new Date(assignment.start_date).toLocaleDateString()}</p>
