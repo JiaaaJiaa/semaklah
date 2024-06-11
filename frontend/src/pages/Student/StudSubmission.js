@@ -4,6 +4,7 @@ import Loading from '../../pages/loading';
 // import { Document, Page } from 'react-pdf';
 import supabase from '../../config/supabaseClient';
 import StudSubmissionStatus from './StudSubmissionStatus';
+import {toast} from 'react-toastify';
 
 
 const StudSubmission = () => {
@@ -181,7 +182,10 @@ const StudSubmission = () => {
             setSubmissionId(data.sub_id);
             setSubmission(data);
             setSubmitted(true);
-            alert('Assignment Submitted');
+            // alert('Assignment Submitted');
+            toast.success('Assignment Submitted', {
+                autoClose: 2000
+            });
 
             // Call the Python API
             const resPython = await fetch(`/api/pythoncode/`, {
@@ -246,7 +250,10 @@ const StudSubmission = () => {
                 setSubmissionId(null);
                 setSubmitted(false);
 
-                alert('Submission Deleted');
+                // alert('Submission Deleted');
+                toast.success('Submission Deleted', {
+                    autoClose: 2000
+                });
             })
         }
     };
