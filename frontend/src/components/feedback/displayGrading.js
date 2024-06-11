@@ -60,7 +60,10 @@ const DisplayGrading = ({submission}) => {
 
         const total = Object.values(scores).reduce((a, b) => Number(a) + Number(b), 0);
         const totalPossibleScore = grading.reduce((total, gr) => total + gr.mark_possible, 0);
-        const percentage = (total / totalPossibleScore) * 100;
+        const percentage = Math.round((total / totalPossibleScore) * 100);
+
+        // console.log(submission.sub_id)
+        // console.log(percentage)
 
 
         // Check if any score is greater than the maximum possible score
@@ -108,9 +111,23 @@ const DisplayGrading = ({submission}) => {
                     mark: percentage
                 }),
             })
-            // alert('All scores saved successfully');
-            toast.success('All marks saved successfully', {
-                autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        throw new Error(error.message);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // handle success
+                toast.success('All marks saved successfully', {
+                    autoClose: 2000 // closes after 2000ms, i.e., 2 seconds
+                });
+            })
+            .catch(error => {
+                // handle error
+                alert('An error occurred while saving scores: ' + error.message);
             });
         }).catch(() => {
             alert('An error occurred while saving scores');
