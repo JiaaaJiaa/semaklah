@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useClassroomContext } from '../../hooks/useClassroomContext';
+import { toast } from 'react-toastify';
 
 
 const JoinClassroom = ({setShowModal}) => {
@@ -28,7 +29,6 @@ const JoinClassroom = ({setShowModal}) => {
     
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
-                setError('Classroom not found');
             }
     
             if (response.ok){
@@ -69,6 +69,9 @@ const JoinClassroom = ({setShowModal}) => {
                 // console.log("Check:", json[0]);
                 dispatch({type: 'ENROL_CLASSROOM', payload: json[0]});
                 setShowModal(false);
+                toast.success('Successfully enrolled in the classroom', {
+                    autoClose: 2000,
+                })
             }
         } catch (error) {
             console.error('There was a problem with the enrolment request.', error);
