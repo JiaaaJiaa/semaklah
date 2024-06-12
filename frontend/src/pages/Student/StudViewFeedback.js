@@ -85,7 +85,7 @@ const StudViewFeedback = () => {
                     <DisplaySubmissionInfo submission={submission} />
                 </div>
 
-                <h2 className="font-bold text-xl mb-4 border-b border-gray-200 pb-2">Lexical Performance:</h2>
+                <h2 className="font-bold text-xl mb-4 border-b border-gray-200 pb-2">Language Performance:</h2>
                 <div className="mb-4">
                     <DisplayLexical submission={submission}/>
                 </div>
