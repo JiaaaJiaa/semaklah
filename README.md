@@ -29,11 +29,11 @@ To get started with Semaklah, follow these steps:
 
 ## To run the application
 
-1. **To run backend**
+1. **To run backend, navigate to backend folder**
     ```bash
     npm run dev
 
-2. **To run the frontend**
+2. **To run frontend, navigate to the frontend folder**
     ```bash
     npm run start
 
