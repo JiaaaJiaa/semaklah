@@ -47,5 +47,51 @@ Frameworks		        : React.js, as the front-end framework.
 
 Library			    	: scikit-learn, language-tool-python
 
+## File Directory
 
+```
+|- backend
+    |- config
+    |- controller
+    |- middleware
+    |- python // Python script
+    |- routes // All the backend routes
+    |- server.js
+|- data
+    |-data
+        |- assignment.csv
+        |- classroom.csv
+        |- isntructor.csv
+        |- student.csv
+|- frontend
+    |- src
+    |- assets
+    |- components // store different components in pages
+        |- assignment 
+        |- classroom
+        |- enrolledstudent
+        |- feedback
+        |- grading
+        |- student
+        |- submission
+    |- navbar.js 
+    |- config 
+        |- supabaseClient.js
+    |- hooks
+        |- useAuthContext.js
+        |- useClassroomContext.js
+        |- useLogin.js
+        |- useLogout.js
+        |- useSignup.js
+    |- pages // store different pages for users
+        |- Instructor
+        |- Student
+        |- loading.js
+        |- Login.js
+        |- Signup.js
+    |- App.js
+    |- Home.js
+    |- index.js
+        
+    
 Thank you for exploring Semaklah!
