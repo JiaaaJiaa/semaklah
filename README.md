@@ -22,11 +22,18 @@ To get started with Semaklah, follow these steps:
     ```bash 
     npm install
 
-4. **To run backend**
+4. **Notes**
+    ```
+    You will need a .env file (the key to access database)
+    ```
+
+## To run the application
+
+1. **To run backend**
     ```bash
     npm run dev
 
-5. **To run the frontend**
+2. **To run the frontend**
     ```bash
     npm run start
 
