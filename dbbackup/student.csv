@@ -1,0 +1,11 @@
+stud_id,id,stud_fname,stud_lname,stud_gender,stud_email,stud_password,created_at
+150001,b5bbe396-89b7-4b31-8b4b-d66101569784,Amirah,Abdullah,female,amirah.abdullah@student.usm.my,$2a$10$roEos77zthaDxrFfDTlLpu/6PsnUbTiz/fpzwH0uh7qo4/5ybO8wS,2024-03-28 04:30:47.226963+00
+150002,5c44f753-5e19-4c7e-bd84-779f8744c4e9,Hafiz,Ibrahim,male,hafiz.ibrahim@student.usm.my,$2a$10$8BcfhgQ8tGARZNeICGTfbe4AVuZFjUmEWUR6i4vM04rP4acVc8YqW,2024-03-28 04:31:13.998123+00
+150003,76a98153-c400-4ee7-9f54-87cc05d55b29,Nurul,Aziz,female,nurul.aziz@student.usm.my,$2a$10$OsJv/92/jU2lF.mxscZKG.6Ya827LezhU.TY.u5.mtd1qZtDJn7ta,2024-03-28 04:31:56.817038+00
+150004,da1b8cfd-3bdf-49ec-b516-55567fee02af,Muhammad,Hassan,male,muhammad.hassan@student.usm.my,$2a$10$x10m1ZmE1nB6VHlHuSs47u8y9UHGbi0SOU4N9xLryKMoieLl5zwCy,2024-03-28 04:32:17.976854+00
+150005,486cf6ca-539b-4915-a7a3-96957932efe3,Siti,Mohamad,female,siti.mohamad@student.usm.my,$2a$10$aBQ4DRLVseRZ0IPK.Kamb.vq6SqkCyxmm87xhiKvcnPu/MIhgZTdi,2024-03-28 04:32:39.719869+00
+150006,474fc29e-ae33-4402-8cb4-691dd6ab5d48,Azim,Wong,male,azim.wong@student.usm.my,$2a$10$6Hgf0VD7anEuH2qf0FCAX.9Pyn9BsOO8bQodmYq6Z5c7PGZ9akSwm,2024-03-28 04:33:10.430224+00
+150007,82463055-fc8b-4a4f-956d-aa76f28a2298,Fatin,Tan,female,fatin.tan@student.usm.my,$2a$10$Ir0xDRoAZDL4uEqowumMzeIlNrb6J9NNCGN2PxtmJF.g27bI73uh6,2024-03-28 04:33:34.823214+00
+150008,dc878e2d-05a5-4928-98aa-736799c750e4,Aisyah,Lim,female,aisyah.lim@student.usm.my,$2a$10$N2YpRcJRD8YEW/jI2VpaweSxHkz9.aw.1Y8PPZyBa4e2BwyMggBI6,2024-03-28 04:33:56.707353+00
+150009,ae1fa28d-b1a0-400f-8392-564aaffce6df,Syahir,Lee,male,syahir.lee@student.usm.my,$2a$10$Svoy5Q8aeh6jXlT2eF/82.0R1PyoHDNsYcMNDjIEsL9eQ.ebzYpwe,2024-03-28 04:34:16.274582+00
+150010,2ca9bcb2-6a09-40df-a528-89eee688a65a,Amir,Ng,male,amir.ng@student.usm.my,$2a$10$p9fFQrSpFn9b/CMXMdvse.kXYgjflFQTe2PjxrN.1R3bWfTxtMgZW,2024-03-28 04:34:36.262898+00

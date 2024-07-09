@@ -1,0 +1,12 @@
+id,created_at,inst_id,inst_fname,inst_lname,inst_gender,inst_email,inst_password
+ddcd6000-3b64-4b6c-b56f-a7365f013cb7,2024-03-28 04:29:26.351691+00,USM01234,Matthew,Scott,male,matthew.scott@usm.my,$2a$10$5SUZhUWsZW/suRPaCdBXlOBQRL.q3/RIWeLo9n1THPz.ydr3BmLcy
+ed0cd512-0539-45c8-a774-7326d8f54574,2024-05-20 14:24:18.459731+00,USM10001,Siew,Ling Ling,female,lingling@usm.my,$2a$10$pYWy9tkIqGLIC9EcJ3YB8uX0uR/7UDc0oytM8c7ZZmm4Eye1Uoeea
+30af685a-b5e4-4473-a0be-b5b1631fc466,2024-03-28 04:25:01.692032+00,USM12345,Samantha,Johnson,female,samantha.johnson@usm.my,$2a$10$hhKCbSbYxoYTOyutZsZNFuiLlrno89OBD5f8ylRXifCnxKn1sJCeC
+32b02ce5-bb74-408e-9305-4d880d88b05f,2024-03-28 04:25:26.676467+00,USM23456,Michael,Williams,male,michael.williams@usm.my,$2a$10$rdAwSeNc4Jfkk9.cfa2e6ueV5GTdvGxHr3JLhqZLJXIGM0uvgw7TS
+690aa3e4-90f0-4c1a-baea-8ab14cebb28b,2024-03-28 04:25:54.834007+00,USM34567,Emily,Brown,female,emily.brown@usm.my,$2a$10$nqmypcAYV4N7BV8l.wIgJuIsGG2cUjkd4mTPUvMJp6kULNlpIqR46
+0fcdf349-2b00-465d-9a9c-854a80742e4a,2024-03-28 04:26:25.752916+00,USM45678,Daniel,Martinez,male,daniel.martinez@usm.my,$2a$10$BIloQ02QCxT7bUBdAEEcye18qpXtDII5e3N19nwuoYsv7osp9fRcS
+8641e6c9-3fa3-428c-986e-f249b01fbf55,2024-03-28 04:26:55.014051+00,USM56789,Jessica,Lee,female,jessica.lee@usm.my,$2a$10$sd.U21opwBRaYY5MwMOOvuj1nRMq0Du6BROtFq0pklXGzYZGHkYOC
+99f6db0d-3838-4122-8861-1d35e0f1b89c,2024-03-28 04:27:17.774407+00,USM67890,Christopher,Taylor,male,christopher.taylor@usm.my,$2a$10$jtaLwB6NvcRYSVYcgwtpduuzFaiCCb825Te8EYZ4EBkgzM9ofudN2
+4bafd266-838b-452f-a8c2-b293ecee5e98,2024-03-28 04:27:45.612555+00,USM78901,Amanda,Garcia,female,amanda.garcia@usm.my,$2a$10$TfRWAHWDJ7V72hb07EnejeDHmGLzWeZZP1KKe/QUDK3G4vedG0RZK
+a14f7570-066d-4a75-a526-86ef6ab786d4,2024-03-28 04:28:44.787773+00,USM89012,David,Rodriguez,male,david.rodriguez@usm.my,$2a$10$QKQm2RhgTstb808PzBc9HeZP.XZ3JhZ81iquq44arfhtQT8l6Z2QO
+1dcff034-6282-4055-bc5b-a2f1b705af26,2024-03-28 04:29:05.120709+00,USM90123,Sarah,Clark,female,sarah.clark@usm.my,$2a$10$6QBNEc.XVJC9mNeMBhk46uZ.Dp5PpAcsyVh/eEXHJPsEft2MHWRX.

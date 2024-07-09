@@ -1,0 +1,15 @@
+assign_id,created_at,question,mark_possible,description,gr_id
+44a5498d-57bd-4eab-b20b-3f6041044243,2024-06-18 20:05:31.875714+00,2,25,"Number of clusters selected is appropriate and clearly 
+justified. Demonstrate thorough experimentation.  Provide correct and thoughtful comparison.",03389915-9e7a-4d4d-afe2-264ef2605d18
+44a5498d-57bd-4eab-b20b-3f6041044243,2024-06-18 20:05:45.215559+00,3,50,Based on accuracy of the best performing clustering on actual continent for each country,123d4c57-88b8-4ba6-8c09-3d284dc26231
+fe242653-9476-43c1-b694-0ed61eafe657,2024-05-18 17:28:22.582648+00,4,10,Provide relevant and convincing suggestions.,168800bd-d4f4-4ea0-88e0-7bf9b0e8b352
+fe242653-9476-43c1-b694-0ed61eafe657,2024-05-18 17:08:51.96007+00,2,20,"Experiments are set up correctly. How comprehensive are the machine learning experiments. Describe at least 6 classification experiments (3 using Freq-PHO-Binary and 3 using Norm-PHO-Binary). The best models are identified (performance results should be better than baseline classifier). Discuss how the classification results are judged and compared. ",1cf81b34-91ed-40e2-806c-6d973a1ec76a
+44a5498d-57bd-4eab-b20b-3f6041044243,2024-06-18 20:05:19.09954+00,1,25,"Number of clusters selected is appropriate and clearly justified. Demonstrate thorough experimentation.  
+Provide correct and thoughtful description of clusters.",27b19117-8c14-4f2c-88a8-bef573e78edc
+fe242653-9476-43c1-b694-0ed61eafe657,2024-05-18 17:08:41.004069+00,1,10,Clearly address all the questions and provide rational justifications in setting up the machine learning experiments,32d2d92d-8a20-4739-acc6-6ba8551c49fb
+202fa5aa-89b8-42d9-8c32-791b131f97cb,2024-05-27 18:26:04.332882+00,1,25,"Number of clusters selected is appropriate and clearly justified. Demonstrate 
+thorough experimentation. Provide correct and thoughtful description of clusters.  ",66cf59bc-c83e-4680-85e1-288476cd2836
+202fa5aa-89b8-42d9-8c32-791b131f97cb,2024-05-27 18:27:14.177258+00,3,50,"Based on accuracy of the best performing clustering on actual continent for each country ",75940851-e961-43f0-a0a1-7170db4d8a10
+83ca6e46-b578-442e-aeea-fb2467d6d462,2024-05-27 21:18:13.84982+00,1,10,Complete this question with a correct answer,9df1b928-36a4-4f46-998f-c0aa2fc81ce0
+fe242653-9476-43c1-b694-0ed61eafe657,2024-05-18 17:10:24.812355+00,3,10,"Based on how many instances in the test set are classified correctly by your best performing model. ",a6d0b922-d2bc-42df-8018-796b124595e1
+202fa5aa-89b8-42d9-8c32-791b131f97cb,2024-05-27 18:26:40.105567+00,2,25,"Number of clusters selected is appropriate and clearly justified. Demonstrate thorough experimentation.  Provide correct and thoughtful comparison.  ",f473343b-1a81-463f-92fc-832e25ca0a84
