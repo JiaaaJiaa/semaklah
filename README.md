@@ -37,6 +37,12 @@ To get started with Semaklah, follow these steps:
     ```bash
     npm run start
 
+3. **Accounts**
+    ```
+    All the accounts that is created can be found in 
+    semaklah/data
+    ```
+
 ## Highlighted Features:
 
 Semaklah performs digital text extraction and applies natural language processing for automatic language quality evaluation (i.e., spelling and grammatical error checking). 
