@@ -15,12 +15,9 @@ To get started with Semaklah, follow these steps:
     cd semaklah
 
 3. **Install Dependencies**
-    ```bash 
     # If you're using npm
+    ```bash 
     npm install
-
-    # Or if you're using yarn
-    yarn install
 
 Highlighted Features:
 
