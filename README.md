@@ -15,13 +15,17 @@ To get started with Semaklah, follow these steps:
     cd semaklah
 
 3. **Install Dependencies**
-    ```bash
-    npm install
+# If you're using npm
+npm install
+
+# Or if you're using yarn
+yarn install
 
 Highlighted Features:
 
 Semaklah performs digital text extraction and applies natural language processing for automatic language quality evaluation (i.e., spelling and grammatical error checking). 
 
-Semaklag generates feedback suggestions by finding similar text segments with historical feedback from all submissions within the same assignment. Instructors can then choose to accept the suggested feedback as it is or edit the feedback. 
+Semaklah generates feedback suggestions by finding similar text segments with historical feedback from all submissions within the same assignment. Instructors can then choose to accept the suggested feedback as it is or edit the feedback. 
 
-Techn
+Technology used:
+
