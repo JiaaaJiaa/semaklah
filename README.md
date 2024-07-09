@@ -10,17 +10,27 @@ To get started with Semaklah, follow these steps:
    ```bash
    git clone https://github.com/JiaaaJiaa/semaklah.git
 
-2. **Navigate to the project directory**
+2. **Open a terminal to navigate to the frontend folder**
     ```bash 
-    cd semaklah
+    cd semaklah/frontend
 
-3. **Install Dependencies**
-    
-    If you're using npm
+3. **Open another terminal for backend folder**
+    ```bash
+    cd semaklah/backend    
+
+3. **Install Dependencies for both frontend and backend**
     ```bash 
     npm install
 
-Highlighted Features:
+4. **To run backend**
+    ```bash
+    npm run dev
+
+5. **To run the frontend**
+    ```bash
+    npm run start
+
+## Highlighted Features:
 
 Semaklah performs digital text extraction and applies natural language processing for automatic language quality evaluation (i.e., spelling and grammatical error checking). 
 
@@ -28,3 +38,10 @@ Semaklah generates feedback suggestions by finding similar text segments with hi
 
 Technology used:
 
+Version Control		    : GitHub
+Database			    : Supabase
+Frameworks		        : React.js, as the front-end framework. 
+                          Node.js, as the backend framework.
+Library			    	: scikit-learn, language-tool-python
+
+Thank you for exploring Semaklah!
