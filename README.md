@@ -36,7 +36,7 @@ Semaklah performs digital text extraction and applies natural language processin
 
 Semaklah generates feedback suggestions by finding similar text segments with historical feedback from all submissions within the same assignment. Instructors can then choose to accept the suggested feedback as it is or edit the feedback. 
 
-Technology used:
+## Technology used:
 
 Version Control		    : GitHub
 
@@ -44,7 +44,7 @@ Database			    : Supabase
 
 Frameworks		        : React.js, as the front-end framework. 
                           Node.js, as the backend framework.
-                          
+
 Library			    	: scikit-learn, language-tool-python
 
 Thank you for exploring Semaklah!
