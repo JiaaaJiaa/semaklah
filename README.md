@@ -58,11 +58,10 @@ Library			    	: scikit-learn, language-tool-python
     |- routes // All the backend routes
     |- server.js
 |- data
-    |-data
-        |- assignment.csv
-        |- classroom.csv
-        |- isntructor.csv
-        |- student.csv
+    |- assignment.csv
+    |- classroom.csv
+    |- isntructor.csv
+    |- student.csv
 |- frontend
     |- src
     |- assets
