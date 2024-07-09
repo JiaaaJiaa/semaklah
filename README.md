@@ -15,6 +15,7 @@ To get started with Semaklah, follow these steps:
     cd semaklah
 
 3. **Install Dependencies**
+    
     If you're using npm
     ```bash 
     npm install
