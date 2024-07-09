@@ -39,9 +39,12 @@ Semaklah generates feedback suggestions by finding similar text segments with hi
 Technology used:
 
 Version Control		    : GitHub
+
 Database			    : Supabase
+
 Frameworks		        : React.js, as the front-end framework. 
                           Node.js, as the backend framework.
+                          
 Library			    	: scikit-learn, language-tool-python
 
 Thank you for exploring Semaklah!
